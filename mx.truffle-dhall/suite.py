@@ -18,6 +18,22 @@ suite = {
     ]
   },
   "libraries" : {
+    "KOTLIN_STDLIB" : {
+      "sha1" : "c706d9a12aa043400daacbb15b61ba662a1eb9a9",
+      "maven" : {
+        "groupId" : "org.jetbrains.kotlin",
+        "artifactId" : "kotlin-stdlib-jdk8",
+        "version" : "1.3.70",
+      }
+    },
+    "KOTLIN_MAVEN_PLUGIN" : {
+      "sha1" : "c239bbed61ad6e0d423055e5158138114b4dc358",
+      "maven" : {
+        "groupId" : "org.jetbrains.kotlin",
+        "artifactId" : "kotlin-maven-plugin",
+        "version" : "1.3.70",
+      }
+    },
     "JLINE" : {
       "sha1" : "d3c97ca029afb0db85727bee53cb5a3e1de73598",
       "maven" : {
