@@ -1,2 +1,3 @@
-# truffle-dhall
- A Truffle/GraalVM implementation of the Dhall programmable configuration language
+# Truffle-Dhall
+
+A Truffle/GraalVM implementation of the Dhall programmable configuration language.
