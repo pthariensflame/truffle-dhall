@@ -867,6 +867,68 @@ SqueakDebug.log
 /github-cache
 github-*.zip
 
+### https://raw.github.com/github/gitignore/e931ef7f3e7d8f7aa0e784c14bd291ad4448b1ab/community/OpenSSL.gitignore
+
+# OpenSSL-related files best not committed
+
+## Certificate Authority
+*.ca
+
+## Certificate
+*.crt
+
+## Certificate Sign Request
+*.csr
+
+## Certificate
+*.der 
+
+## Key database file
+*.kdb
+
+## OSCP request data
+*.org
+
+## PKCS #12
+*.p12
+
+## PEM-encoded certificate data
+*.pem
+
+## Random number seed
+*.rnd
+
+## SSLeay data
+*.ssleay
+
+## S/MIME message
+*.smime
+
+
+### https://raw.github.com/github/gitignore/e931ef7f3e7d8f7aa0e784c14bd291ad4448b1ab/Gradle.gitignore
+
+.gradle
+/build/
+
+# Ignore Gradle GUI config
+gradle-app.setting
+
+# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+!gradle-wrapper.jar
+
+# Cache of project
+.gradletasknamecache
+
+# # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
+# gradle/wrapper/gradle-wrapper.properties
+
+
 ### user additions
 
 .python-version
+.idea/
+mx.*/.project
+mx.*/mx.*.iml
+mx.*/.project
+mxbuild/
+workingsets.xml
