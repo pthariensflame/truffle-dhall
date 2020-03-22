@@ -932,3 +932,4 @@ mx.*/mx.*.iml
 mx.*/.project
 mxbuild/
 workingsets.xml
+.project
