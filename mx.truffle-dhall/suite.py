@@ -4,10 +4,8 @@ suite = {
   "groupId" : "org.pthariensflame.truffle-dhall",
   "url" : "https://github.com/pthariensflame/truffle-dhall",
   "developer" : {
-    "name" : "GraalVM Development",
-    "email" : "graalvm-dev@oss.oracle.com",
-    "organization" : "Oracle Corporation",
-    "organizationUrl" : "http://www.graalvm.org/",
+    "name" : "Alexander Ronald Altman",
+    "email" : "alexanderaltman@me.com",
   },
   "defaultLicense" : "BSD-3-Clause",
   "scm" : {
@@ -62,6 +60,22 @@ suite = {
         "groupId" : "org.graalvm.truffle",
         "artifactId" : "truffle-api",
         "version" : "20.0.0",
+      }
+    },
+    "JUNIT_JUPITER" : {
+      "sha1" : "4ae716895f1ee8a5720c02c8f2ae749bf7f7de18",
+      "maven" : {
+        "groupId" : "org.junit.jupiter",
+        "artifactId" : "junit-jupiter",
+        "version" : "5.6.1",
+      }
+    },
+    "JUNIT_PLATFORM_RUNNER" : {
+      "sha1" : "a86118155b3b45049a176980d781b5a09c420878",
+      "maven" : {
+        "groupId" : "org.junit.platform",
+        "artifactId" : "junit-platform-runner",
+        "version" : "1.6.1",
       }
     },
   },
