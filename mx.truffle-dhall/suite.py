@@ -1,6 +1,7 @@
 suite = {
   "name" : "truffle-dhall",
   "mxversion" : "5.256.3",
+  "versionConflictResolution": "latest",
   "groupId" : "org.pthariensflame.truffle-dhall",
   "url" : "https://github.com/pthariensflame/truffle-dhall",
   "developer" : {
