@@ -2,7 +2,7 @@ suite = {
   "name" : "truffle-dhall",
   "mxversion" : "5.256.3",
   "versionConflictResolution": "latest",
-  "groupId" : "org.pthariensflame.truffle-dhall",
+  "groupId" : "com.pthariensflame.truffle-dhall",
   "url" : "https://github.com/pthariensflame/truffle-dhall",
   "developer" : {
     "name" : "Alexander Ronald Altman",
@@ -119,7 +119,7 @@ suite = {
     },
   },
   "projects" : {
-        "org.pthariensflame.truffle_dhall": {
+        "com.pthariensflame.truffle_dhall": {
             "subDir": "truffle_dhall",
             "sourceDirs": ["src"],
             "dependencies": [
@@ -127,19 +127,19 @@ suite = {
                 "GRAALVM_SDK",
                 "ANTLR4",
             ],
-            "buildDependencies": ["org.pthariensflame.truffle_dhall.parser.antlr"],
+            "buildDependencies": ["com.pthariensflame.truffle_dhall.parser.antlr"],
             "jacoco": "include",
             "javaCompliance": "11+",
             "checkstyleVersion": "8.30",
             "annotationProcessors": ["TRUFFLE_DSL_PROCESSOR"],
             "spotbugsIgnoresGenerated": True,
         },
-        "org.pthariensflame.truffle_dhall.parser.antlr": {
+        "com.pthariensflame.truffle_dhall.parser.antlr": {
             "subDir": "truffle_dhall",
             "buildEnv": {
                 "ANTLR_JAR": "<path:ANTLR4_COMPLETE>",
-                "PARSER_PATH": "<src_dir:org.pthariensflame.truffle_dhall>/com/pthariensflame/truffle_dhall/parser/antlr",
-                "PARSER_PKG": "org.pthariensflame.truffle_dhall.parser.antlr",
+                "PARSER_PATH": "<src_dir:com.pthariensflame.truffle_dhall>/com/pthariensflame/truffle_dhall/parser/antlr",
+                "PARSER_PKG": "com.pthariensflame.truffle_dhall.parser.antlr",
             },
             "dependencies": [
                 "ANTLR4_COMPLETE",
@@ -148,7 +148,7 @@ suite = {
             "native": True,
             "vpath": False,
         },
-        "org.pthariensflame.truffle_dhall.shell": {
+        "com.pthariensflame.truffle_dhall.shell": {
             "subDir": "truffle_dhall",
             "sourceDirs": ["src"],
             "dependencies": [
@@ -156,7 +156,7 @@ suite = {
                 "GRAALVM_SDK",
                 "ANTLR4",
             ],
-            "buildDependencies": ["org.pthariensflame.truffle_dhall.parser.antlr"],
+            "buildDependencies": ["com.pthariensflame.truffle_dhall.parser.antlr"],
             "jacoco": "include",
             "javaCompliance": "11+",
             "checkstyleVersion": "8.30",
@@ -167,7 +167,7 @@ suite = {
   "distributions": {
         "TRUFFLE-DHALL-LAUNCHER": {
             "dependencies": [
-                "org.pthariensflame.truffle_dhall.shell",
+                "com.pthariensflame.truffle_dhall.shell",
             ],
             "distDependencies": [
                 "GRAALVM_SDK",
@@ -178,7 +178,7 @@ suite = {
 
         "TRUFFLE-DHALL": {
             "dependencies": [
-                "org.pthariensflame.truffle_dhall",
+                "com.pthariensflame.truffle_dhall",
             ],
             "distDependencies": [
                 "TRUFFLE-DHALL-LAUNCHER",
