@@ -119,20 +119,6 @@ suite = {
     },
   },
   "projects" : {
-        "org.pthariensflame.truffle_dhall.parser.antlr": {
-            "subDir": "truffle_dhall",
-            "buildEnv": {
-                "ANTLR_JAR": "<path:ANTLR4_COMPLETE>",
-                "PARSER_PATH": "<src_dir:org.pthariensflame.truffle_dhall>/com/pthariensflame/truffle_dhall/parser/antlr",
-                "PARSER_PKG": "org.pthariensflame.truffle_dhall.parser.antlr",
-            },
-            "dependencies": [
-                "ANTLR4_COMPLETE",
-            ],
-            "jacoco": "include",
-            "native": True,
-            "vpath": False,
-        },
         "org.pthariensflame.truffle_dhall": {
             "subDir": "truffle_dhall",
             "sourceDirs": ["src"],
@@ -147,6 +133,20 @@ suite = {
             "checkstyleVersion": "8.30",
             "annotationProcessors": ["TRUFFLE_DSL_PROCESSOR"],
             "spotbugsIgnoresGenerated": True,
+        },
+        "org.pthariensflame.truffle_dhall.parser.antlr": {
+            "subDir": "truffle_dhall",
+            "buildEnv": {
+                "ANTLR_JAR": "<path:ANTLR4_COMPLETE>",
+                "PARSER_PATH": "<src_dir:org.pthariensflame.truffle_dhall>/com/pthariensflame/truffle_dhall/parser/antlr",
+                "PARSER_PKG": "org.pthariensflame.truffle_dhall.parser.antlr",
+            },
+            "dependencies": [
+                "ANTLR4_COMPLETE",
+            ],
+            "jacoco": "include",
+            "native": True,
+            "vpath": False,
         },
         "org.pthariensflame.truffle_dhall.shell": {
             "subDir": "truffle_dhall",
