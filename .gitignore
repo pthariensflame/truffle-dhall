@@ -440,22 +440,80 @@ media
 static
 
 
-### https://raw.github.com/github/gitignore/e931ef7f3e7d8f7aa0e784c14bd291ad4448b1ab/Gradle.gitignore
+### https://raw.github.com/github/gitignore/e931ef7f3e7d8f7aa0e784c14bd291ad4448b1ab/Global/Emacs.gitignore
 
-.gradle
-/build/
+# -*- mode: gitignore; -*-
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
 
-# Ignore Gradle GUI config
-gradle-app.setting
+# Org-mode
+.org-id-locations
+*_archive
 
-# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
-!gradle-wrapper.jar
+# flymake-mode
+*_flymake.*
 
-# Cache of project
-.gradletasknamecache
+# eshell files
+/eshell/history
+/eshell/lastdir
 
-# # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
-# gradle/wrapper/gradle-wrapper.properties
+# elpa packages
+/elpa/
+
+# reftex files
+*.rel
+
+# AUCTeX auto folder
+/auto/
+
+# cask packages
+.cask/
+dist/
+
+# Flycheck
+flycheck_*.el
+
+# server auth directory
+/server/
+
+# projectiles files
+.projectile
+
+# directory configuration
+.dir-locals.el
+
+# network security
+/network-security.data
+
+
+
+### https://raw.github.com/github/gitignore/e931ef7f3e7d8f7aa0e784c14bd291ad4448b1ab/Global/Vim.gitignore
+
+# Swap
+[._]*.s[a-v][a-z]
+!*.svg  # comment out if you don't need vector files
+[._]*.sw[a-p]
+[._]s[a-rt-v][a-z]
+[._]ss[a-gi-z]
+[._]sw[a-p]
+
+# Session
+Session.vim
+Sessionx.vim
+
+# Temporary
+.netrwhist
+*~
+# Auto-generated tag files
+tags
+# Persistent undo
+[._]*.un~
 
 
 ### https://raw.github.com/github/gitignore/e931ef7f3e7d8f7aa0e784c14bd291ad4448b1ab/Global/Tags.gitignore
