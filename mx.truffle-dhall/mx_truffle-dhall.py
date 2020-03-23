@@ -7,11 +7,11 @@ SUITE = mx.suite('truffle-dhall')
 def _get_src_dir(projectname):
   for p in SUITE.projects:
     if p.name == projectname:
-      if len(p.source_dirs()) > 0:
+      if len(p.source_dirs()) == 1:
         return p.source_dirs()[0]
       else:
         return p.dir
-      mx.abort("Could not find src dir for project %s" % projectname)
+      mx.abort("Could not find single src dir for project %s" % projectname)
 
 mx_subst.path_substitutions.register_with_arg('src_dir', _get_src_dir)
 
