@@ -26,19 +26,19 @@ suite = {
   },
   "libraries" : {
     "KOTLIN_STDLIB" : {
-      "sha1" : "c706d9a12aa043400daacbb15b61ba662a1eb9a9",
+      "sha1" : "04defc79915cf4f78b49bbc4a8f1e80e87767a5b",
       "maven" : {
         "groupId" : "org.jetbrains.kotlin",
         "artifactId" : "kotlin-stdlib-jdk8",
-        "version" : "1.3.70",
+        "version" : "1.3.71",
       }
     },
     "KOTLIN_MAVEN_PLUGIN" : {
-      "sha1" : "c239bbed61ad6e0d423055e5158138114b4dc358",
+      "sha1" : "0cde91e9ea8f9f7aaecc8a1c3373ff90924795c3",
       "maven" : {
         "groupId" : "org.jetbrains.kotlin",
         "artifactId" : "kotlin-maven-plugin",
-        "version" : "1.3.70",
+        "version" : "1.3.71",
       }
     },
     "JLINE" : {
@@ -119,76 +119,75 @@ suite = {
     },
   },
   "projects" : {
-        "com.pthariensflame.truffle_dhall": {
-            "subDir": "truffle_dhall",
-            "sourceDirs": ["src"],
-            "dependencies": [
-                "TRUFFLE_API",
-                "GRAALVM_SDK",
-                "ANTLR4",
-            ],
-            "buildDependencies": ["com.pthariensflame.truffle_dhall.parser.antlr"],
-            "jacoco": "include",
-            "javaCompliance": "11+",
-            "checkstyleVersion": "8.30",
-            "annotationProcessors": ["TRUFFLE_DSL_PROCESSOR"],
-            "spotbugsIgnoresGenerated": True,
-        },
-        "com.pthariensflame.truffle_dhall.parser.antlr": {
-            "subDir": "truffle_dhall",
-            "buildEnv": {
-                "ANTLR_JAR": "<path:ANTLR4_COMPLETE>",
-                "PARSER_PATH": "<src_dir:com.pthariensflame.truffle_dhall>/com/pthariensflame/truffle_dhall/parser/antlr",
-                "PARSER_PKG": "com.pthariensflame.truffle_dhall.parser.antlr",
-            },
-            "dependencies": [
-                "ANTLR4_COMPLETE",
-            ],
-            "jacoco": "include",
-            "native": True,
-            "vpath": False,
-        },
-        "com.pthariensflame.truffle_dhall.shell": {
-            "subDir": "truffle_dhall",
-            "sourceDirs": ["src"],
-            "dependencies": [
-                "TRUFFLE_API",
-                "GRAALVM_SDK",
-                "ANTLR4",
-            ],
-            "buildDependencies": ["com.pthariensflame.truffle_dhall.parser.antlr"],
-            "jacoco": "include",
-            "javaCompliance": "11+",
-            "checkstyleVersion": "8.30",
-            "annotationProcessors": ["TRUFFLE_DSL_PROCESSOR"],
-            "spotbugsIgnoresGenerated": True,
-        },
+    "com.pthariensflame.truffle_dhall": {
+      "subDir": "truffle_dhall",
+      "sourceDirs": ["src"],
+      "dependencies": [
+        "TRUFFLE_API",
+        "GRAALVM_SDK",
+        "ANTLR4",
+      ],
+      "buildDependencies": ["com.pthariensflame.truffle_dhall.parser.antlr"],
+      "jacoco": "include",
+      "javaCompliance": "11+",
+      "checkstyleVersion": "8.30",
+      "annotationProcessors": ["TRUFFLE_DSL_PROCESSOR"],
+      "spotbugsIgnoresGenerated": True,
+    },
+    "com.pthariensflame.truffle_dhall.parser.antlr": {
+      "subDir": "truffle_dhall",
+      "buildEnv": {
+        "ANTLR_JAR": "<path:ANTLR4_COMPLETE>",
+        "PARSER_PATH": "<src_dir:com.pthariensflame.truffle_dhall>/com/pthariensflame/truffle_dhall/parser/antlr",
+        "PARSER_PKG": "com.pthariensflame.truffle_dhall.parser.antlr",
+      },
+      "dependencies": [
+        "ANTLR4_COMPLETE",
+      ],
+      "jacoco": "include",
+      "native": True,
+      "vpath": False,
+    },
+    "com.pthariensflame.truffle_dhall.shell": {
+      "subDir": "truffle_dhall",
+      "sourceDirs": ["src"],
+      "dependencies": [
+        "TRUFFLE_API",
+        "GRAALVM_SDK",
+        "ANTLR4",
+      ],
+      "buildDependencies": ["com.pthariensflame.truffle_dhall.parser.antlr"],
+      "jacoco": "include",
+      "javaCompliance": "11+",
+      "checkstyleVersion": "8.30",
+      "annotationProcessors": ["TRUFFLE_DSL_PROCESSOR"],
+      "spotbugsIgnoresGenerated": True,
+    },
   },
   "distributions": {
-        "TRUFFLE-DHALL-LAUNCHER": {
-            "dependencies": [
-                "com.pthariensflame.truffle_dhall.shell",
-            ],
-            "distDependencies": [
-                "GRAALVM_SDK",
-                "GRAALVM_LAUNCHER_COMMON",
-            ],
-            "description": "Truffle-Dhall launcher",
-        },
-
-        "TRUFFLE-DHALL": {
-            "dependencies": [
-                "com.pthariensflame.truffle_dhall",
-            ],
-            "distDependencies": [
-                "TRUFFLE-DHALL-LAUNCHER",
-                "TRUFFLE_API",
-                "GRAALVM_SDK",
-                "ANTLR4",
-            ],
-            "sourcesPath": "truffle_dhall.src.zip",
-            "description": "Truffle-Dhall engine",
-        },
+    "TRUFFLE-DHALL-LAUNCHER": {
+      "dependencies": [
+        "com.pthariensflame.truffle_dhall.shell",
+      ],
+      "distDependencies": [
+        "GRAALVM_SDK",
+        "GRAALVM_LAUNCHER_COMMON",
+      ],
+      "description": "Truffle-Dhall launcher",
+    },
+    "TRUFFLE-DHALL": {
+      "dependencies": [
+        "com.pthariensflame.truffle_dhall",
+      ],
+      "distDependencies": [
+        "TRUFFLE-DHALL-LAUNCHER",
+        "TRUFFLE_API",
+        "GRAALVM_SDK",
+        "ANTLR4",
+      ],
+      "sourcesPath": "truffle_dhall.src.zip",
+      "description": "Truffle-Dhall engine",
+    },
 
   }
 }
