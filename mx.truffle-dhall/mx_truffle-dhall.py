@@ -40,3 +40,5 @@ mx_sdk.register_graalvm_component(mx_sdk.GraalVmLanguage(
         )
     ],
 ))
+
+mx.update_commands(SUITE, {})
