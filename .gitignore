@@ -586,3 +586,4 @@ workingsets.xml
 .project
 .classpath
 *.g4.stamp
+eclipse-launches/
