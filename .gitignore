@@ -133,7 +133,8 @@ hs_err_pid*
 .LSOverride
 
 # Icon must end with two \r
-Icon
+Icon
+
 
 # Thumbnails
 ._*
@@ -583,3 +584,5 @@ mx.*/.project
 mxbuild/
 workingsets.xml
 .project
+.classpath
+*.g4.stamp
