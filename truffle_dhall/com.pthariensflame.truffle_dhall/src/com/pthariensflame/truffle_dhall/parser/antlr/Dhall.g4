@@ -20,49 +20,49 @@ END_OF_LINE :
 // * not part of a surrogate pair
 // * not a "non-character"
 VALID_NON_ASCII :
-      '\u0080'..'\uD7FF'
+      [\u{0080}-\u{D7FF}]
     // %xD800-DFFF = surrogate pairs
-    | '\uE000'..'\uFFFD'
+    | [\u{E000}-\u{FFFD}]
     // %xFFFE-FFFF = non-characters
-    | '\u10000'..'\u1FFFD'
+    | [\u{10000}-\u{1FFFD}]
     // %x1FFFE-1FFFF = non-characters
-    | '\u20000'..'\u2FFFD'
+    | [\u{20000}-\u{2FFFD}]
     // %x2FFFE-2FFFF = non-characters
-    | '\u30000'..'\u3FFFD'
+    | [\u{30000}-\u{3FFFD}]
     // %x3FFFE-3FFFF = non-characters
-    | '\u40000'..'\u4FFFD'
+    | [\u{40000}-\u{4FFFD}]
     // %x4FFFE-4FFFF = non-characters
-    | '\u50000'..'\u5FFFD'
+    | [\u{50000}-\u{5FFFD}]
     // %x5FFFE-5FFFF = non-characters
-    | '\u60000'..'\u6FFFD'
+    | [\u{60000}-\u{6FFFD}]
     // %x6FFFE-6FFFF = non-characters
-    | '\u70000'..'\u7FFFD'
+    | [\u{70000}-\u{7FFFD}]
     // %x7FFFE-7FFFF = non-characters
-    | '\u80000'..'\u8FFFD'
+    | [\u{80000}-\u{8FFFD}]
     // %x8FFFE-8FFFF = non-characters
-    | '\u90000'..'\u9FFFD'
+    | [\u{90000}-\u{9FFFD}]
     // %x9FFFE-9FFFF = non-characters
-    | '\uA0000'..'\uAFFFD'
+    | [\u{A0000}-\u{AFFFD}]
     // %xAFFFE-AFFFF = non-characters
-    | '\uB0000'..'\uBFFFD'
+    | [\u{B0000}-\u{BFFFD}]
     // %xBFFFE-BFFFF = non-characters
-    | '\uC0000'..'\uCFFFD'
+    | [\u{C0000}-\u{CFFFD}]
     // %xCFFFE-CFFFF = non-characters
-    | '\uD0000'..'\uDFFFD'
+    | [\u{D0000}-\u{DFFFD}]
     // %xDFFFE-DFFFF = non-characters
-    | '\uE0000'..'\uEFFFD'
+    | [\u{E0000}-\u{EFFFD}]
     // %xEFFFE-EFFFF = non-characters
-    | '\uF0000'..'\uFFFFD'
+    | [\u{F0000}-\u{FFFFD}]
     // %xFFFFE-FFFFF = non-characters
-    | '\u100000'..'\u10FFFD';
+    | [\u{100000}-\u{10FFFD}];
     // %x10FFFE-10FFFF = non-characters
 
 TAB : '\u0009';  // "\t"
 
 block_comment : ('{' '-') block_comment_continue;
 
-block_comment_char :
-      '\u0020'..'\u007F'
+BLOCK_COMMENT_CHAR :
+      [\u{0020}-\u{007F}]
     | VALID_NON_ASCII
     | TAB
     | END_OF_LINE;
@@ -70,13 +70,13 @@ block_comment_char :
 block_comment_continue :
     ('-' '}')
     | (block_comment block_comment_continue)
-    | (block_comment_char block_comment_continue);
+    | (BLOCK_COMMENT_CHAR block_comment_continue);
 
-not_end_of_line : '\u0020'..'\u007F' | VALID_NON_ASCII | TAB;
+NOT_END_OF_LINE : [\u{0020}-\u{007F}] | VALID_NON_ASCII | TAB;
 
 // NOTE: Slightly different from Haskell-style single-line comments because this
 // does not require a space after the dashes
-line_comment : ('-' '-') not_end_of_line* END_OF_LINE;
+line_comment : ('-' '-') NOT_END_OF_LINE* END_OF_LINE;
 
 whitespace_chunk :
       ' '
@@ -91,10 +91,10 @@ whsp : whitespace_chunk*;
 whsp1 : whitespace_chunk+;
 
 // Uppercase or lowercase ASCII letter
-ALPHA : '\u0041'..'\u005A' | '\u0061'..'\u007A';
+ALPHA : [\u{0041}-\u{005A}] | [\u{0061}-\u{007A}];
 
 // ASCII digit
-DIGIT : '\u0030'..'\u0039';  // 0-9
+DIGIT : [\u{0030}-\u{0039}];  // 0-9
 
 alphanum : ALPHA | DIGIT;
 
@@ -112,9 +112,9 @@ simple_label_next_char : alphanum | '-' | '/' | '_';
 simple_label : simple_label_first_char simple_label_next_char*;
 
 QUOTED_LABEL_CHAR :
-      '\u0020'..'\u005F'
+      [\u{0020}-\u{005F}]
         // %x60 = '`'
-    | '\u0061'..'\u007E';
+    | [\u{0061}-\u{007E}];
 
 quoted_label : QUOTED_LABEL_CHAR+;
 
@@ -151,7 +151,7 @@ double_quote_chunk :
       interpolation
       // '\'    Beginning of escape sequence
     | ('\u005C' double_quote_escaped)
-    | double_quote_char;
+    | DOUBLE_QUOTE_CHAR;
 
 double_quote_escaped :
       '\u0022'                 // '"'    quotation mark  U+0022
@@ -180,7 +180,7 @@ double_quote_escaped :
 // * Surrogate pairs: `%xD800-DFFF`
 // * Non-characters: `%xNFFFE-NFFFF` / `%x10FFFE-10FFFF` for `N` in `{ 0 .. F }`
 //
-// See the `valid-non-ascii` rule for the exact ranges that are not allowed
+// See the `valid-non-ASCII` rule for the exact ranges that are not allowed
 unicode_escape : unbraced_escape | ('{' braced_escape '}');
 
 // All valid last 4 digits for unicode codepoints (outside Plane 0): `0000-FFFD`
@@ -205,7 +205,7 @@ unbraced_escape :
 // * Surrogate pairs: `%xD800-DFFF`
 // * Non-characters: `%xNFFFE-NFFFF` / `%x10FFFE-10FFFF` for `N` in `{ 0 .. F }`
 //
-// See the `valid-non-ascii` rule for the exact ranges that are not allowed
+// See the `valid-non-ASCII` rule for the exact ranges that are not allowed
 braced_codepoint :
       (('1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | ('A' | 'a') | ('B' | 'b') | ('C' | 'c') | ('D' | 'd') | ('E' | 'e') | ('F' | 'f') | ('1' '0')) unicode_suffix)// (Planes 1-16)
     | unbraced_escape // (Plane 0)
@@ -215,12 +215,12 @@ braced_codepoint :
 braced_escape : '0'* braced_codepoint;
 
 // Printable characters except double quote and backslash
-double_quote_char :
-      '\u0020'..'\u0021'
+DOUBLE_QUOTE_CHAR :
+      [\u{0020}-\u{0021}]
         // %x22 = '"'
-    | '\u0023'..'\u005B'
+    | [\u{0023}-\u{005B}]
         // %x5C = "\"
-    | '\u005D'..'\u007F'
+    | [\u{005D}-\u{007F}]
     | VALID_NON_ASCII;
 
 double_quote_literal : '\u0022' double_quote_chunk* '\u0022';
@@ -241,7 +241,7 @@ single_quote_continue :
     | (ESCAPED_QUOTE_PAIR single_quote_continue)
     | (ESCAPED_INTERPOLATION single_quote_continue)
     | ('\'' '\'') // End of text literal
-    | (single_quote_char single_quote_continue);
+    | (SINGLE_QUOTE_CHAR single_quote_continue);
 
 // Escape two single quotes (i.e. replace this sequence with "''")
 ESCAPED_QUOTE_PAIR : ('\'' '\'' '\'');
@@ -249,8 +249,8 @@ ESCAPED_QUOTE_PAIR : ('\'' '\'' '\'');
 // Escape interpolation (i.e. replace this sequence with "${")
 ESCAPED_INTERPOLATION : ('\'' '\'' '$' '{');
 
-single_quote_char :
-      '\u0020'..'\u007F'
+SINGLE_QUOTE_CHAR :
+      [\u{0020}-\u{007F}]
     | VALID_NON_ASCII
     | TAB
     | END_OF_LINE;
@@ -428,38 +428,38 @@ PATH_CHARACTER :
       '\u0021'
         // %x22 = "\""
         // %x23 = "#"
-    | '\u0024'..'\u0027'
+    | [\u{0024}-\u{0027}]
         // %x28 = "("
         // %x29 = ")"
-    | '\u002A'..'\u002B'
+    | [\u{002A}-\u{002B}]
         // %x2C = ","
-    | '\u002D'..'\u002E'
+    | [\u{002D}-\u{002E}]
         // %x2F = "/"
-    | '\u0030'..'\u003B'
+    | [\u{0030}-\u{003B}]
         // %x3C = "<"
     | '\u003D'
         // %x3E = ">"
         // %x3F = "?"
-    | '\u0040'..'\u005A'
+    | [\u{0040}-\u{005A}]
         // %x5B = "["
         // %x5C = "\"
         // %x5D = "]"
-    | '\u005E'..'\u007A'
+    | [\u{005E}-\u{007A}]
         // %x7B = "{"
     | '\u007C'
         // %x7D = "}"
     | '\u007E';
 
-quoted_path_character :
-      '\u0020'..'\u0021'
+QUOTED_PATH_CHARACTER :
+      [\u{0020}-\u{0021}]
         // %x22 = "\""
-    | '\u0023'..'\u002E'
+    | [\u{0023}-\u{002E}]
         // %x2F = "/"
-    | '\u0030'..'\u007F'
+    | [\u{0030}-\u{007F}]
     | VALID_NON_ASCII;
 
 unquoted_path_component : PATH_CHARACTER+;
-quoted_path_component : quoted_path_character+;
+quoted_path_component : QUOTED_PATH_CHARACTER+;
 
 path_component : '/' ( unquoted_path_component | ('\u0022' quoted_path_component '\u0022') );
 
@@ -541,11 +541,17 @@ ls32 : (h16 ':' h16) | ipv4address;
 
 ipv4address : dec_octet '.' dec_octet '.' dec_octet '.' dec_octet;
 
+DEC_OCTET_CHAR_HIGH : [\u{0030}-\u{0035}];
+
+DEC_OCTET_CHAR_MID : [\u{0030}-\u{0034}];
+
+DEC_OCTET_CHAR_LOW : [\u{0031}-\u{0039}];
+
 // NOTE: Backtrack when parsing these alternatives
-dec_octet : (('2' '5') '\u0030'..'\u0035')       // 250-255
-          | ('2' '\u0030'..'\u0034' DIGIT)  // 200-249
+dec_octet : (('2' '5') DEC_OCTET_CHAR_HIGH)       // 250-255
+          | ('2' DEC_OCTET_CHAR_MID DIGIT)  // 200-249
           | ('1' (DIGIT DIGIT))         // 100-199
-          | ('\u0031'..'\u0039' DIGIT)      // 10-99
+          | (DEC_OCTET_CHAR_LOW DIGIT)      // 10-99
           | DIGIT;              // 0-9
 
 // Look in RFC3986 3.2.2 for
@@ -626,13 +632,13 @@ POSIX_ENVIRONMENT_VARIABLE_CHARACTER :
       | '\u0076'               // 'v'    vertical tab    U+000B
       ))
     // Printable characters except double quote, backslash and equals
-    | '\u0020'..'\u0021'
+    | [\u{0020}-\u{0021}]
         // %x22 = '"'
-    | '\u0023'..'\u003C'
+    | [\u{0023}-\u{003C}]
         // %x3D = '='
-    | '\u003E'..'\u005B'
+    | [\u{003E}-\u{005B}]
         // %x5C = "\"
-    | '\u005D'..'\u007E';
+    | [\u{005D}-\u{007E}];
 
 import_type : MISSING | local | http | env;
 
@@ -801,10 +807,10 @@ primitive_expression :
 record_type_or_literal :
       EMPTY_RECORD_LITERAL
     | non_empty_record_type_or_literal
-    | EMPTY_RECORD_TYPE;
+    | empty_record_type;
 
 EMPTY_RECORD_LITERAL : '=';
-EMPTY_RECORD_TYPE : ;
+empty_record_type : ;
 
 non_empty_record_type_or_literal :
     (non_empty_record_type | non_empty_record_literal);
@@ -818,18 +824,18 @@ non_empty_record_literal :
     record_literal_entry (whsp ',' whsp record_literal_entry)*;
 
 record_literal_entry :
-    any_label_or_some (record_literal_normal_entry | RECORD_LITERAL_PUNNED_ENTRY);
+    any_label_or_some (record_literal_normal_entry | record_literal_punned_entry);
 
 record_literal_normal_entry :
     (whsp '.' whsp any_label_or_some)* whsp '=' whsp expression;
-RECORD_LITERAL_PUNNED_ENTRY : ;
+record_literal_punned_entry : ;
 
 
 union_type :
       non_empty_union_type
-    | EMPTY_UNION_TYPE;
+    | empty_union_type;
 
-EMPTY_UNION_TYPE : ;
+empty_union_type : ;
 
 non_empty_union_type :
     union_type_entry (whsp '|' whsp union_type_entry)*;

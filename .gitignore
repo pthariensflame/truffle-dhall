@@ -587,3 +587,6 @@ workingsets.xml
 .classpath
 *.g4.stamp
 eclipse-launches/
+**/antlr/*.java
+**/antlr/*.tokens
+**/antlr/*.interp

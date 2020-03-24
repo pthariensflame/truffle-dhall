@@ -4,7 +4,15 @@ QUIETLY$(MX_VERBOSE) = @
 PARSER_PATH ?= ../com.pthariensflame.truffle_dhall/src/com/pthariensflame/truffle_dhall/parser/antlr
 
 TARGETS=${PARSER_PATH}/DhallParser.java \
-	${PARSER_PATH}/DhallLexer.java
+	${PARSER_PATH}/DhallLexer.java \
+	${PARSER_PATH}/DhallLexer.tokens \
+	${PARSER_PATH}/DhallLexer.interp \
+	${PARSER_PATH}/Dhall.tokens \
+	${PARSER_PATH}/Dhall.interp \
+	${PARSER_PATH}/DhallListener.java \
+	${PARSER_PATH}/DhallVisitor.java \
+	${PARSER_PATH}/DhallBaseListener.java \
+	${PARSER_PATH}/DhallBaseVisitor.java \
 
 SOURCE=${PARSER_PATH}/Dhall.g4
 STAMP=${SOURCE}.stamp
@@ -13,9 +21,9 @@ STAMP=${SOURCE}.stamp
 
 default: ${TARGETS}
 
-${STAMP}: ${SOURCE} # ${POSTPROCESSOR}
+${STAMP} ${TARGETS}: ${SOURCE} # ${POSTPROCESSOR}
 	$(QUIETLY) touch $@
-	$(QUIETLY) ${JAVA_HOME}/bin/java -cp ${ANTLR_JAR} org.antlr.v4.Tool -no-listener -no-visitor -package ${PARSER_PKG} -o ${PARSER_PATH} ${SOURCE}
+	$(QUIETLY) ${JAVA_HOME}/bin/java -cp ${ANTLR_JAR} org.antlr.v4.Tool -listener -visitor -package ${PARSER_PKG} -o ${PARSER_PATH} ${SOURCE}
 
 # # postprocessing to make source compile without warnings
 # ${PARSER_PATH}/%.java: ${STAMP}
