@@ -11,7 +11,7 @@ def _get_src_dir(projectname):
         return p.source_dirs()[0]
       else:
         return p.dir
-      mx.abort("Could not find single src dir for project %s" % projectname)
+    mx.abort("Could not find single src dir for project %s" % projectname)
 
 mx_subst.path_substitutions.register_with_arg('src_dir', _get_src_dir)
 
