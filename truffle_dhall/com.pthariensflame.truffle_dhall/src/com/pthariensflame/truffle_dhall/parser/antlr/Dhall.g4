@@ -11,8 +11,8 @@ grammar Dhall;
 // For simplicity this supports Unix and Windows line-endings, which are the most
 // common
 END_OF_LINE :
-      '\u000A'     // "\n"
-    | ('\u000D' '\u000A');  // "\r\n"
+      '\n'
+    | '\r\n';  // "\r\n"
 
 // This rule matches all characters that are not:
 //
@@ -57,7 +57,7 @@ VALID_NON_ASCII :
     | [\u{100000}-\u{10FFFD}];
     // %x10FFFE-10FFFF = non-characters
 
-TAB : '\u0009';  // "\t"
+TAB : '\t';
 
 block_comment : ('{' '-') block_comment_continue;
 
@@ -91,14 +91,14 @@ whsp : whitespace_chunk*;
 whsp1 : whitespace_chunk+;
 
 // Uppercase or lowercase ASCII letter
-ALPHA : [\u{0041}-\u{005A}] | [\u{0061}-\u{007A}];
+ALPHA : [A-Za-z];
 
 // ASCII digit
-DIGIT : [\u{0030}-\u{0039}];  // 0-9
+DIGIT : [0-9];
 
-alphanum : ALPHA | DIGIT;
+ALPHANUM : ALPHA | DIGIT;
 
-hexdig : DIGIT | ('A' | 'a') | ('B' | 'b') | ('C' | 'c') | ('D' | 'd') | ('E' | 'e') | ('F' | 'f');
+HEXDIG : DIGIT | [A-Fa-f];
 
 // A simple label cannot be one of the reserved keywords
 // listed in the `keyword` rule.
@@ -108,7 +108,7 @@ hexdig : DIGIT | ('A' | 'a') | ('B' | 'b') | ('C' | 'c') | ('D' | 'd') | ('E' | 
 //       keyword 1*simple-label-next-char
 //     / !keyword (simple-label-first-char *simple-label-next-char)
 simple_label_first_char : ALPHA | '_';
-simple_label_next_char : alphanum | '-' | '/' | '_';
+simple_label_next_char : ALPHANUM | '-' | '/' | '_';
 simple_label : simple_label_first_char simple_label_next_char*;
 
 QUOTED_LABEL_CHAR :
@@ -137,7 +137,7 @@ nonreserved_label : label;
 any_label : label;
 
 // Allow specifically `Some` in record and union labels.
-any_label_or_some : any_label | SOME;
+any_label_or_some : any_label | some;
 
 // Dhall's double-quoted strings are similar to JSON strings (RFC7159) except:
 //
@@ -150,20 +150,20 @@ any_label_or_some : any_label | SOME;
 double_quote_chunk :
       interpolation
       // '\'    Beginning of escape sequence
-    | ('\u005C' double_quote_escaped)
+    | ('\\' double_quote_escaped)
     | DOUBLE_QUOTE_CHAR;
 
 double_quote_escaped :
-      '\u0022'                 // '"'    quotation mark  U+0022
-    | '\u0024'                 // '$'    dollar sign     U+0024
-    | '\u005C'                 // '\'    reverse solidus U+005C
-    | '\u002F'                 // '/'    solidus         U+002F
-    | '\u0062'                 // 'b'    backspace       U+0008
-    | '\u0066'                 // 'f'    form feed       U+000C
-    | '\u006E'                 // 'n'    line feed       U+000A
-    | '\u0072'                 // 'r'    carriage return U+000D
-    | '\u0074'                 // 't'    tab             U+0009
-    | ('\u0075' unicode_escape);  // 'uXXXX' / 'u{XXXX}'    U+XXXX
+      '"'                 // '"'    quotation mark  U+0022
+    | '$'                 // '$'    dollar sign     U+0024
+    | '\\'                // '\'    reverse solidus U+005C
+    | '/'                 // '/'    solidus         U+002F
+    | 'b'                 // 'b'    backspace       U+0008
+    | 'f'                 // 'f'    form feed       U+000C
+    | 'n'                 // 'n'    line feed       U+000A
+    | 'r'                 // 'r'    carriage return U+000D
+    | 't'                 // 't'    tab             U+0009
+    | ('u' unicode_escape);  // 'uXXXX' / 'u{XXXX}'    U+XXXX
 
 // Valid Unicode escape sequences are as follows:
 //
@@ -184,8 +184,8 @@ double_quote_escaped :
 unicode_escape : unbraced_escape | ('{' braced_escape '}');
 
 // All valid last 4 digits for unicode codepoints (outside Plane 0): `0000-FFFD`
-unicode_suffix : ((DIGIT | ('A' | 'a') | ('B' | 'b') | ('C' | 'c') | ('D' | 'd') | ('E' | 'e')) (hexdig hexdig hexdig))
-               | (('F' | 'f') (hexdig hexdig) (DIGIT | ('A' | 'a') | ('B' | 'b') | ('C' | 'c') | ('D' | 'd')));
+unicode_suffix : ((DIGIT | ('A' | 'a') | ('B' | 'b') | ('C' | 'c') | ('D' | 'd') | ('E' | 'e')) (HEXDIG HEXDIG HEXDIG))
+               | (('F' | 'f') (HEXDIG HEXDIG) (DIGIT | ('A' | 'a') | ('B' | 'b') | ('C' | 'c') | ('D' | 'd')));
 
 // All 4-hex digit unicode escape sequences that are not:
 //
@@ -193,11 +193,11 @@ unicode_suffix : ((DIGIT | ('A' | 'a') | ('B' | 'b') | ('C' | 'c') | ('D' | 'd')
 // * Non-characters (i.e. `%xFFFE-FFFF`)
 //
 unbraced_escape :
-      ((DIGIT | ('A' | 'a') | ('B' | 'b') | ('C' | 'c')) (hexdig hexdig hexdig))
-    | (('D' | 'd') ('0' | '1' | '2' | '3' | '4' | '5' | '6' | '7') hexdig hexdig)
+      ((DIGIT | ('A' | 'a') | ('B' | 'b') | ('C' | 'c')) (HEXDIG HEXDIG HEXDIG))
+    | (('D' | 'd') ('0' | '1' | '2' | '3' | '4' | '5' | '6' | '7') HEXDIG HEXDIG)
     // %xD800-DFFF Surrogate pairs
-    | (('E' | 'e') (hexdig hexdig hexdig))
-    | (('F' | 'f') (hexdig hexdig) (DIGIT | ('A' | 'a') | ('B' | 'b') | ('C' | 'c') | ('D' | 'd')));
+    | (('E' | 'e') (HEXDIG HEXDIG HEXDIG))
+    | (('F' | 'f') (HEXDIG HEXDIG) (DIGIT | ('A' | 'a') | ('B' | 'b') | ('C' | 'c') | ('D' | 'd')));
     // %xFFFE-FFFF Non-characters
 
 // All 1-6 digit unicode codepoints that are not:
@@ -209,7 +209,7 @@ unbraced_escape :
 braced_codepoint :
       (('1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | ('A' | 'a') | ('B' | 'b') | ('C' | 'c') | ('D' | 'd') | ('E' | 'e') | ('F' | 'f') | ('1' '0')) unicode_suffix)// (Planes 1-16)
     | unbraced_escape // (Plane 0)
-    | (hexdig ((hexdig hexdig) | hexdig?)); // %x000-FFF
+    | (HEXDIG ((HEXDIG HEXDIG) | HEXDIG?)); // %x000-FFF
 
 // Allow zero padding for braced codepoints
 braced_escape : '0'* braced_codepoint;
@@ -223,7 +223,7 @@ DOUBLE_QUOTE_CHAR :
     | [\u{005D}-\u{007F}]
     | VALID_NON_ASCII;
 
-double_quote_literal : '\u0022' double_quote_chunk* '\u0022';
+double_quote_literal : '"' double_quote_chunk* '"';
 
 // NOTE: The only way to end a single-quote string literal with a single quote is
 // to either interpolate the single quote, like this:
@@ -266,129 +266,136 @@ text_literal : (double_quote_literal | single_quote_literal);
 //
 // If you don't feel like reading hex, these are all the same as the rule name.
 // Keywords that should never be parsed as identifiers
-IF_1                    : ('\u0069' '\u0066');
-THEN                  : ('\u0074' '\u0068' '\u0065' '\u006E');
-ELSE_1                  : ('\u0065' '\u006C' '\u0073' '\u0065');
-LET                   : ('\u006C' '\u0065' '\u0074');
-IN_1                    : ('\u0069' '\u006E');
-AS_1                    : ('\u0061' '\u0073');
-USING_1                 : ('\u0075' '\u0073' '\u0069' '\u006E' '\u0067');
-MERGE                 : ('\u006D' '\u0065' '\u0072' '\u0067' '\u0065');
-MISSING               : ('\u006D' '\u0069' '\u0073' '\u0073' '\u0069' '\u006E' '\u0067');
-INFINITY              : ('\u0049' '\u006E' '\u0066' '\u0069' '\u006E' '\u0069' '\u0074' '\u0079');
-NAN                   : ('\u004E' '\u0061' '\u004E');
-SOME                  : ('\u0053' '\u006F' '\u006D' '\u0065');
-TOMAP                 : ('\u0074' '\u006F' '\u004D' '\u0061' '\u0070');
-ASSERT_1                : ('\u0061' '\u0073' '\u0073' '\u0065' '\u0072' '\u0074');
-FORALL                : '\u2200' | ('\u0066' '\u006F' '\u0072' '\u0061' '\u006C' '\u006C');
-WITH                  : ('\u0077' '\u0069' '\u0074' '\u0068');
+if_1 : 'if';
+then : 'then';
+else_1 : 'else';
+let : 'let';
+in_1 : 'in';
+as_1 : 'as';
+using_1 : 'using';
+merge : 'merge';
+missing : 'missing';
+infinity : 'Infinity';
+nan : 'NaN';
+some : 'Some';
+to_map : 'toMap';
+assert_1 : 'assert';
+FORALL_SYMBOL : [\u{2200}];
+forall : FORALL_SYMBOL | 'forall';
+with : 'with';
 
 // Unused rule that could be used as negative lookahead in the
 // `simple-label` rule for parsers that support this.
 keyword :
-      IF_1 | THEN | ELSE_1
-    | LET | IN_1
-    | USING_1 | MISSING
-    | ASSERT_1 | AS_1
-    | INFINITY | NAN
-    | MERGE | SOME | TOMAP
-    | FORALL
-    | WITH;
+      if_1 | then | else_1
+    | let | in_1
+    | using_1 | missing
+    | assert_1 | as_1
+    | infinity | nan
+    | merge | some | to_map
+    | forall
+    | with;
 
 builtin :
-      NATURAL_FOLD
-    | NATURAL_BUILD
-    | NATURAL_ISZERO
-    | NATURAL_EVEN
-    | NATURAL_ODD
-    | NATURAL_TOINTEGER
-    | NATURAL_SHOW
-    | INTEGER_TODOUBLE
-    | INTEGER_SHOW
-    | INTEGER_NEGATE
-    | INTEGER_CLAMP
-    | NATURAL_SUBTRACT
-    | DOUBLE_SHOW
-    | LIST_BUILD
-    | LIST_FOLD
-    | LIST_LENGTH
-    | LIST_HEAD
-    | LIST_LAST
-    | LIST_INDEXED
-    | LIST_REVERSE
-    | OPTIONAL_FOLD
-    | OPTIONAL_BUILD
-    | TEXT_SHOW
-    | BOOL_1
-    | TRUE_1
-    | FALSE_1
-    | OPTIONAL
-    | NONE
-    | NATURAL
-    | INTEGER
-    | DOUBLE_1
-    | TEXT
-    | LIST
-    | TYPE
-    | KIND
-    | SORT;
+      natural_fold
+    | natural_build
+    | natural_iszero
+    | natural_even
+    | natural_odd
+    | natural_tointeger
+    | natural_show
+    | integer_todouble
+    | integer_show
+    | integer_negate
+    | integer_clamp
+    | natural_subtract
+    | double_show
+    | list_build
+    | list_fold
+    | list_length
+    | list_head
+    | list_last
+    | list_indexed
+    | list_reverse
+    | optional_fold
+    | optional_build
+    | text_show
+    | bool_1
+    | true_1
+    | false_1
+    | optional
+    | none
+    | natural
+    | integer
+    | double_1
+    | text
+    | list
+    | type
+    | kind
+    | sort;
 
 // Reserved identifiers, needed for some special cases of parsing
-OPTIONAL              : ('\u004F' '\u0070' '\u0074' '\u0069' '\u006F' '\u006E' '\u0061' '\u006C');
-TEXT                  : ('\u0054' '\u0065' '\u0078' '\u0074');
-LIST                  : ('\u004C' '\u0069' '\u0073' '\u0074');
-LOCATION              : ('\u004C' '\u006F' '\u0063' '\u0061' '\u0074' '\u0069' '\u006F' '\u006E');
+optional : 'Optional';
+text : 'Text';
+list : 'List';
+location : 'Location';
 
 // Reminder of the reserved identifiers, needed for the `builtin` rule
-BOOL_1              : ('\u0042' '\u006F' '\u006F' '\u006C');
-TRUE_1              : ('\u0054' '\u0072' '\u0075' '\u0065');
-FALSE_1             : ('\u0046' '\u0061' '\u006C' '\u0073' '\u0065');
-NONE              : ('\u004E' '\u006F' '\u006E' '\u0065');
-NATURAL           : ('\u004E' '\u0061' '\u0074' '\u0075' '\u0072' '\u0061' '\u006C');
-INTEGER           : ('\u0049' '\u006E' '\u0074' '\u0065' '\u0067' '\u0065' '\u0072');
-DOUBLE_1            : ('\u0044' '\u006F' '\u0075' '\u0062' '\u006C' '\u0065');
-TYPE              : ('\u0054' '\u0079' '\u0070' '\u0065');
-KIND              : ('\u004B' '\u0069' '\u006E' '\u0064');
-SORT              : ('\u0053' '\u006F' '\u0072' '\u0074');
-NATURAL_FOLD      : ('\u004E' '\u0061' '\u0074' '\u0075' '\u0072' '\u0061' '\u006C' '\u002F' '\u0066' '\u006F' '\u006C' '\u0064');
-NATURAL_BUILD     : ('\u004E' '\u0061' '\u0074' '\u0075' '\u0072' '\u0061' '\u006C' '\u002F' '\u0062' '\u0075' '\u0069' '\u006C' '\u0064');
-NATURAL_ISZERO    : ('\u004E' '\u0061' '\u0074' '\u0075' '\u0072' '\u0061' '\u006C' '\u002F' '\u0069' '\u0073' '\u005A' '\u0065' '\u0072' '\u006F');
-NATURAL_EVEN      : ('\u004E' '\u0061' '\u0074' '\u0075' '\u0072' '\u0061' '\u006C' '\u002F' '\u0065' '\u0076' '\u0065' '\u006E');
-NATURAL_ODD       : ('\u004E' '\u0061' '\u0074' '\u0075' '\u0072' '\u0061' '\u006C' '\u002F' '\u006F' '\u0064' '\u0064');
-NATURAL_TOINTEGER : ('\u004E' '\u0061' '\u0074' '\u0075' '\u0072' '\u0061' '\u006C' '\u002F' '\u0074' '\u006F' '\u0049' '\u006E' '\u0074' '\u0065' '\u0067' '\u0065' '\u0072');
-NATURAL_SHOW      : ('\u004E' '\u0061' '\u0074' '\u0075' '\u0072' '\u0061' '\u006C' '\u002F' '\u0073' '\u0068' '\u006F' '\u0077');
-NATURAL_SUBTRACT  : ('\u004E' '\u0061' '\u0074' '\u0075' '\u0072' '\u0061' '\u006C' '\u002F' '\u0073' '\u0075' '\u0062' '\u0074' '\u0072' '\u0061' '\u0063' '\u0074');
-INTEGER_TODOUBLE  : ('\u0049' '\u006E' '\u0074' '\u0065' '\u0067' '\u0065' '\u0072' '\u002F' '\u0074' '\u006F' '\u0044' '\u006F' '\u0075' '\u0062' '\u006C' '\u0065');
-INTEGER_SHOW      : ('\u0049' '\u006E' '\u0074' '\u0065' '\u0067' '\u0065' '\u0072' '\u002F' '\u0073' '\u0068' '\u006F' '\u0077');
-INTEGER_NEGATE    : ('\u0049' '\u006E' '\u0074' '\u0065' '\u0067' '\u0065' '\u0072' '\u002F' '\u006E' '\u0065' '\u0067' '\u0061' '\u0074' '\u0065');
-INTEGER_CLAMP     : ('\u0049' '\u006E' '\u0074' '\u0065' '\u0067' '\u0065' '\u0072' '\u002F' '\u0063' '\u006C' '\u0061' '\u006D' '\u0070');
-DOUBLE_SHOW       : ('\u0044' '\u006F' '\u0075' '\u0062' '\u006C' '\u0065' '\u002F' '\u0073' '\u0068' '\u006F' '\u0077');
-LIST_BUILD        : ('\u004C' '\u0069' '\u0073' '\u0074' '\u002F' '\u0062' '\u0075' '\u0069' '\u006C' '\u0064');
-LIST_FOLD         : ('\u004C' '\u0069' '\u0073' '\u0074' '\u002F' '\u0066' '\u006F' '\u006C' '\u0064');
-LIST_LENGTH       : ('\u004C' '\u0069' '\u0073' '\u0074' '\u002F' '\u006C' '\u0065' '\u006E' '\u0067' '\u0074' '\u0068');
-LIST_HEAD         : ('\u004C' '\u0069' '\u0073' '\u0074' '\u002F' '\u0068' '\u0065' '\u0061' '\u0064');
-LIST_LAST         : ('\u004C' '\u0069' '\u0073' '\u0074' '\u002F' '\u006C' '\u0061' '\u0073' '\u0074');
-LIST_INDEXED      : ('\u004C' '\u0069' '\u0073' '\u0074' '\u002F' '\u0069' '\u006E' '\u0064' '\u0065' '\u0078' '\u0065' '\u0064');
-LIST_REVERSE      : ('\u004C' '\u0069' '\u0073' '\u0074' '\u002F' '\u0072' '\u0065' '\u0076' '\u0065' '\u0072' '\u0073' '\u0065');
-OPTIONAL_FOLD     : ('\u004F' '\u0070' '\u0074' '\u0069' '\u006F' '\u006E' '\u0061' '\u006C' '\u002F' '\u0066' '\u006F' '\u006C' '\u0064');
-OPTIONAL_BUILD    : ('\u004F' '\u0070' '\u0074' '\u0069' '\u006F' '\u006E' '\u0061' '\u006C' '\u002F' '\u0062' '\u0075' '\u0069' '\u006C' '\u0064');
-TEXT_SHOW         : ('\u0054' '\u0065' '\u0078' '\u0074' '\u002F' '\u0073' '\u0068' '\u006F' '\u0077');
+bool_1 : 'Bool';
+true_1 : 'True';
+false_1 : 'False';
+none : 'None';
+natural : 'Natural';
+integer : 'Integer';
+double_1 : 'Double';
+type : 'Type';
+kind : 'Kind';
+sort : 'Sort';
+natural_fold : 'Natural/fold';
+natural_build : 'Natural/build';
+natural_iszero : 'Natural/isZero';
+natural_even : 'Natural/even';
+natural_odd : 'Natural/odd';
+natural_tointeger : 'Natural/toInteger';
+natural_show : 'Natural/show';
+natural_subtract : 'Natural/subtract';
+integer_todouble : 'Integer/toDouble';
+integer_show : 'Integer/show';
+integer_negate : 'Integer/negate';
+integer_clamp : 'Integer/clamp';
+double_show : 'Double/show';
+list_build : 'List/build';
+list_fold : 'List/fold';
+list_length : 'List/length';
+list_head : 'List/head';
+list_last : 'List/last';
+list_indexed : 'List/indexed';
+list_reverse : 'List/reverse';
+optional_fold : 'Optional/fold';
+optional_build : 'Optional/build';
+text_show : 'Text/show';
 
 // Operators
-COMBINE       : '\u2227' | ('/' '\\');
-COMBINE_TYPES : '\u2A53' | ('/' '/' '\\' '\\');
-EQUIVALENT    : '\u2261' | ('=' '=' '=');
-PREFER        : '\u2AFD' | ('/' '/');
-LAMBDA        : '\u03BB'  | '\\';
-ARROW         : '\u2192' | ('-' '>');
-COMPLETE      : (':' ':');
+COMBINE_SYMBOL : [\u{2227}];
+combine : COMBINE_SYMBOL | ('/' '\\');
+COMBINE_TYPES_SYMBOL : [\u{2A53}];
+combine_types : COMBINE_TYPES_SYMBOL | ('/' '/' '\\' '\\');
+EQUIVALENT_SYMBOL : [\u{2261}];
+equivalent : EQUIVALENT_SYMBOL | ('=' '=' '=');
+PREFER_SYMBOL : [\u{2AFD}];
+prefer : PREFER_SYMBOL | ('/' '/');
+LAMBDA_SYMBOL : [\u{03BB}];
+lambda : LAMBDA_SYMBOL  | '\\';
+ARROW_SYMBOL : [\u{2192}];
+arrow : ARROW_SYMBOL | ('-' '>');
+complete : (':' ':');
 
 exponent : ('E' | 'e') ( '+' | '-' )? DIGIT+;
 
 numeric_double_literal : ( '+' | '-' )? DIGIT+ ( ('.' DIGIT+ ( exponent )?) | exponent);
 
-minus_infinity_literal : '-' INFINITY;
-plus_infinity_literal : INFINITY;
+minus_infinity_literal : '-' infinity;
+plus_infinity_literal : infinity;
 
 double_literal :
     // "2.0"
@@ -398,11 +405,11 @@ double_literal :
     // "Infinity"
     | plus_infinity_literal
     // "NaN"
-    | NAN;
+    | nan;
 
 natural_literal :
     // Hexadecimal with "0x" prefix
-      ('0' '\u0078' hexdig+)
+      ('0x' HEXDIG+)
     // Decimal; leading 0 digits are not allowed
     | (('1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9') DIGIT*)
     // ... except for 0 itself
@@ -425,7 +432,7 @@ variable : nonreserved_label ( whsp '@' whsp natural_literal )?;
 // whitespace most of the time
 PATH_CHARACTER :
         // %x20 = " "
-      '\u0021'
+      [\u{0021}]
         // %x22 = "\""
         // %x23 = "#"
     | [\u{0024}-\u{0027}]
@@ -437,7 +444,7 @@ PATH_CHARACTER :
         // %x2F = "/"
     | [\u{0030}-\u{003B}]
         // %x3C = "<"
-    | '\u003D'
+    | [\u{003D}]
         // %x3E = ">"
         // %x3F = "?"
     | [\u{0040}-\u{005A}]
@@ -446,9 +453,9 @@ PATH_CHARACTER :
         // %x5D = "]"
     | [\u{005E}-\u{007A}]
         // %x7B = "{"
-    | '\u007C'
+    | [\u{007C}]
         // %x7D = "}"
-    | '\u007E';
+    | [\u{007E}];
 
 QUOTED_PATH_CHARACTER :
       [\u{0020}-\u{0021}]
@@ -461,7 +468,7 @@ QUOTED_PATH_CHARACTER :
 unquoted_path_component : PATH_CHARACTER+;
 quoted_path_component : QUOTED_PATH_CHARACTER+;
 
-path_component : '/' ( unquoted_path_component | ('\u0022' quoted_path_component '\u0022') );
+path_component : '/' ( unquoted_path_component | ('"' quoted_path_component '"') );
 
 // The last path-component matched by this rule is referred to as "file" in the semantics,
 // and the other path-components as "directory".
@@ -486,7 +493,7 @@ absolute_path : path;  // Absolute path
 // `http[s]` URI grammar based on RFC7230 and RFC 3986 with some differences
 // noted below
 
-SCHEME : ('\u0068' '\u0074' '\u0074' '\u0070' )( '\u0073' )?;  // "http" [ "s" ]
+SCHEME : 'http' ('s'?);  // "http" [ "s" ]
 
 // NOTE: This does not match the official grammar for a URI.  Specifically:
 //
@@ -522,7 +529,7 @@ port : DIGIT*;
 
 ip_literal : '[' ( ipv6address | ipvfuture  ) ']';
 
-ipvfuture : ('V' | 'v') hexdig+ '.' ( unreserved | SUB_DELIMS | ':' )+;
+ipvfuture : ('V' | 'v') HEXDIG+ '.' ( unreserved | SUB_DELIMS | ':' )+;
 
 // NOTE: Backtrack when parsing each alternative
 ipv6address :                            ((( h16 ':' ) (h16 ':') (h16 ':') (h16 ':') (h16 ':') (h16 ':')) ls32)
@@ -535,7 +542,7 @@ ipv6address :                            ((( h16 ':' ) (h16 ':') (h16 ':') (h16 
             | (( h16 (((( ':' h16 ) (':' h16) (':' h16) (':' h16) (':' h16)) | ((':' h16) (':' h16) (':' h16) (':' h16)) | ((':' h16) (':' h16) (':' h16)) | ((':' h16) (':' h16)) | (':' h16)?)) )? (':' ':')              h16)
             | (( h16 (((( ':' h16 ) (':' h16) (':' h16) (':' h16) (':' h16) (':' h16)) | ((':' h16) (':' h16) (':' h16) (':' h16) (':' h16)) | ((':' h16) (':' h16) (':' h16) (':' h16)) | ((':' h16) (':' h16) (':' h16)) | ((':' h16) (':' h16)) | (':' h16)?)) )? (':' ':'));
 
-h16 : (hexdig ((hexdig hexdig hexdig) | (hexdig hexdig) | hexdig?));
+h16 : (HEXDIG ((HEXDIG HEXDIG HEXDIG) | (HEXDIG HEXDIG) | HEXDIG?));
 
 ls32 : (h16 ':' h16) | ipv4address;
 
@@ -558,7 +565,7 @@ dec_octet : (('2' '5') DEC_OCTET_CHAR_HIGH)       // 250-255
 // "A registered name intended for lookup in the DNS"
 domain : domainlabel ('.' domainlabel)* ( '.' )?;
 
-domainlabel : alphanum+ ('-'+ alphanum+)*;
+domainlabel : ALPHANUM+ ('-'+ ALPHANUM+)*;
 
 segment : pchar*;
 
@@ -566,29 +573,29 @@ pchar : unreserved | pct_encoded | SUB_DELIMS | ':' | '@';
 
 query : ( pchar | '/' | '?' )*;
 
-pct_encoded : '%' hexdig hexdig;
+pct_encoded : '%' HEXDIG HEXDIG;
 
-unreserved  : alphanum | '-' | '.' | '_' | '~';
+unreserved  : ALPHANUM | '-' | '.' | '_' | '~';
 
 // this is the RFC3986 sub-delims rule, without "(", ")" or ","
 // see comments above the `http-raw` rule above
 SUB_DELIMS : '!' | '$' | '&' | '\'' | '*' | '+' | ';' | '=';
 
-http : http_raw ( whsp USING_1 whsp1 import_expression )?;
+http : http_raw ( whsp using_1 whsp1 import_expression )?;
 
 // Dhall supports unquoted environment variables that are Bash-compliant or
 // quoted environment variables that are POSIX-compliant
 env : (('E' | 'e') ('N' | 'n') ('V' | 'v') ':')
     ( bash_environment_variable
-    | ('\u0022' posix_environment_variable '\u0022')
+    | ('"' posix_environment_variable '"')
     );
 
 // Bash supports a restricted subset of POSIX environment variables.  From the
 // Bash `man` page, an environment variable name is:
 //
-// > A word consisting only of  alphanumeric  characters  and  under-scores,  and
+// > A word consisting only of  ALPHANUMeric  characters  and  under-scores,  and
 // > beginning with an alphabetic character or an under-score
-bash_environment_variable : (ALPHA | '_') (alphanum | '_')*;
+bash_environment_variable : (ALPHA | '_') (ALPHANUM | '_')*;
 
 // The POSIX standard is significantly more flexible about legal environment
 // variable names, which can contain alerts (i.e. '\a'), whitespace, or
@@ -620,16 +627,16 @@ posix_environment_variable : POSIX_ENVIRONMENT_VARIABLE_CHARACTER+;
 // NUL-terminated `name=value` strings, which implies that the `name` portion of
 // the string cannot have NUL characters
 POSIX_ENVIRONMENT_VARIABLE_CHARACTER :
-      ('\u005C'                 // '\'    Beginning of escape sequence
-      ( '\u0022'               // '"'    quotation mark  U+0022
-      | '\u005C'               // '\'    reverse solidus U+005C
-      | '\u0061'               // 'a'    alert           U+0007
-      | '\u0062'               // 'b'    backspace       U+0008
-      | '\u0066'               // 'f'    form feed       U+000C
-      | '\u006E'               // 'n'    line feed       U+000A
-      | '\u0072'               // 'r'    carriage return U+000D
-      | '\u0074'               // 't'    tab             U+0009
-      | '\u0076'               // 'v'    vertical tab    U+000B
+      ('\\'                // '\'    Beginning of escape sequence
+      ( '"'               // '"'    quotation mark  U+0022
+      | '\\'               // '\'    reverse solidus U+005C
+      | 'a'               // 'a'    alert           U+0007
+      | 'b'               // 'b'    backspace       U+0008
+      | 'f'               // 'f'    form feed       U+000C
+      | 'n'               // 'n'    line feed       U+000A
+      | 'r'               // 'r'    carriage return U+000D
+      | 't'               // 't'    tab             U+0009
+      | 'v'               // 'v'    vertical tab    U+000B
       ))
     // Printable characters except double quote, backslash and equals
     | [\u{0020}-\u{0021}]
@@ -640,44 +647,44 @@ POSIX_ENVIRONMENT_VARIABLE_CHARACTER :
         // %x5C = "\"
     | [\u{005D}-\u{007E}];
 
-import_type : MISSING | local | http | env;
+import_type : missing | local | http | env;
 
-hash : ('\u0073' '\u0068' '\u0061' '\u0032' '\u0035' '\u0036' '\u003A' )(hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig); // "sha256:XXX...XXX"
+hash : 'sha256:' (HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG); // "sha256:XXX...XXX"
 
 import_hashed : import_type ( whsp1 hash )?;
 
 // "http://example.com"
 // "./foo/bar"
 // "env:FOO"
-import_1 : import_hashed ( whsp AS_1 whsp1 (TEXT | LOCATION) )?;
+import_1 : import_hashed ( whsp as_1 whsp1 (text | location) )?;
 
 expression :
     // "\(x : a) -> b"
-      (LAMBDA whsp '(' whsp nonreserved_label whsp ':' whsp1 expression whsp ')' whsp ARROW whsp expression)
+      (lambda whsp '(' whsp nonreserved_label whsp ':' whsp1 expression whsp ')' whsp arrow whsp expression)
 
     // "if a then b else c"
-    | (IF_1 whsp1 expression whsp THEN whsp1 expression whsp ELSE_1 whsp1 expression)
+    | (if_1 whsp1 expression whsp then whsp1 expression whsp else_1 whsp1 expression)
 
     // "let x : t = e1 in e2"
     // "let x     = e1 in e2"
     // We allow dropping the `in` between adjacent let-expressions; the following are equivalent:
     // "let x = e1 let y = e2 in e3"
     // "let x = e1 in let y = e2 in e3"
-    | (let_binding+ IN_1 whsp1 expression)
+    | (let_binding+ in_1 whsp1 expression)
 
     // "forall (x : a) -> b"
-    | (FORALL whsp '(' whsp nonreserved_label whsp ':' whsp1 expression whsp ')' whsp ARROW whsp expression)
+    | (forall whsp '(' whsp nonreserved_label whsp ':' whsp1 expression whsp ')' whsp arrow whsp expression)
 
     // "a -> b"
     //
     // NOTE: Backtrack if parsing this alternative fails
-    | (operator_expression whsp ARROW whsp expression)
+    | (operator_expression whsp arrow whsp expression)
 
     // "merge e1 e2 : t"
     //
     // NOTE: Backtrack if parsing this alternative fails since we can't tell
     // from the keyword whether there will be a type annotation or not
-    | (MERGE whsp1 import_expression whsp1 import_expression whsp ':' whsp1 application_expression)
+    | (merge whsp1 import_expression whsp1 import_expression whsp ':' whsp1 application_expression)
 
     // "[] : t"
     //
@@ -690,10 +697,10 @@ expression :
     //
     // NOTE: Backtrack if parsing this alternative fails since we can't tell
     // from the keyword whether there will be a type annotation or not
-    | (TOMAP whsp1 import_expression whsp ':' whsp1 application_expression)
+    | (to_map whsp1 import_expression whsp ':' whsp1 application_expression)
 
     // "assert : Natural/even 1 === False"
-    | (ASSERT_1 whsp ':' whsp1 expression)
+    | (assert_1 whsp ':' whsp1 expression)
 
     // "x : t"
     | annotated_expression;
@@ -702,7 +709,7 @@ expression :
 annotated_expression : operator_expression ( whsp ':' whsp1 expression )?;
 
 // "let x = e1"
-let_binding : LET whsp1 nonreserved_label whsp ( ':' whsp1 expression whsp )? '=' whsp expression whsp;
+let_binding : let whsp1 nonreserved_label whsp ( ':' whsp1 expression whsp )? '=' whsp expression whsp;
 
 // "[] : t"
 empty_list_literal :
@@ -718,15 +725,15 @@ plus_expression          : text_append_expression   (whsp '+' whsp1 text_append_
 text_append_expression   : list_append_expression   (whsp ('+' '+') whsp list_append_expression)*;
 list_append_expression   : and_expression           (whsp '#' whsp and_expression)*;
 and_expression           : combine_expression       (whsp ('&' '&') whsp combine_expression)*;
-combine_expression       : prefer_expression        (whsp COMBINE whsp prefer_expression)*;
-prefer_expression        : combine_types_expression (whsp PREFER whsp combine_types_expression)*;
-combine_types_expression : times_expression         (whsp COMBINE_TYPES whsp times_expression)*;
+combine_expression       : prefer_expression        (whsp combine whsp prefer_expression)*;
+prefer_expression        : combine_types_expression (whsp prefer whsp combine_types_expression)*;
+combine_types_expression : times_expression         (whsp combine_types whsp times_expression)*;
 times_expression         : equal_expression         (whsp '*' whsp equal_expression)*;
 equal_expression         : not_equal_expression     (whsp ('=' '=') whsp not_equal_expression)*;
 not_equal_expression     : equivalent_expression    (whsp ('!' '=') whsp equivalent_expression)*;
-equivalent_expression    : with_expression          (whsp EQUIVALENT whsp with_expression)*;
+equivalent_expression    : with_expression          (whsp equivalent whsp with_expression)*;
 
-with_expression : application_expression (whsp1 WITH whsp1 with_clause)*;
+with_expression : application_expression (whsp1 with whsp1 with_clause)*;
 
 with_clause :
     any_label_or_some (whsp '.' whsp any_label_or_some)* whsp '=' whsp application_expression;
@@ -740,20 +747,20 @@ application_expression :
 
 first_application_expression :
     // "merge e1 e2"
-      (MERGE whsp1 import_expression whsp1 import_expression)
+      (merge whsp1 import_expression whsp1 import_expression)
 
     // "Some e"
-    | (SOME whsp1 import_expression)
+    | (some whsp1 import_expression)
 
     // "toMap e"
-    | (TOMAP whsp1 import_expression)
+    | (to_map whsp1 import_expression)
 
     | import_expression;
 
 import_expression : import_1 | completion_expression;
 
 completion_expression :
-    selector_expression ( whsp COMPLETE whsp selector_expression )?;
+    selector_expression ( whsp complete whsp selector_expression )?;
 
 // `record.field` extracts one field of a record
 //
