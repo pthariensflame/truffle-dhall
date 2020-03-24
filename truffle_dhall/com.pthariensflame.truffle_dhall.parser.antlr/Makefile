@@ -13,13 +13,13 @@ STAMP=${SOURCE}.stamp
 
 default: ${TARGETS}
 
-${STAMP}: ${SOURCE} ${POSTPROCESSOR}
+${STAMP}: ${SOURCE} # ${POSTPROCESSOR}
 	$(QUIETLY) touch $@
 	$(QUIETLY) ${JAVA_HOME}/bin/java -cp ${ANTLR_JAR} org.antlr.v4.Tool -no-listener -no-visitor -package ${PARSER_PKG} -o ${PARSER_PATH} ${SOURCE}
 
-# postprocessing to make source compile without warnings
-${PARSER_PATH}/%.java: ${STAMP}
-	dhall ${POSTPROCESSOR} $@
+# # postprocessing to make source compile without warnings
+# ${PARSER_PATH}/%.java: ${STAMP}
+# 	python ${POSTPROCESSOR} $@
 
 clean:
 ifeq ($(wildcard ${SOURCE}),)
