@@ -1,7 +1,3 @@
-s• = $(subst \ ,•,$1)
-
-•s = $(subst •,\ ,$1)
-
 QUIETLY$(MX_VERBOSE) = @
 
 # during clean, this isn't set
@@ -23,7 +19,7 @@ ${STAMP}: ${SOURCE} ${POSTPROCESSOR}
 
 # postprocessing to make source compile without warnings
 ${PARSER_PATH}/%.java: ${STAMP}
-	python ${POSTPROCESSOR} $@
+	dhall ${POSTPROCESSOR} $@
 
 clean:
 ifeq ($(wildcard ${SOURCE}),)
@@ -31,7 +27,7 @@ ifeq ($(wildcard ${SOURCE}),)
 endif
 	$(QUIETLY) rm -f ${TARGETS}
 	$(QUIETLY) rm -f ${STAMP}
-	$(QUIETLY) rm -f ${PARSER_PATH}/Python3.tokens \
-			${PARSER_PATH}/Python3Lexer.tokens \
-			${PARSER_PATH}/Python3.interp \
-			${PARSER_PATH}/Python3Lexer.interp
+	$(QUIETLY) rm -f ${PARSER_PATH}/Dhall.tokens \
+			${PARSER_PATH}/DhallLexer.tokens \
+			${PARSER_PATH}/Dhall.interp \
+			${PARSER_PATH}/DhallLexer.interp
