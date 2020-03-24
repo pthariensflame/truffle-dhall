@@ -12,7 +12,7 @@ grammar Dhall;
 // common
 END_OF_LINE :
       '\n'
-    | '\r' '\n';  // "\r\n"
+    | '\r\n';
 
 // This rule matches all characters that are not:
 //
@@ -98,7 +98,9 @@ DIGIT : [0-9];
 
 ALPHANUM : ALPHA | DIGIT;
 
-HEXDIG : DIGIT | [A-Fa-f];
+ALPHA_HEX_DIG : [A-Fa-f];
+
+hexdig : DIGIT | ALPHA_HEX_DIG;
 
 // A simple label cannot be one of the reserved keywords
 // listed in the `keyword` rule.
@@ -184,8 +186,8 @@ double_quote_escaped :
 unicode_escape : unbraced_escape | ('{' braced_escape '}');
 
 // All valid last 4 digits for unicode codepoints (outside Plane 0): `0000-FFFD`
-unicode_suffix : ((DIGIT | ('A' | 'a') | ('B' | 'b') | ('C' | 'c') | ('D' | 'd') | ('E' | 'e')) (HEXDIG HEXDIG HEXDIG))
-               | (('F' | 'f') (HEXDIG HEXDIG) (DIGIT | ('A' | 'a') | ('B' | 'b') | ('C' | 'c') | ('D' | 'd')));
+unicode_suffix : ((DIGIT | ('A' | 'a') | ('B' | 'b') | ('C' | 'c') | ('D' | 'd') | ('E' | 'e')) (hexdig hexdig hexdig))
+               | (('F' | 'f') (hexdig hexdig) (DIGIT | ('A' | 'a') | ('B' | 'b') | ('C' | 'c') | ('D' | 'd')));
 
 // All 4-hex digit unicode escape sequences that are not:
 //
@@ -193,11 +195,11 @@ unicode_suffix : ((DIGIT | ('A' | 'a') | ('B' | 'b') | ('C' | 'c') | ('D' | 'd')
 // * Non-characters (i.e. `%xFFFE-FFFF`)
 //
 unbraced_escape :
-      ((DIGIT | ('A' | 'a') | ('B' | 'b') | ('C' | 'c')) (HEXDIG HEXDIG HEXDIG))
-    | (('D' | 'd') ('0' | '1' | '2' | '3' | '4' | '5' | '6' | '7') HEXDIG HEXDIG)
+      ((DIGIT | ('A' | 'a') | ('B' | 'b') | ('C' | 'c')) (hexdig hexdig hexdig))
+    | (('D' | 'd') ('0' | '1' | '2' | '3' | '4' | '5' | '6' | '7') hexdig hexdig)
     // %xD800-DFFF Surrogate pairs
-    | (('E' | 'e') (HEXDIG HEXDIG HEXDIG))
-    | (('F' | 'f') (HEXDIG HEXDIG) (DIGIT | ('A' | 'a') | ('B' | 'b') | ('C' | 'c') | ('D' | 'd')));
+    | (('E' | 'e') (hexdig hexdig hexdig))
+    | (('F' | 'f') (hexdig hexdig) (DIGIT | ('A' | 'a') | ('B' | 'b') | ('C' | 'c') | ('D' | 'd')));
     // %xFFFE-FFFF Non-characters
 
 // All 1-6 digit unicode codepoints that are not:
@@ -209,7 +211,7 @@ unbraced_escape :
 braced_codepoint :
       (('1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | ('A' | 'a') | ('B' | 'b') | ('C' | 'c') | ('D' | 'd') | ('E' | 'e') | ('F' | 'f') | ('1' '0')) unicode_suffix)// (Planes 1-16)
     | unbraced_escape // (Plane 0)
-    | (HEXDIG ((HEXDIG HEXDIG) | HEXDIG?)); // %x000-FFF
+    | (hexdig ((hexdig hexdig) | hexdig?)); // %x000-FFF
 
 // Allow zero padding for braced codepoints
 braced_escape : '0'* braced_codepoint;
@@ -409,7 +411,7 @@ double_literal :
 
 natural_literal :
     // Hexadecimal with "0x" prefix
-      ('0' 'x' HEXDIG+)
+      ('0' 'x' hexdig+)
     // Decimal; leading 0 digits are not allowed
     | (('1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9') DIGIT*)
     // ... except for 0 itself
@@ -529,7 +531,7 @@ port : DIGIT*;
 
 ip_literal : '[' ( ipv6address | ipvfuture  ) ']';
 
-ipvfuture : ('V' | 'v') HEXDIG+ '.' ( unreserved | SUB_DELIMS | ':' )+;
+ipvfuture : ('V' | 'v') hexdig+ '.' ( unreserved | SUB_DELIMS | ':' )+;
 
 // NOTE: Backtrack when parsing each alternative
 ipv6address :                            ((( h16 ':' ) (h16 ':') (h16 ':') (h16 ':') (h16 ':') (h16 ':')) ls32)
@@ -542,7 +544,7 @@ ipv6address :                            ((( h16 ':' ) (h16 ':') (h16 ':') (h16 
             | (( h16 (((( ':' h16 ) (':' h16) (':' h16) (':' h16) (':' h16)) | ((':' h16) (':' h16) (':' h16) (':' h16)) | ((':' h16) (':' h16) (':' h16)) | ((':' h16) (':' h16)) | (':' h16)?)) )? (':' ':')              h16)
             | (( h16 (((( ':' h16 ) (':' h16) (':' h16) (':' h16) (':' h16) (':' h16)) | ((':' h16) (':' h16) (':' h16) (':' h16) (':' h16)) | ((':' h16) (':' h16) (':' h16) (':' h16)) | ((':' h16) (':' h16) (':' h16)) | ((':' h16) (':' h16)) | (':' h16)?)) )? (':' ':'));
 
-h16 : (HEXDIG ((HEXDIG HEXDIG HEXDIG) | (HEXDIG HEXDIG) | HEXDIG?));
+h16 : (hexdig ((hexdig hexdig hexdig) | (hexdig hexdig) | hexdig?));
 
 ls32 : (h16 ':' h16) | ipv4address;
 
@@ -573,7 +575,7 @@ pchar : unreserved | pct_encoded | SUB_DELIMS | ':' | '@';
 
 query : ( pchar | '/' | '?' )*;
 
-pct_encoded : '%' HEXDIG HEXDIG;
+pct_encoded : '%' hexdig hexdig;
 
 unreserved  : ALPHANUM | '-' | '.' | '_' | '~';
 
@@ -649,7 +651,7 @@ POSIX_ENVIRONMENT_VARIABLE_CHARACTER :
 
 import_type : missing | local | http | env;
 
-hash : 's' 'h' 'a' '2' '5' '6' ':' (HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG); // "sha256:XXX...XXX"
+hash : 's' 'h' 'a' '2' '5' '6' ':' (hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig hexdig); // "sha256:XXX...XXX"
 
 import_hashed : import_type ( whsp1 hash )?;
 
