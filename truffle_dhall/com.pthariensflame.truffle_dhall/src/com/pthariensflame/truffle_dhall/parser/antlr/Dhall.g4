@@ -12,7 +12,7 @@ grammar Dhall;
 // common
 END_OF_LINE :
       '\n'
-    | '\r\n';  // "\r\n"
+    | '\r' '\n';  // "\r\n"
 
 // This rule matches all characters that are not:
 //
@@ -266,23 +266,23 @@ text_literal : (double_quote_literal | single_quote_literal);
 //
 // If you don't feel like reading hex, these are all the same as the rule name.
 // Keywords that should never be parsed as identifiers
-if_1 : 'if';
-then : 'then';
-else_1 : 'else';
-let : 'let';
-in_1 : 'in';
-as_1 : 'as';
-using_1 : 'using';
-merge : 'merge';
-missing : 'missing';
-infinity : 'Infinity';
-nan : 'NaN';
-some : 'Some';
-to_map : 'toMap';
-assert_1 : 'assert';
+if_1 : 'i' 'f';
+then : 't' 'h' 'e' 'n';
+else_1 : 'e' 'l' 's' 'e';
+let : 'l' 'e' 't';
+in_1 : 'i' 'n';
+as_1 : 'a' 's';
+using_1 : 'u' 's' 'i' 'n' 'g';
+merge : 'm' 'e' 'r' 'g' 'e';
+missing : 'm' 'i' 's' 's' 'i' 'n' 'g';
+infinity : 'I' 'n' 'f' 'i' 'n' 'i' 't' 'y';
+nan : 'N' 'a' 'N';
+some : 'S' 'o' 'm' 'e';
+to_map : 't' 'o' 'M' 'a' 'p';
+assert_1 : 'a' 's' 's' 'e' 'r' 't';
 FORALL_SYMBOL : [\u{2200}];
-forall : FORALL_SYMBOL | 'forall';
-with : 'with';
+forall : FORALL_SYMBOL | 'f' 'o' 'r' 'a' 'l' 'l';
+with : 'w' 'i' 't' 'h';
 
 // Unused rule that could be used as negative lookahead in the
 // `simple-label` rule for parsers that support this.
@@ -335,45 +335,45 @@ builtin :
     | sort;
 
 // Reserved identifiers, needed for some special cases of parsing
-optional : 'Optional';
-text : 'Text';
-list : 'List';
-location : 'Location';
+optional : 'O' 'p' 't' 'i' 'o' 'n' 'a' 'l';
+text : 'T' 'e' 'x' 't';
+list : 'L' 'i' 's' 't';
+location : 'L' 'o' 'c' 'a' 't' 'i' 'o' 'n';
 
 // Reminder of the reserved identifiers, needed for the `builtin` rule
-bool_1 : 'Bool';
-true_1 : 'True';
-false_1 : 'False';
-none : 'None';
-natural : 'Natural';
-integer : 'Integer';
-double_1 : 'Double';
-type : 'Type';
-kind : 'Kind';
-sort : 'Sort';
-natural_fold : 'Natural/fold';
-natural_build : 'Natural/build';
-natural_iszero : 'Natural/isZero';
-natural_even : 'Natural/even';
-natural_odd : 'Natural/odd';
-natural_tointeger : 'Natural/toInteger';
-natural_show : 'Natural/show';
-natural_subtract : 'Natural/subtract';
-integer_todouble : 'Integer/toDouble';
-integer_show : 'Integer/show';
-integer_negate : 'Integer/negate';
-integer_clamp : 'Integer/clamp';
-double_show : 'Double/show';
-list_build : 'List/build';
-list_fold : 'List/fold';
-list_length : 'List/length';
-list_head : 'List/head';
-list_last : 'List/last';
-list_indexed : 'List/indexed';
-list_reverse : 'List/reverse';
-optional_fold : 'Optional/fold';
-optional_build : 'Optional/build';
-text_show : 'Text/show';
+bool_1 : 'B' 'o' 'o' 'l';
+true_1 : 'T' 'r' 'u' 'e';
+false_1 : 'F' 'a' 'l' 's' 'e';
+none : 'N' 'o' 'n' 'e';
+natural : 'N' 'a' 't' 'u' 'r' 'a' 'l';
+integer : 'I' 'n' 't' 'e' 'g' 'e' 'r';
+double_1 : 'D' 'o' 'u' 'b' 'l' 'e';
+type : 'T' 'y' 'p' 'e';
+kind : 'K' 'i' 'n' 'd';
+sort : 'S' 'o' 'r' 't';
+natural_fold : 'N' 'a' 't' 'u' 'r' 'a' 'l' '/' 'f' 'o' 'l' 'd';
+natural_build : 'N' 'a' 't' 'u' 'r' 'a' 'l' '/' 'b' 'u' 'i' 'l' 'd';
+natural_iszero : 'N' 'a' 't' 'u' 'r' 'a' 'l' '/' 'i' 's' 'Z' 'e' 'r' 'o';
+natural_even : 'N' 'a' 't' 'u' 'r' 'a' 'l' '/' 'e' 'v' 'e' 'n';
+natural_odd : 'N' 'a' 't' 'u' 'r' 'a' 'l' '/' 'o' 'd' 'd';
+natural_tointeger : 'N' 'a' 't' 'u' 'r' 'a' 'l' '/' 't' 'o' 'I' 'n' 't' 'e' 'g' 'e' 'r';
+natural_show : 'N' 'a' 't' 'u' 'r' 'a' 'l' '/' 's' 'h' 'o' 'w';
+natural_subtract : 'N' 'a' 't' 'u' 'r' 'a' 'l' '/' 's' 'u' 'b' 't' 'r' 'a' 'c' 't';
+integer_todouble : 'I' 'n' 't' 'e' 'g' 'e' 'r' '/' 't' 'o' 'D' 'o' 'u' 'b' 'l' 'e';
+integer_show : 'I' 'n' 't' 'e' 'g' 'e' 'r' '/' 's' 'h' 'o' 'w';
+integer_negate : 'I' 'n' 't' 'e' 'g' 'e' 'r' '/' 'n' 'e' 'g' 'a' 't' 'e';
+integer_clamp : 'I' 'n' 't' 'e' 'g' 'e' 'r' '/' 'c' 'l' 'a' 'm' 'p';
+double_show : 'D' 'o' 'u' 'b' 'l' 'e' '/' 's' 'h' 'o' 'w';
+list_build : 'L' 'i' 's' 't' '/' 'b' 'u' 'i' 'l' 'd';
+list_fold : 'L' 'i' 's' 't' '/' 'f' 'o' 'l' 'd';
+list_length : 'L' 'i' 's' 't' '/' 'l' 'e' 'n' 'g' 't' 'h';
+list_head : 'L' 'i' 's' 't' '/' 'h' 'e' 'a' 'd';
+list_last : 'L' 'i' 's' 't' '/' 'l' 'a' 's' 't';
+list_indexed : 'L' 'i' 's' 't' '/' 'i' 'n' 'd' 'e' 'x' 'e' 'd';
+list_reverse : 'L' 'i' 's' 't' '/' 'r' 'e' 'v' 'e' 'r' 's' 'e';
+optional_fold : 'O' 'p' 't' 'i' 'o' 'n' 'a' 'l' '/' 'f' 'o' 'l' 'd';
+optional_build : 'O' 'p' 't' 'i' 'o' 'n' 'a' 'l' '/' 'b' 'u' 'i' 'l' 'd';
+text_show : 'T' 'e' 'x' 't' '/' 's' 'h' 'o' 'w';
 
 // Operators
 COMBINE_SYMBOL : [\u{2227}];
@@ -409,7 +409,7 @@ double_literal :
 
 natural_literal :
     // Hexadecimal with "0x" prefix
-      ('0x' HEXDIG+)
+      ('0' 'x' HEXDIG+)
     // Decimal; leading 0 digits are not allowed
     | (('1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9') DIGIT*)
     // ... except for 0 itself
@@ -493,7 +493,7 @@ absolute_path : path;  // Absolute path
 // `http[s]` URI grammar based on RFC7230 and RFC 3986 with some differences
 // noted below
 
-SCHEME : 'http' ('s'?);  // "http" [ "s" ]
+SCHEME : 'h' 't' 't' 'p' ('s'?);  // "http" [ "s" ]
 
 // NOTE: This does not match the official grammar for a URI.  Specifically:
 //
@@ -649,7 +649,7 @@ POSIX_ENVIRONMENT_VARIABLE_CHARACTER :
 
 import_type : missing | local | http | env;
 
-hash : 'sha256:' (HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG); // "sha256:XXX...XXX"
+hash : 's' 'h' 'a' '2' '5' '6' ':' (HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG HEXDIG); // "sha256:XXX...XXX"
 
 import_hashed : import_type ( whsp1 hash )?;
 
@@ -812,11 +812,11 @@ primitive_expression :
 
 
 record_type_or_literal :
-      EMPTY_RECORD_LITERAL
+      empty_record_literal
     | non_empty_record_type_or_literal
     | empty_record_type;
 
-EMPTY_RECORD_LITERAL : '=';
+empty_record_literal : '=';
 empty_record_type : ;
 
 non_empty_record_type_or_literal :
