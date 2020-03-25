@@ -32,25 +32,7 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry sourcepath="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.antlr/antlr4/4.8/4b41d347e47ec0ff391c5b9df419d1a2d59ece5d/antlr4-4.8-sources.jar" kind="lib" path="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.antlr/antlr4/4.8/c5902f3079595a5e73dd6b008340a8197ee1aeda/antlr4-4.8.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry sourcepath="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.graalvm.truffle/truffle-api/20.0.0/e423d16343b16beaf665b05280dd0e9c38c53278/truffle-api-20.0.0-sources.jar" kind="lib" path="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.graalvm.truffle/truffle-api/20.0.0/babdf30d5bc62bcce62dee85bd85f42e03841693/truffle-api-20.0.0.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry sourcepath="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.graalvm.truffle/truffle-dsl-processor/20.0.0/209bee72a5ced203f73f6fd0ab6bffe43183af5b/truffle-dsl-processor-20.0.0-sources.jar" kind="lib" path="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.graalvm.truffle/truffle-dsl-processor/20.0.0/1bebaf29c8e44c659b440ca714aa1afaaa86e922/truffle-dsl-processor-20.0.0.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value=""/>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry sourcepath="/Users/Alexander/.gradle/caches/modules-2/files-2.1/com.mageddo.nativeimage/reflection-config-generator/2.1.1/9418da0e77ff9fcb2985e53f8eb9b8ba638650f3/reflection-config-generator-2.1.1-sources.jar" kind="lib" path="/Users/Alexander/.gradle/caches/modules-2/files-2.1/com.mageddo.nativeimage/reflection-config-generator/2.1.1/c79bf4c14d8f3139afe309d25f8aa5e44ad3bfc9/reflection-config-generator-2.1.1.jar">
+	<classpathentry sourcepath="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.antlr/antlr4/4.8-1/291aa61e26745ca29162a321635519f013712224/antlr4-4.8-1-sources.jar" kind="lib" path="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.antlr/antlr4/4.8-1/14abdbb9d8c6c5ca06147c67a17ebedaa3dac121/antlr4-4.8-1.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value=""/>
 			<attribute name="module" value="true"/>
@@ -58,49 +40,91 @@
 	</classpathentry>
 	<classpathentry sourcepath="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-jdk8/1.3.71/e89a680bcd92718aba031d2456a7be80528553aa/kotlin-stdlib-jdk8-1.3.71-sources.jar" kind="lib" path="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-jdk8/1.3.71/4defc79915cf4f78b49bbc4a8f1e80e87767a5b/kotlin-stdlib-jdk8-1.3.71.jar">
 		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
+			<attribute name="gradle_used_by_scope" value=""/>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry sourcepath="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.graalvm.sdk/graal-sdk/20.0.0/fbb5ab15f9ef7e27e62cefbb3cb9e39190a7d1fc/graal-sdk-20.0.0-sources.jar" kind="lib" path="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.graalvm.sdk/graal-sdk/20.0.0/8ad38d2054bf7c56d1b0286c821117ddbfd5c4a4/graal-sdk-20.0.0.jar">
+	<classpathentry sourcepath="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-jdk7/1.3.71/cce820ec277d52ee41790acd9acfef20a056d57b/kotlin-stdlib-jdk7-1.3.71-sources.jar" kind="lib" path="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-jdk7/1.3.71/9180d3aec3f0b2ea6ef0dcf01b464a6e2219e381/kotlin-stdlib-jdk7-1.3.71.jar">
 		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
+			<attribute name="gradle_used_by_scope" value=""/>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.3.71/856241dfa9769f51ce61f69fb6a1e39dbf8bffd0/kotlin-stdlib-1.3.71-sources.jar" kind="lib" path="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.3.71/898273189ad22779da6bed88ded39b14cb5fd432/kotlin-stdlib-1.3.71.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value=""/>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-common/1.3.71/bc2d3018bbb572e087e0afee6bedfba35eba125f/kotlin-stdlib-common-1.3.71-sources.jar" kind="lib" path="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-common/1.3.71/e71c3fef58e26affeb03d675e91fd8abdd44aa7b/kotlin-stdlib-common-1.3.71.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value=""/>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/Alexander/.gradle/caches/modules-2/files-2.1/com.mageddo.nativeimage/reflection-config-generator/2.3.4/c36be87a479f6708168b78c0a56f9b326fd20a26/reflection-config-generator-2.3.4-sources.jar" kind="lib" path="/Users/Alexander/.gradle/caches/modules-2/files-2.1/com.mageddo.nativeimage/reflection-config-generator/2.3.4/e825871db43c816fded72da06c042c0dc5767973/reflection-config-generator-2.3.4.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value=""/>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/Alexander/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.11.0.rc1/ec57569a7135a459e97bf9ebc65dee496e7bb3fa/jackson-databind-2.11.0.rc1-sources.jar" kind="lib" path="/Users/Alexander/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.11.0.rc1/544a860c36bd64eb2ba0ea4f1304ebc61846c9ea/jackson-databind-2.11.0.rc1.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value=""/>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/Alexander/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-annotations/2.11.0.rc1/4a8d218dd23e7b5514660aa4e2de1f7f59818c57/jackson-annotations-2.11.0.rc1-sources.jar" kind="lib" path="/Users/Alexander/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-annotations/2.11.0.rc1/f38d7bd917d96c4db03a8bb49057b23e514ea01f/jackson-annotations-2.11.0.rc1.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value=""/>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/Alexander/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.11.0.rc1/def982ef36108f53e7e5b97102e08585c81c60fd/jackson-core-2.11.0.rc1-sources.jar" kind="lib" path="/Users/Alexander/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.11.0.rc1/24a6292f6ec145e0c4ee10145369010cba0daf67/jackson-core-2.11.0.rc1.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value=""/>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry sourcepath="/Users/Alexander/.gradle/caches/modules-2/files-2.1/com.ibm.icu/icu4j/66.1/57d00b7135ca8fa82311d6b9fd345309e4c46f0b/icu4j-66.1-sources.jar" kind="lib" path="/Users/Alexander/.gradle/caches/modules-2/files-2.1/com.ibm.icu/icu4j/66.1/72c7519b6d91f7a1f993bd44a99fe95d67211b27/icu4j-66.1.jar">
 		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
+			<attribute name="gradle_used_by_scope" value=""/>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry sourcepath="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.antlr/antlr4-runtime/4.8/94c809b4b29795252d3fcc286a444c98baf05da4/antlr4-runtime-4.8-sources.jar" kind="lib" path="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.antlr/antlr4-runtime/4.8/7fe453b678b71c87c6677cef26f6b0cd96b26586/antlr4-runtime-4.8.jar">
+	<classpathentry sourcepath="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.antlr/antlr4-runtime/4.8-1/57eb50176be55f02c469010597bd7b6c1f954aab/antlr4-runtime-4.8-1-sources.jar" kind="lib" path="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.antlr/antlr4-runtime/4.8-1/2d0456a791f3a95916c8c23b3bea3a90eea24720/antlr4-runtime-4.8-1.jar">
 		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
+			<attribute name="gradle_used_by_scope" value=""/>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry sourcepath="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.antlr/ST4/4.3/f5c1c1b500028db7d102067b8e0f3e15f685cbec/ST4-4.3-sources.jar" kind="lib" path="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.antlr/ST4/4.3/92f2c1ad8d84abcbeead6cf7f2c53a04166293c2/ST4-4.3.jar">
 		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
+			<attribute name="gradle_used_by_scope" value=""/>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry sourcepath="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.antlr/antlr-runtime/3.5.2/5214ea45dd20d3a2e4caa6f1ad2248ad107e0daf/antlr-runtime-3.5.2-sources.jar" kind="lib" path="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.antlr/antlr-runtime/3.5.2/cd9cd41361c155f3af0f653009dcecb08d8b4afd/antlr-runtime-3.5.2.jar">
 		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
+			<attribute name="gradle_used_by_scope" value=""/>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry sourcepath="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.abego.treelayout/org.abego.treelayout.core/1.0.3/98d31576a54fd48dabf1fcf67a311dd9f0e4f66e/org.abego.treelayout.core-1.0.3-sources.jar" kind="lib" path="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.abego.treelayout/org.abego.treelayout.core/1.0.3/457216e8e6578099ae63667bb1e4439235892028/org.abego.treelayout.core-1.0.3.jar">
 		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
+			<attribute name="gradle_used_by_scope" value=""/>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry sourcepath="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.glassfish/javax.json/1.0.4/ef782abad0d3f1d30644c4023a6bbc6fe371e23a/javax.json-1.0.4-sources.jar" kind="lib" path="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.glassfish/javax.json/1.0.4/3178f73569fd7a1e5ffc464e680f7a8cc784b85a/javax.json-1.0.4.jar">
 		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
+			<attribute name="gradle_used_by_scope" value=""/>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/Alexander/.gradle/caches/modules-2/files-2.1/com.mageddo.aptools/aptools/2.3.4/4cbf0e65ca0c248fce18fb071c8e3e986e6eb18a/aptools-2.3.4-sources.jar" kind="lib" path="/Users/Alexander/.gradle/caches/modules-2/files-2.1/com.mageddo.aptools/aptools/2.3.4/44393d6920de356dc62adb341e06090ad405d61/aptools-2.3.4.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value=""/>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
@@ -110,143 +134,117 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry sourcepath="/Users/Alexander/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.10.1/ebb50922deb157028c54ff84bc9702804ae72545/jackson-databind-2.10.1-sources.jar" kind="lib" path="/Users/Alexander/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.10.1/18eee15ffc662d27538d5b6ee84e4c92c0a9d03e/jackson-databind-2.10.1.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value=""/>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry sourcepath="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-jdk7/1.3.71/cce820ec277d52ee41790acd9acfef20a056d57b/kotlin-stdlib-jdk7-1.3.71-sources.jar" kind="lib" path="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-jdk7/1.3.71/9180d3aec3f0b2ea6ef0dcf01b464a6e2219e381/kotlin-stdlib-jdk7-1.3.71.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry sourcepath="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.3.71/856241dfa9769f51ce61f69fb6a1e39dbf8bffd0/kotlin-stdlib-1.3.71-sources.jar" kind="lib" path="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.3.71/898273189ad22779da6bed88ded39b14cb5fd432/kotlin-stdlib-1.3.71.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry sourcepath="/Users/Alexander/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-annotations/2.10.1/44bc509b5f453f2848ac7f1c281f30649a9b6b81/jackson-annotations-2.10.1-sources.jar" kind="lib" path="/Users/Alexander/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-annotations/2.10.1/54d72475c0d6819f2d0e9a09d25c3ed876a4972f/jackson-annotations-2.10.1.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value=""/>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry sourcepath="/Users/Alexander/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.10.1/a12ab35dd79cd21276603c0f43695774c4bfb23c/jackson-core-2.10.1-sources.jar" kind="lib" path="/Users/Alexander/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.10.1/2c8b5e26ba40e5f91eb37a24075a2028b402c5f9/jackson-core-2.10.1.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value=""/>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry sourcepath="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-common/1.3.71/bc2d3018bbb572e087e0afee6bedfba35eba125f/kotlin-stdlib-common-1.3.71-sources.jar" kind="lib" path="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-common/1.3.71/e71c3fef58e26affeb03d675e91fd8abdd44aa7b/kotlin-stdlib-common-1.3.71.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry sourcepath="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/13.0/5991ca87ef1fb5544943d9abc5a9a37583fabe03/annotations-13.0-sources.jar" kind="lib" path="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/13.0/919f0dfe192fb4e063e7dacadee7f8bb9a2672a9/annotations-13.0.jar">
 		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry sourcepath="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.graalvm.truffle/truffle-tck/20.0.0/a517cd89022d7c83ef43656065fb89ae5a27a34/truffle-tck-20.0.0-sources.jar" kind="lib" path="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.graalvm.truffle/truffle-tck/20.0.0/e3fdbf0d6768919d9474684ef6414668f39b0dc7/truffle-tck-20.0.0.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="test"/>
-			<attribute name="test" value="true"/>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry sourcepath="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.graalvm.sdk/polyglot-tck/20.0.0/f74428d33561658de3468c389944ee3ce55064b3/polyglot-tck-20.0.0-sources.jar" kind="lib" path="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.graalvm.sdk/polyglot-tck/20.0.0/f75baaccb29efbafdaaa209de2f617758afcd21c/polyglot-tck-20.0.0.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="test"/>
-			<attribute name="test" value="true"/>
+			<attribute name="gradle_used_by_scope" value=""/>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry sourcepath="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-test-junit5/1.3.71/cddf6bd0135f077a993e27481dc123ecdfdd0283/kotlin-test-junit5-1.3.71-sources.jar" kind="lib" path="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-test-junit5/1.3.71/942e8bb01e1fcbf4112db8c5b78286ecdf4c49b6/kotlin-test-junit5-1.3.71.jar">
 		<attributes>
-			<attribute name="gradle_used_by_scope" value="test"/>
-			<attribute name="test" value="true"/>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry sourcepath="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.junit.vintage/junit-vintage-engine/5.6.1/14b86ed87ceac4c8c638cf6f1fdb01534aa811/junit-vintage-engine-5.6.1-sources.jar" kind="lib" path="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.junit.vintage/junit-vintage-engine/5.6.1/6887d50bb2f89e5139401c83852accbcd1a684ae/junit-vintage-engine-5.6.1.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="test"/>
-			<attribute name="test" value="true"/>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry sourcepath="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.junit.platform/junit-platform-engine/1.6.1/de1617e90a3282b4be536439ac558201a8fb9b2/junit-platform-engine-1.6.1-sources.jar" kind="lib" path="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.junit.platform/junit-platform-engine/1.6.1/e93ddd6d2e6e7d1ff6439fe61ab6a862edb066f7/junit-platform-engine-1.6.1.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="test"/>
-			<attribute name="test" value="true"/>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry sourcepath="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.junit.platform/junit-platform-commons/1.6.1/6f07b3568749c67f65b1d41b77b7299a9af79484/junit-platform-commons-1.6.1-sources.jar" kind="lib" path="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.junit.platform/junit-platform-commons/1.6.1/3211988f6980e1bd68e2b4049f32c2076a0b93ed/junit-platform-commons-1.6.1.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="test"/>
-			<attribute name="test" value="true"/>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry sourcepath="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.junit.jupiter/junit-jupiter-api/5.6.1/26f897b62b142acffc8a374dc0289347f2105207/junit-jupiter-api-5.6.1-sources.jar" kind="lib" path="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.junit.jupiter/junit-jupiter-api/5.6.1/552e8b1410c1e210841a9b7e0dab65b5dcb8208b/junit-jupiter-api-5.6.1.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="test"/>
+			<attribute name="gradle_used_by_scope" value=""/>
 			<attribute name="test" value="true"/>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry sourcepath="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-test/1.3.71/cd8692bdb859e0252a3ddabaa0ef205c0216e4bc/kotlin-test-1.3.71-sources.jar" kind="lib" path="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-test/1.3.71/52749040c3eb270e1ce07cc6ce56bf7b30a668b2/kotlin-test-1.3.71.jar">
 		<attributes>
-			<attribute name="gradle_used_by_scope" value="test"/>
-			<attribute name="test" value="true"/>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry sourcepath="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.apiguardian/apiguardian-api/1.1.0/f3c15fe970af864390c8d0634c9f16aca1b064a8/apiguardian-api-1.1.0-sources.jar" kind="lib" path="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.apiguardian/apiguardian-api/1.1.0/fc9dff4bb36d627bdc553de77e1f17efd790876c/apiguardian-api-1.1.0.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="test"/>
-			<attribute name="test" value="true"/>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry sourcepath="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.opentest4j/opentest4j/1.2.0/41d55b3c2254de9837b4ec8923cbd371b8a7eab5/opentest4j-1.2.0-sources.jar" kind="lib" path="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.opentest4j/opentest4j/1.2.0/28c11eb91f9b6d8e200631d46e20a7f407f2a046/opentest4j-1.2.0.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="test"/>
+			<attribute name="gradle_used_by_scope" value=""/>
 			<attribute name="test" value="true"/>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry sourcepath="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-test-annotations-common/1.3.71/5ce27a432089534e4fcf388e4caf04c5022e485d/kotlin-test-annotations-common-1.3.71-sources.jar" kind="lib" path="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-test-annotations-common/1.3.71/476c671586a6c89430c62ddfcf0353a2bb9e5255/kotlin-test-annotations-common-1.3.71.jar">
 		<attributes>
-			<attribute name="gradle_used_by_scope" value="test"/>
-			<attribute name="test" value="true"/>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry sourcepath="/Users/Alexander/.gradle/caches/modules-2/files-2.1/junit/junit/4.13/d10a9c3acc6c07a5700e37697b5a6b4dcfb8abf9/junit-4.13-sources.jar" kind="lib" path="/Users/Alexander/.gradle/caches/modules-2/files-2.1/junit/junit/4.13/e49ccba652b735c93bd6e6f59760d8254cf597dd/junit-4.13.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="test"/>
+			<attribute name="gradle_used_by_scope" value=""/>
 			<attribute name="test" value="true"/>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry sourcepath="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-test-common/1.3.71/6ef8a2606e088998739a5cb9c1cbf4954a51b677/kotlin-test-common-1.3.71-sources.jar" kind="lib" path="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-test-common/1.3.71/d3f19613a5ca70d129f74c0b56a1e7ed1a327bdf/kotlin-test-common-1.3.71.jar">
 		<attributes>
-			<attribute name="gradle_used_by_scope" value="test"/>
+			<attribute name="gradle_used_by_scope" value=""/>
+			<attribute name="test" value="true"/>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.junit.vintage/junit-vintage-engine/5.6.1/14b86ed87ceac4c8c638cf6f1fdb01534aa811/junit-vintage-engine-5.6.1-sources.jar" kind="lib" path="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.junit.vintage/junit-vintage-engine/5.6.1/6887d50bb2f89e5139401c83852accbcd1a684ae/junit-vintage-engine-5.6.1.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value=""/>
+			<attribute name="test" value="true"/>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.junit.jupiter/junit-jupiter-api/5.6.1/26f897b62b142acffc8a374dc0289347f2105207/junit-jupiter-api-5.6.1-sources.jar" kind="lib" path="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.junit.jupiter/junit-jupiter-api/5.6.1/552e8b1410c1e210841a9b7e0dab65b5dcb8208b/junit-jupiter-api-5.6.1.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value=""/>
+			<attribute name="test" value="true"/>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.junit.platform/junit-platform-engine/1.6.1/de1617e90a3282b4be536439ac558201a8fb9b2/junit-platform-engine-1.6.1-sources.jar" kind="lib" path="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.junit.platform/junit-platform-engine/1.6.1/e93ddd6d2e6e7d1ff6439fe61ab6a862edb066f7/junit-platform-engine-1.6.1.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value=""/>
+			<attribute name="test" value="true"/>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.junit.platform/junit-platform-commons/1.6.1/6f07b3568749c67f65b1d41b77b7299a9af79484/junit-platform-commons-1.6.1-sources.jar" kind="lib" path="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.junit.platform/junit-platform-commons/1.6.1/3211988f6980e1bd68e2b4049f32c2076a0b93ed/junit-platform-commons-1.6.1.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value=""/>
+			<attribute name="test" value="true"/>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/Alexander/.gradle/caches/modules-2/files-2.1/junit/junit/4.13/d10a9c3acc6c07a5700e37697b5a6b4dcfb8abf9/junit-4.13-sources.jar" kind="lib" path="/Users/Alexander/.gradle/caches/modules-2/files-2.1/junit/junit/4.13/e49ccba652b735c93bd6e6f59760d8254cf597dd/junit-4.13.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value=""/>
+			<attribute name="test" value="true"/>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.apiguardian/apiguardian-api/1.1.0/f3c15fe970af864390c8d0634c9f16aca1b064a8/apiguardian-api-1.1.0-sources.jar" kind="lib" path="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.apiguardian/apiguardian-api/1.1.0/fc9dff4bb36d627bdc553de77e1f17efd790876c/apiguardian-api-1.1.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value=""/>
+			<attribute name="test" value="true"/>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.opentest4j/opentest4j/1.2.0/41d55b3c2254de9837b4ec8923cbd371b8a7eab5/opentest4j-1.2.0-sources.jar" kind="lib" path="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.opentest4j/opentest4j/1.2.0/28c11eb91f9b6d8e200631d46e20a7f407f2a046/opentest4j-1.2.0.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value=""/>
 			<attribute name="test" value="true"/>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry sourcepath="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.hamcrest/hamcrest-core/1.3/1dc37250fbc78e23a65a67fbbaf71d2e9cbc3c0b/hamcrest-core-1.3-sources.jar" kind="lib" path="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.hamcrest/hamcrest-core/1.3/42a25dc3219429f0e5d060061f71acb49bf010a0/hamcrest-core-1.3.jar">
 		<attributes>
-			<attribute name="gradle_used_by_scope" value="test"/>
+			<attribute name="gradle_used_by_scope" value=""/>
 			<attribute name="test" value="true"/>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/Alexander/Documents/ProgrammingProjectsThatHateSpaces/pthariensflame/truffle-dhall/unresolved dependency - org.graalvm graalvm-virtual-platform 20.0.0">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value=""/>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/Alexander/Documents/ProgrammingProjectsThatHateSpaces/pthariensflame/truffle-dhall/unresolved dependency - org.graalvm.truffle truffle-api">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value=""/>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/Alexander/Documents/ProgrammingProjectsThatHateSpaces/pthariensflame/truffle-dhall/unresolved dependency - org.graalvm.truffle truffle-dsl-processor">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value=""/>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/Alexander/Documents/ProgrammingProjectsThatHateSpaces/pthariensflame/truffle-dhall/unresolved dependency - org.graalvm.truffle truffle-tck">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value=""/>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>

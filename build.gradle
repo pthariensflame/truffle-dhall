@@ -2,44 +2,66 @@ plugins {
   id 'base'
   id 'distribution'
   id 'java-library'
-  id "com.dua3.gradle.jpms" version "0.9.0"
+  id "com.dua3.gradle.jpms"
   id 'antlr'
   id 'eclipse'
-  id "org.jetbrains.kotlin.jvm" version "1.3.71"
-  id "org.jetbrains.kotlin.kapt" version "1.3.71"
-  id 'org.jetbrains.dokka' version '0.10.1'
-  id "com.palantir.graal" version "0.6.0-112-gca0b727"
-  id "com.hpe.kraal" version "0.0.15"
+  id "org.jetbrains.kotlin.jvm"
+  id "org.jetbrains.kotlin.kapt"
+  id 'org.jetbrains.dokka'
+  id "com.palantir.graal"
+  id "com.hpe.kraal"
   id 'maven-publish'
 }
 
 version = '0.0.0'
 
 repositories {
-  jcenter()
   mavenCentral()
+  jcenter()
+}
+
+class AlignmentRules implements ComponentMetadataRule {
+  void execute(ComponentMetadataContext ctx) {
+    ctx.details.with {
+      if (id.group.startsWith("org.graalvm")) {
+        belongsTo("org.graalvm:graalvm-virtual-platform:${id.version}")
+      } else if (id.group.startsWith("org.jetbrains.kotlin")) {
+        belongsTo("org.jetbrains.kotlin:kotlin-bom:${id.version}", false)
+      } else if (id.group.startsWith("org.antlr") && id.version >= '4.0') {
+        belongsTo("org.antlr:antlr4-virtual-platform:${id.version}")
+      } else if (id.group.startsWith("org.antlr") && id.version >= '3.0') {
+        belongsTo("org.antlr:antlr3-virtual-platform:${id.version}")
+      } else if (id.group.startsWith("com.fasterxml.jackson")) {
+        belongsTo("com.fasterxml.jackson:jackson-bom:${id.version}", false)
+      }
+    }
+  }
 }
 
 dependencies {
-  antlr "org.antlr:antlr4:4.8"
-  implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
-  api "org.graalvm.truffle:truffle-api:20.0.0"
-  compileOnly "org.graalvm.truffle:truffle-dsl-processor:20.0.0"
-  annotationProcessor "org.graalvm.truffle:truffle-dsl-processor:20.0.0"
-  compileOnly "com.mageddo.nativeimage:reflection-config-generator:2.1.1"
-  annotationProcessor "com.mageddo.nativeimage:reflection-config-generator:2.1.1"
-  implementation "org.graalvm.sdk:graal-sdk:20.0.0"
-  implementation "com.ibm.icu:icu4j:66.1"
-  testImplementation "org.junit.jupiter:junit-jupiter-api:5.6.1"
-  testImplementation "org.jetbrains.kotlin:kotlin-test-junit5"
-  testImplementation "org.graalvm.truffle:truffle-tck:20.0.0"
-  testImplementation "org.junit.vintage:junit-vintage-engine:5.6.1"
-}
+  components.all(AlignmentRules)
+  api enforcedPlatform("org.antlr:antlr4-virtual-platform:${antlr4Version}")
+  api enforcedPlatform("org.jetbrains.kotlin:kotlin-bom:${kotlinVersion}")
+  api enforcedPlatform("org.graalvm:graalvm-virtual-platform:${graalVMVersion}")
+  testImplementation platform("org.junit:junit-bom:[5.6.1,5.7.0)")
+  implementation platform("com.fasterxml.jackson:jackson-bom:[2.10.3,2.11.0)")
+  constraints {
+    compileOnly "com.mageddo.nativeimage:reflection-config-generator:[2.3.4,2.4.0)"
+    implementation "com.ibm.icu:icu4j:[66.1,)"
+  }
 
-graal {
-  mainClass 'com.pthariensflame.truffle_dhall.shell.DhallMain'
-  outputName 'truffle-dhall'
-  graalVersion '20.0.0'
+  antlr "org.antlr:antlr4:${antlr4Version}"
+  api "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+  api "org.graalvm.truffle:truffle-api"
+  compileOnly "org.graalvm.truffle:truffle-dsl-processor"
+  annotationProcessor "org.graalvm.truffle:truffle-dsl-processor"
+  kapt "org.graalvm.truffle:truffle-dsl-processor"
+  compileOnly "com.mageddo.nativeimage:reflection-config-generator"
+  annotationProcessor "com.mageddo.nativeimage:reflection-config-generator"
+  kapt "com.mageddo.nativeimage:reflection-config-generator"
+  testImplementation "org.jetbrains.kotlin:kotlin-test-junit5"
+  testImplementation "org.graalvm.truffle:truffle-tck"
+  testImplementation "org.junit.vintage:junit-vintage-engine"
 }
 
 java {
@@ -49,12 +71,9 @@ java {
   withSourcesJar()
 }
 
-generateGrammarSource {
-  arguments += ["-encoding", "UTF-8",
-                "-visitor",
-                "-listener",
-                "-long-messages",
-                "-package", "com.pthariensflame.truffle_dhall.parser.antlr"]
+dokka {
+  outputFormat = 'html' 
+  outputDirectory = "$docsDir/dokka"
 }
 
 compileKotlin {
@@ -67,10 +86,20 @@ compileKotlin {
 }
 
 kapt {
-    correctErrorTypes = true
+  correctErrorTypes = true
+  includeCompileClasspath = false
 }
 
-dokka {
-    outputFormat = 'html' 
-    outputDirectory = "$docsDir/dokka"
+generateGrammarSource {
+  arguments += ["-encoding", "UTF-8",
+                "-visitor",
+                "-listener",
+                "-long-messages",
+                "-package", "com.pthariensflame.truffle_dhall.parser.antlr"]
+}
+
+graal {
+  mainClass 'com.pthariensflame.truffle_dhall.shell.DhallMain'
+  outputName 'truffle-dhall'
+  graalVersion '20.0.0'
 }
