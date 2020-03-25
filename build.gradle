@@ -55,16 +55,16 @@ dependencies {
   }
 
   antlr "org.antlr:antlr4:${antlr4Version}"
-  api "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+  api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}"
   api "org.graalvm.truffle:truffle-api:${graalVMVersion}"
   compileOnly "org.graalvm.truffle:truffle-dsl-processor:${graalVMVersion}"
-  annotationProcessor "org.graalvm.truffle:truffle-dsl-processor"
-  kapt "org.graalvm.truffle:truffle-dsl-processor"
+  annotationProcessor "org.graalvm.truffle:truffle-dsl-processor:${graalVMVersion}"
+  kapt "org.graalvm.truffle:truffle-dsl-processor:${graalVMVersion}"
   compileOnly "com.mageddo.nativeimage:reflection-config-generator"
   annotationProcessor "com.mageddo.nativeimage:reflection-config-generator"
   kapt "com.mageddo.nativeimage:reflection-config-generator"
-  testImplementation "org.jetbrains.kotlin:kotlin-test-junit5"
-  testImplementation "org.graalvm.truffle:truffle-tck"
+  testImplementation "org.jetbrains.kotlin:kotlin-test-junit5:${kotlinVersion}"
+  testImplementation "org.graalvm.truffle:truffle-tck:${graalVMVersion}"
   testImplementation "org.junit.vintage:junit-vintage-engine"
 }
 
