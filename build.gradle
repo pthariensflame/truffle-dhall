@@ -4,13 +4,13 @@ plugins {
   id 'java-library'
   id "com.dua3.gradle.jpms"
   id 'antlr'
-  id 'eclipse'
   id "org.jetbrains.kotlin.jvm"
   id "org.jetbrains.kotlin.kapt"
   id 'org.jetbrains.dokka'
   id "com.palantir.graal"
   id "com.hpe.kraal"
   id 'maven-publish'
+  id 'eclipse'
 }
 
 version = '0.0.0'
