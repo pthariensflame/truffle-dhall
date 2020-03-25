@@ -5,8 +5,6 @@ package com.pthariensflame.truffle_dhall;
 
 import org.junit.Test;
 
-import com.pthariensflame.truffle_dhall.Library;
-
 import static org.junit.Assert.*;
 
 public class LibraryTest {
