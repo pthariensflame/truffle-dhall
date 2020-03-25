@@ -348,3 +348,6 @@ secring.*
 .dropbox.cache
 
 
+### user additions
+
+/.apt_generated_tests/
