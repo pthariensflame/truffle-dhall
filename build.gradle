@@ -47,10 +47,10 @@ dependencies {
   api enforcedPlatform("org.antlr:antlr4-virtual-platform:${antlr4Version}")
   api enforcedPlatform("org.jetbrains.kotlin:kotlin-bom:${kotlinVersion}")
   api enforcedPlatform("org.graalvm:graalvm-virtual-platform:${graalVMVersion}")
-  testImplementation platform("org.junit:junit-bom:[5.6.1,5.7.0)")
+  testImplementation platform("org.junit:junit-bom:${junit5Version}")
   implementation platform("com.fasterxml.jackson:jackson-bom:[2.10.3,2.11.0)")
   constraints {
-    compileOnly "com.mageddo.nativeimage:reflection-config-generator:[2.3.4,2.4.0)"
+    compileOnly "com.mageddo.nativeimage:reflection-config-generator:${reflConfGenVersion}"
     implementation "com.ibm.icu:icu4j:[66.1,)"
   }
 
@@ -60,12 +60,12 @@ dependencies {
   compileOnly "org.graalvm.truffle:truffle-dsl-processor:${graalVMVersion}"
   annotationProcessor "org.graalvm.truffle:truffle-dsl-processor:${graalVMVersion}"
   kapt "org.graalvm.truffle:truffle-dsl-processor:${graalVMVersion}"
-  compileOnly "com.mageddo.nativeimage:reflection-config-generator"
-  annotationProcessor "com.mageddo.nativeimage:reflection-config-generator"
-  kapt "com.mageddo.nativeimage:reflection-config-generator"
+  compileOnly "com.mageddo.nativeimage:reflection-config-generator:${reflConfGenVersion}"
+  annotationProcessor "com.mageddo.nativeimage:reflection-config-generator:${reflConfGenVersion}"
+  kapt "com.mageddo.nativeimage:reflection-config-generator:${reflConfGenVersion}"
   testImplementation "org.jetbrains.kotlin:kotlin-test-junit5:${kotlinVersion}"
   testImplementation "org.graalvm.truffle:truffle-tck:${graalVMVersion}"
-  testImplementation "org.junit.vintage:junit-vintage-engine"
+  testImplementation "org.junit.vintage:junit-vintage-engine:${junit5Version}"
 }
 
 java {
