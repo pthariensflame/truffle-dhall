@@ -52,6 +52,8 @@ dependencies {
   constraints {
     compileOnly "com.mageddo.nativeimage:reflection-config-generator:${reflConfGenVersion}"
     implementation "com.ibm.icu:icu4j:[66.1,)"
+    implementation "org.abego.treelayout:org.abego.treelayout.core:[1.0.3,)"
+    implementation "org.glassfish:javax.json:[1.1.4,)"
   }
 
   antlr "org.antlr:antlr4:${antlr4Version}"
