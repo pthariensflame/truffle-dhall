@@ -25,13 +25,17 @@ class AlignmentRules implements ComponentMetadataRule {
     ctx.details.with {
       if (id.group.startsWith("org.graalvm")) {
         belongsTo("org.graalvm:graalvm-virtual-platform:${id.version}")
-      } else if (id.group.startsWith("org.jetbrains.kotlin")) {
+      }
+      if (id.group.startsWith("org.jetbrains.kotlin")) {
         belongsTo("org.jetbrains.kotlin:kotlin-bom:${id.version}", false)
-      } else if (id.group.startsWith("org.antlr") && id.version >= '4.0') {
+      }
+      if (id.group.startsWith("org.antlr") && id.version >= '4.0') {
         belongsTo("org.antlr:antlr4-virtual-platform:${id.version}")
-      } else if (id.group.startsWith("org.antlr") && id.version >= '3.0') {
+      }
+      if (id.group.startsWith("org.antlr") && id.version >= '3.0') {
         belongsTo("org.antlr:antlr3-virtual-platform:${id.version}")
-      } else if (id.group.startsWith("com.fasterxml.jackson")) {
+      }
+      if (id.group.startsWith("com.fasterxml.jackson")) {
         belongsTo("com.fasterxml.jackson:jackson-bom:${id.version}", false)
       }
     }
@@ -51,16 +55,16 @@ dependencies {
   }
 
   antlr "org.antlr:antlr4:${antlr4Version}"
-  api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}"
+  api "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
   api "org.graalvm.truffle:truffle-api:${graalVMVersion}"
-  compileOnly "org.graalvm.truffle:truffle-dsl-processor:$graalVMVersion"
-  annotationProcessor "org.graalvm.truffle:truffle-dsl-processor:${graalVMVersion}"
-  kapt "org.graalvm.truffle:truffle-dsl-processor:${graalVMVersion}"
+  compileOnly "org.graalvm.truffle:truffle-dsl-processor:${graalVMVersion}"
+  annotationProcessor "org.graalvm.truffle:truffle-dsl-processor"
+  kapt "org.graalvm.truffle:truffle-dsl-processor"
   compileOnly "com.mageddo.nativeimage:reflection-config-generator"
   annotationProcessor "com.mageddo.nativeimage:reflection-config-generator"
   kapt "com.mageddo.nativeimage:reflection-config-generator"
-  testImplementation "org.jetbrains.kotlin:kotlin-test-junit5:${kotlinVersion}"
-  testImplementation "org.graalvm.truffle:truffle-tck:${graalVMVersion}"
+  testImplementation "org.jetbrains.kotlin:kotlin-test-junit5"
+  testImplementation "org.graalvm.truffle:truffle-tck"
   testImplementation "org.junit.vintage:junit-vintage-engine"
 }
 
