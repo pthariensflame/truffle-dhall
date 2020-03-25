@@ -11,6 +11,8 @@ plugins {
   id 'maven-publish'
 }
 
+version = '0.0.0'
+
 repositories {
   jcenter()
 }
@@ -51,7 +53,5 @@ kapt {
 
 dokka {
     outputFormat = 'html' 
-    outputDirectory = "$buildDir/doc/dokka"
+    outputDirectory = "$docsDir/dokka"
 }
-
-
