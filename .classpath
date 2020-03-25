@@ -80,19 +80,19 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry sourcepath="/Users/Alexander/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.11.0.rc1/ec57569a7135a459e97bf9ebc65dee496e7bb3fa/jackson-databind-2.11.0.rc1-sources.jar" kind="lib" path="/Users/Alexander/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.11.0.rc1/544a860c36bd64eb2ba0ea4f1304ebc61846c9ea/jackson-databind-2.11.0.rc1.jar">
+	<classpathentry sourcepath="/Users/Alexander/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.10.3/db734f2f42a95d2668b9f9de58d25cfc064e6e4a/jackson-databind-2.10.3-sources.jar" kind="lib" path="/Users/Alexander/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.10.3/aae92628b5447fa25af79871ca98668da6edd439/jackson-databind-2.10.3.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value=""/>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry sourcepath="/Users/Alexander/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-annotations/2.11.0.rc1/4a8d218dd23e7b5514660aa4e2de1f7f59818c57/jackson-annotations-2.11.0.rc1-sources.jar" kind="lib" path="/Users/Alexander/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-annotations/2.11.0.rc1/f38d7bd917d96c4db03a8bb49057b23e514ea01f/jackson-annotations-2.11.0.rc1.jar">
+	<classpathentry sourcepath="/Users/Alexander/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-annotations/2.10.3/a52bf9c42cb6a029577d0d701785a07554675713/jackson-annotations-2.10.3-sources.jar" kind="lib" path="/Users/Alexander/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-annotations/2.10.3/f63b3b1da563767d04d2e4d3fc1ae0cdeffebe7/jackson-annotations-2.10.3.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value=""/>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry sourcepath="/Users/Alexander/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.11.0.rc1/def982ef36108f53e7e5b97102e08585c81c60fd/jackson-core-2.11.0.rc1-sources.jar" kind="lib" path="/Users/Alexander/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.11.0.rc1/24a6292f6ec145e0c4ee10145369010cba0daf67/jackson-core-2.11.0.rc1.jar">
+	<classpathentry sourcepath="/Users/Alexander/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.10.3/5b24f64c1a3351a550651b072887ac56a0af120c/jackson-core-2.10.3-sources.jar" kind="lib" path="/Users/Alexander/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.10.3/f7ee7b55c7d292ac72fbaa7648c089f069c938d2/jackson-core-2.10.3.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value=""/>
 			<attribute name="module" value="true"/>

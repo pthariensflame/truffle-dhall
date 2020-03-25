@@ -48,7 +48,7 @@ dependencies {
   api enforcedPlatform("org.jetbrains.kotlin:kotlin-bom:${kotlinVersion}")
   api enforcedPlatform("org.graalvm:graalvm-virtual-platform:${graalVMVersion}")
   testImplementation platform("org.junit:junit-bom:${junit5Version}")
-  implementation platform("com.fasterxml.jackson:jackson-bom:[2.10.3,2.11.0)")
+  implementation platform("com.fasterxml.jackson:jackson-bom:[2.10.3,2.10.4)")
   constraints {
     compileOnly "com.mageddo.nativeimage:reflection-config-generator:${reflConfGenVersion}"
     implementation "com.ibm.icu:icu4j:[66.1,)"
