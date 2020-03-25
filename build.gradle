@@ -88,6 +88,9 @@ compileKotlin {
 kapt {
   correctErrorTypes = true
   includeCompileClasspath = false
+  javacOptions {
+    option("--module-path", compileJava.classpath.asPath)
+  }
 }
 
 generateGrammarSource {
@@ -101,5 +104,5 @@ generateGrammarSource {
 graal {
   mainClass 'com.pthariensflame.truffle_dhall.shell.DhallMain'
   outputName 'truffle-dhall'
-  graalVersion '20.0.0'
+  graalVersion '${graalVMVersion}'
 }
