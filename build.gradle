@@ -70,7 +70,7 @@ kapt {
   correctErrorTypes = true
   includeCompileClasspath = false
   javacOptions {
-    option("--module-path", compileJava.classpath.asPath)
+    //option("--module-path", compileJava.classpath.asPath)
   }
 }
 
