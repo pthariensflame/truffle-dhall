@@ -2,11 +2,11 @@ plugins {
   id 'base'
   id 'distribution'
   id 'java-library'
-  id "com.dua3.gradle.jpms"
+  id "org.javamodularity.moduleplugin" version '1.6.0'
   id 'antlr'
   id "org.jetbrains.kotlin.jvm"
   id "org.jetbrains.kotlin.kapt"
-  id 'org.jetbrains.dokka'
+  id "org.jetbrains.dokka"
   id "com.palantir.graal"
   id "com.hpe.kraal"
   id 'maven-publish'
@@ -57,8 +57,10 @@ dependencies {
   }
 
   antlr "org.antlr:antlr4:${antlr4Version}"
+  implementation "org.antlr:antlr4-runtime:${antlr4Version}"
   api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}"
   api "org.graalvm.truffle:truffle-api:${graalVMVersion}"
+  api "org.graalvm.sdk:graal-sdk:${graalVMVersion}"
   compileOnly "org.graalvm.truffle:truffle-dsl-processor:${graalVMVersion}"
   annotationProcessor "org.graalvm.truffle:truffle-dsl-processor:${graalVMVersion}"
   kapt "org.graalvm.truffle:truffle-dsl-processor:${graalVMVersion}"
@@ -68,6 +70,10 @@ dependencies {
   testImplementation "org.jetbrains.kotlin:kotlin-test-junit5:${kotlinVersion}"
   testImplementation "org.graalvm.truffle:truffle-tck:${graalVMVersion}"
   testImplementation "org.junit.vintage:junit-vintage-engine:${junit5Version}"
+}
+
+test {
+  useJUnitPlatform()
 }
 
 java {

@@ -1,0 +1,14 @@
+repositories {
+  gradlePluginPortal()
+  mavenCentral()
+  jcenter()
+}
+
+dependencies {
+  testRuntimeOnly "org.javamodularity:moduleplugin:1.6.0"
+  testRuntimeOnly "org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jvm.gradle.plugin:${kotlinVersion}"
+  testRuntimeOnly "org.jetbrains.kotlin.kapt:org.jetbrains.kotlin.kapt.gradle.plugin:${kotlinVersion}"
+  testRuntimeOnly "org.jetbrains.dokka:org.jetbrains.dokka.gradle.plugin:0.10.1"
+  testRuntimeOnly "com.palantir.graal:com.palantir.graal.gradle.plugin:0.6.0-112-gca0b727"
+  testRuntimeOnly "com.hpe.kraal:com.hpe.kraal.gradle.plugin:0.0.15"
+}
