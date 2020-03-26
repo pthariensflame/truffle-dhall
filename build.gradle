@@ -70,7 +70,7 @@ kapt {
   correctErrorTypes = true
   includeCompileClasspath = false
   javacOptions {
-    //option("--module-path", compileJava.classpath.asPath)
+    option("--module-path", compileJava.classpath.asPath)
   }
 }
 
@@ -119,4 +119,17 @@ dependencies {
   testImplementation "org.junit.jupiter:junit-jupiter-api:${junit5Version}"
   testImplementation "org.junit.jupiter:junit-jupiter-params:${junit5Version}"
   testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junit5Version}"
+}
+
+sourceSets {
+  main {
+    java {
+      srcDir 'build/generated-src/antlr/main'
+    }
+  }
+  test {
+    java {
+      srcDir 'build/generated-src/antlr/test'
+    }
+  }
 }
