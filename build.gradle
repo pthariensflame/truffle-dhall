@@ -1,16 +1,15 @@
 plugins {
-  id 'base'
-  id 'distribution'
   id 'java-library'
-  id "org.javamodularity.moduleplugin" version '1.6.0'
+  id 'eclipse'
+  id 'distribution'
+  id 'maven-publish'
   id 'antlr'
   id "org.jetbrains.kotlin.jvm"
   id "org.jetbrains.kotlin.kapt"
   id "org.jetbrains.dokka"
   id "com.palantir.graal"
   id "com.hpe.kraal"
-  id 'maven-publish'
-  id 'eclipse'
+  id "org.javamodularity.moduleplugin"
 }
 
 version = '0.0.0'
@@ -40,36 +39,6 @@ class AlignmentRules implements ComponentMetadataRule {
       }
     }
   }
-}
-
-dependencies {
-  components.all(AlignmentRules)
-  api enforcedPlatform("org.antlr:antlr4-virtual-platform:${antlr4Version}")
-  api enforcedPlatform("org.jetbrains.kotlin:kotlin-bom:${kotlinVersion}")
-  api enforcedPlatform("org.graalvm:graalvm-virtual-platform:${graalVMVersion}")
-  testImplementation platform("org.junit:junit-bom:${junit5Version}")
-  implementation platform("com.fasterxml.jackson:jackson-bom:[2.10.3,2.10.4)")
-  constraints {
-    compileOnly "com.mageddo.nativeimage:reflection-config-generator:${reflConfGenVersion}"
-    implementation "com.ibm.icu:icu4j:[66.1,)"
-    implementation "org.abego.treelayout:org.abego.treelayout.core:[1.0.3,)"
-    implementation "org.glassfish:javax.json:[1.1.4,)"
-  }
-
-  antlr "org.antlr:antlr4:${antlr4Version}"
-  implementation "org.antlr:antlr4-runtime:${antlr4Version}"
-  api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}"
-  api "org.graalvm.truffle:truffle-api:${graalVMVersion}"
-  api "org.graalvm.sdk:graal-sdk:${graalVMVersion}"
-  compileOnly "org.graalvm.truffle:truffle-dsl-processor:${graalVMVersion}"
-  annotationProcessor "org.graalvm.truffle:truffle-dsl-processor:${graalVMVersion}"
-  kapt "org.graalvm.truffle:truffle-dsl-processor:${graalVMVersion}"
-  compileOnly "com.mageddo.nativeimage:reflection-config-generator:${reflConfGenVersion}"
-  annotationProcessor "com.mageddo.nativeimage:reflection-config-generator:${reflConfGenVersion}"
-  kapt "com.mageddo.nativeimage:reflection-config-generator:${reflConfGenVersion}"
-  testImplementation "org.jetbrains.kotlin:kotlin-test-junit5:${kotlinVersion}"
-  testImplementation "org.graalvm.truffle:truffle-tck:${graalVMVersion}"
-  testImplementation "org.junit.vintage:junit-vintage-engine:${junit5Version}"
 }
 
 test {
@@ -117,4 +86,37 @@ graal {
   mainClass 'com.pthariensflame.truffle_dhall.shell.DhallMain'
   outputName 'truffle-dhall'
   graalVersion '${graalVMVersion}'
+}
+
+dependencies {
+  components.all(AlignmentRules)
+  api enforcedPlatform("org.antlr:antlr4-virtual-platform:${antlr4Version}")
+  api enforcedPlatform("org.jetbrains.kotlin:kotlin-bom:${kotlinVersion}")
+  api enforcedPlatform("org.graalvm:graalvm-virtual-platform:${graalVMVersion}")
+  testImplementation platform("org.junit:junit-bom:${junit5Version}")
+  implementation platform("com.fasterxml.jackson:jackson-bom:[2.10.3,2.10.4)")
+  constraints {
+    compileOnly "com.mageddo.nativeimage:reflection-config-generator:${reflConfGenVersion}"
+    implementation "com.ibm.icu:icu4j:[66.1,)"
+    implementation "org.abego.treelayout:org.abego.treelayout.core:[1.0.3,)"
+    implementation "org.glassfish:javax.json:[1.1.4,)"
+  }
+
+  antlr "org.antlr:antlr4:${antlr4Version}"
+  implementation "org.antlr:antlr4-runtime:${antlr4Version}"
+  api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}"
+  api "org.graalvm.truffle:truffle-api:${graalVMVersion}"
+  api "org.graalvm.sdk:graal-sdk:${graalVMVersion}"
+  compileOnly "org.graalvm.truffle:truffle-dsl-processor:${graalVMVersion}"
+  annotationProcessor "org.graalvm.truffle:truffle-dsl-processor:${graalVMVersion}"
+  kapt "org.graalvm.truffle:truffle-dsl-processor:${graalVMVersion}"
+  compileOnly "com.mageddo.nativeimage:reflection-config-generator:${reflConfGenVersion}"
+  annotationProcessor "com.mageddo.nativeimage:reflection-config-generator:${reflConfGenVersion}"
+  kapt "com.mageddo.nativeimage:reflection-config-generator:${reflConfGenVersion}"
+  testImplementation "org.jetbrains.kotlin:kotlin-test-junit5:${kotlinVersion}"
+  testImplementation "org.graalvm.truffle:truffle-tck:${graalVMVersion}"
+  testImplementation "org.junit.vintage:junit-vintage-engine:${junit5Version}"
+  testImplementation "org.junit.jupiter:junit-jupiter-api:${junit5Version}"
+  testImplementation "org.junit.jupiter:junit-jupiter-params:${junit5Version}"
+  testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junit5Version}"
 }
