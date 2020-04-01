@@ -113,6 +113,8 @@ dependencies {
 // Copied and modified from here: https://stackoverflow.com/questions/44266042/kotlin-setup-via-gradle-on-eclipse
 eclipse {
   classpath {
+    downloadSources = true
+    downloadJavadoc = true
     //Adds the kotlin container to the classpath
     containers 'org.jetbrains.kotlin.core.KOTLIN_CONTAINER'
     //Fixes the right output path
@@ -134,12 +136,11 @@ eclipse {
   project {
     buildCommand 'org.jetbrains.kotlin.ui.kotlinBuilder'
     //Fixes the natures
-    natures 'org.jetbrains.kotlin.core.kotlinNature'
-    natures 'org.eclipse.jdt.core.javanature'
+    natures 'org.jetbrains.kotlin.core.kotlinNature', 'org.eclipse.jdt.core.javanature'
     //Links the kotlin_bin folder (generated class files)
     linkedResource name: 'kotlin_bin', type: '2', locationUri: "org.jetbrains.kotlin.core.filesystem:/${project.name}/kotlin_bin".toString()
     file{
-      whenMerged{
+      beforeMerged{
         def kotlinPrefs = file("../${project.name}/.settings/org.jetbrains.kotlin.core.prefs".toString())
         def jdkHome = System.properties.'java.home'
         if(!(jdkHome)){
