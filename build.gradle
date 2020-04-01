@@ -140,7 +140,7 @@ eclipse {
     //Links the kotlin_bin folder (generated class files)
     linkedResource name: 'kotlin_bin', type: '2', locationUri: "org.jetbrains.kotlin.core.filesystem:/${project.name}/kotlin_bin".toString()
     file{
-      beforeMerged{
+      whenMerged{
         def kotlinPrefs = file("../${project.name}/.settings/org.jetbrains.kotlin.core.prefs".toString())
         def jdkHome = System.properties.'java.home'
         if(!(jdkHome)){
