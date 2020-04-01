@@ -98,6 +98,7 @@ dependencies {
   testImplementation "org.junit.jupiter:junit-jupiter-params:${junit5Version}"
   testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junit5Version}"
 }
+
 // Copied and modified from here: https://stackoverflow.com/questions/44266042/kotlin-setup-via-gradle-on-eclipse
 // And also from here: https://github.com/eclipse/buildship/issues/620
 eclipse {
@@ -117,7 +118,10 @@ eclipse {
           if (source.kind == 'src' && !source.path.startsWith('/')) {
             source.output = null
           }
-          if (source.kind == 'src' || source.kind == 'lib' || source.kind == 'con') {
+          if ((source.kind == 'src' ||
+	       source.kind == 'lib' ||
+	       source.kind == 'con') &&
+	      (true)) {
             source.entryAttributes['module'] = 'true'
           }
         }
