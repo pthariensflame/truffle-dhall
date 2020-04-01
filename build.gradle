@@ -10,7 +10,9 @@ plugins {
   id "com.palantir.graal"
   id "com.hpe.kraal"
 }
+
 version = '0.0.0'
+
 repositories {
   maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
   maven { url 'https://kotlin.bintray.com/kotlinx' }
@@ -18,6 +20,7 @@ repositories {
   jcenter()
   gradlePluginPortal()
 }
+
 class AlignmentRules implements ComponentMetadataRule {
   void execute(ComponentMetadataContext ctx) {
     ctx.details.with {
@@ -33,19 +36,27 @@ class AlignmentRules implements ComponentMetadataRule {
     }
   }
 }
+
+patchModules.config = [
+  "parboiled.java=parboiled-core-${parboiledVersion}.jar".toString(),
+]
+
 test {
   useJUnitPlatform()
 }
+
 java {
   sourceCompatibility = JavaVersion.VERSION_11
   targetCompatibility = JavaVersion.VERSION_11
   withJavadocJar()
   withSourcesJar()
 }
+
 dokka {
   outputFormat = 'html'
   outputDirectory = "$docsDir/dokka"
 }
+
 compileKotlin {
   kotlinOptions {
     languageVersion = "1.4 (EXPERIMENTAL)"
@@ -54,6 +65,7 @@ compileKotlin {
     jvmTarget = "11"
   }
 }
+
 kapt {
   correctErrorTypes = true
   includeCompileClasspath = false
@@ -61,11 +73,13 @@ kapt {
     option("--module-path", compileJava.classpath.asPath)
   }
 }
+
 graal {
   mainClass 'com.pthariensflame.truffle_dhall.shell.DhallMain'
   outputName 'truffle-dhall'
   graalVersion "${graalVMVersion}"
 }
+
 dependencies {
   components.all(AlignmentRules)
   api enforcedPlatform("org.jetbrains.kotlin:kotlin-bom:${kotlinVersion}")
@@ -81,15 +95,16 @@ dependencies {
     implementation "org.parboiled:parboiled-java:${parboiledVersion}"
     implementation "org.parboiled:parboiled-core:${parboiledVersion}"
   }
+
   api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}"
   implementation "org.parboiled:parboiled-java:${parboiledVersion}"
   api "org.graalvm.truffle:truffle-api:${graalVMVersion}"
   implementation "org.graalvm.sdk:graal-sdk:${graalVMVersion}"
   compileOnly "org.graalvm.truffle:truffle-dsl-processor:${graalVMVersion}"
-  annotationProcessor "org.graalvm.truffle:truffle-dsl-processor:${graalVMVersion}"
+  // annotationProcessor "org.graalvm.truffle:truffle-dsl-processor:${graalVMVersion}"
   kapt "org.graalvm.truffle:truffle-dsl-processor:${graalVMVersion}"
   compileOnly "com.mageddo.nativeimage:reflection-config-generator:${reflConfGenVersion}"
-  annotationProcessor "com.mageddo.nativeimage:reflection-config-generator:${reflConfGenVersion}"
+  // annotationProcessor "com.mageddo.nativeimage:reflection-config-generator:${reflConfGenVersion}"
   kapt "com.mageddo.nativeimage:reflection-config-generator:${reflConfGenVersion}"
   testImplementation "org.jetbrains.kotlin:kotlin-test-junit5:${kotlinVersion}"
   testImplementation "org.graalvm.truffle:truffle-tck:${graalVMVersion}"
@@ -128,6 +143,7 @@ eclipse {
       }
     }
   }
+
   project {
     buildCommand 'org.jetbrains.kotlin.ui.kotlinBuilder'
     //Fixes the natures
