@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="output" path="bin/default"/>
-	<classpathentry output="bin/main" kind="src" path="src/main/java">
+	<classpathentry kind="output" path="bin"/>
+	<classpathentry kind="src" path="src/main/java">
 		<attributes>
 			<attribute name="gradle_scope" value="main"/>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-11/"/>
+	<classpathentry kind="con" path="org.jetbrains.kotlin.core.KOTLIN_CONTAINER"/>
 	<classpathentry sourcepath="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-jdk8/1.4-M1/58e2d4fd20d96d3c16871c0b0da5b567f5c4eb88/kotlin-stdlib-jdk8-1.4-M1-sources.jar" kind="lib" path="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-jdk8/1.4-M1/916ef15dd17b0c0a9b3bf60d968b5d10e57eb6d1/kotlin-stdlib-jdk8-1.4-M1.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>

@@ -110,15 +110,51 @@ dependencies {
   testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junit5Version}"
 }
 
-sourceSets {
-  main {
-    java {
-      srcDir 'build/generated-src/antlr/main'
+eclipse {
+  classpath {
+    //Adds the kotlin container to the classpath
+    containers 'org.jetbrains.kotlin.core.KOTLIN_CONTAINER'
+    //Fixes the right output path
+    defaultOutputDir = file('bin')
+    //Make all src folders output in the same output folder (default)
+    file {
+      whenMerged { 
+        // use default Output for all source-folders. see also defaultOutputDir per project
+        entries.each { source ->
+          // only Source-folders in the project starting with '/' are project-references
+          if (source.kind == 'src' && !source.path.startsWith('/')) { 
+            source.output = null
+          }
+        }
+      }
     }
   }
-  test {
-    java {
-      srcDir 'build/generated-src/antlr/test'
+
+  project {
+    buildCommand 'org.jetbrains.kotlin.ui.kotlinBuilder'
+    //Fixes the natures
+    natures 'org.jetbrains.kotlin.core.kotlinNature'
+    natures 'org.eclipse.jdt.core.javanature'
+    //Links the kotlin_bin folder (generated class files)
+    linkedResource name: 'kotlin_bin', type: '2', locationUri: "org.jetbrains.kotlin.core.filesystem:/${project.name}/kotlin_bin".toString()
+    file{
+      whenMerged{
+        def kotlinPrefs = file("../${project.name}/.settings/org.jetbrains.kotlin.core.prefs".toString())
+        def jdkHome = System.properties.'java.home'
+        if(!(jdkHome)){
+          throw new GradleException('No JDK home available for setting up Eclipse Kotlin plugin, setup env "java.home" or update this script.')
+        }
+        kotlinPrefs.write """\
+                    codeStyle/codeStyleId=KOTLIN_OFFICIAL
+                    codeStyle/globalsOverridden=true
+                    compilerPlugins/jpa/active=true
+                    compilerPlugins/no-arg/active=true
+                    compilerPlugins/spring/active=true
+                    eclipse.preferences.version=1
+                    globalsOverridden=true
+                    jdkHome=${jdkHome.replaceAll("\\\\", "/")}
+                """.stripIndent()
+      }
     }
   }
 }
