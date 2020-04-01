@@ -1,5 +1,6 @@
 plugins {
   id 'java-library'
+  id "org.javamodularity.moduleplugin"
   id 'eclipse'
   id 'distribution'
   id 'maven-publish'
@@ -8,7 +9,6 @@ plugins {
   id "org.jetbrains.dokka"
   id "com.palantir.graal"
   id "com.hpe.kraal"
-  id "org.javamodularity.moduleplugin"
 }
 
 version = '0.0.0'
