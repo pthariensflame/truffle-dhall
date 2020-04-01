@@ -142,18 +142,35 @@ eclipse {
     defaultOutputDir = file('bin')
     //Make all src folders output in the same output folder (default)
     file {
+      beforeMerged {
+        entries.findAll { source ->
+          (source.kind == 'src' ||
+           source.kind == 'con') ||
+            (source.kind == 'lib' &&
+             (source.path.endsWith("parboiled-java-${parboiledVersion}.jar") ||
+              source.path.endsWith("kotlin-stdlib-jdk8-${kotlinVersion}.jar") ||
+              source.path.endsWith("kotlin-reflect-${kotlinVersion}.jar") ||
+              source.path.endsWith("kotlin-test-${kotlinVersion}.jar") ||
+              source.path.endsWith("kotlin-test-junit5-${kotlinVersion}.jar") ||
+              source.path.endsWith("graal-sdk-${graalVMVersion}.jar") ||
+              source.path.endsWith("truffle-api-${graalVMVersion}.jar") ||
+              source.path.endsWith("truffle-dsl-processor-${graalVMVersion}.jar") ||
+              source.path.endsWith("truffle-api-${graalVMVersion}.jar") ||
+              source.path.endsWith("junit-vintage-engine-${junit5Version}.jar") ||
+              source.path.endsWith("junit-jupiter-api-${junit5Version}.jar") ||
+              source.path.endsWith("junit-jupiter-params-${junit5Version.jar}") ||
+              source.path.endsWith("junit-jupiter-engine-${junit5Version}.jar") ||
+              source.path.endsWith("reflection-config-generator-${reflConfGenVersion}.jar")))
+        }.each {
+          it.entryAttributes['module'] = 'true'
+        }
+      }
       whenMerged {
         // use default Output for all source-folders. see also defaultOutputDir per project
         entries.each { source ->
           // only Source-folders in the project starting with '/' are project-references
           if (source.kind == 'src' && !source.path.startsWith('/')) {
             source.output = null
-          }
-          if ((source.kind == 'src' ||
-	       source.kind == 'lib' ||
-	       source.kind == 'con') &&
-	      (true)) {
-            source.entryAttributes['module'] = 'true'
           }
         }
       }
