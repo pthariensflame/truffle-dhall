@@ -7,7 +7,7 @@ repositories {
 }
 
 dependencies {
-  testRuntimeOnly "org.javamodularity:moduleplugin:1.6.0"
+  testRuntimeOnly "org.javamodularity:moduleplugin:1.5.0"
   testRuntimeOnly "org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jvm.gradle.plugin:${kotlinVersion}"
   testRuntimeOnly "org.jetbrains.kotlin.kapt:org.jetbrains.kotlin.kapt.gradle.plugin:${kotlinVersion}"
   testRuntimeOnly "org.jetbrains.dokka:org.jetbrains.dokka.gradle.plugin:0.10.1"

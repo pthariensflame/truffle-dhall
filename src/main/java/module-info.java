@@ -8,6 +8,6 @@ module com.pthariensflame.truffle_dhall {
 	exports com.pthariensflame.truffle_dhall.parser;
 
 	requires parboiled.java;
-	requires org.graalvm.truffle;
+	requires transitive org.graalvm.truffle;
 	requires org.graalvm.sdk;
 }
