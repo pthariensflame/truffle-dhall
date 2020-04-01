@@ -143,26 +143,27 @@ eclipse {
     //Make all src folders output in the same output folder (default)
     file {
       beforeMerged {
-        entries.findAll { source ->
-          (source.kind == 'src' ||
-           source.kind == 'con') ||
-            (source.kind == 'lib' &&
-             (source.path.endsWith("parboiled-java-${parboiledVersion}.jar") ||
-              source.path.endsWith("kotlin-stdlib-jdk8-${kotlinVersion}.jar") ||
-              source.path.endsWith("kotlin-reflect-${kotlinVersion}.jar") ||
-              source.path.endsWith("kotlin-test-${kotlinVersion}.jar") ||
-              source.path.endsWith("kotlin-test-junit5-${kotlinVersion}.jar") ||
-              source.path.endsWith("graal-sdk-${graalVMVersion}.jar") ||
-              source.path.endsWith("truffle-api-${graalVMVersion}.jar") ||
-              source.path.endsWith("truffle-dsl-processor-${graalVMVersion}.jar") ||
-              source.path.endsWith("truffle-api-${graalVMVersion}.jar") ||
-              source.path.endsWith("junit-vintage-engine-${junit5Version}.jar") ||
-              source.path.endsWith("junit-jupiter-api-${junit5Version}.jar") ||
-              source.path.endsWith("junit-jupiter-params-${junit5Version.jar}") ||
-              source.path.endsWith("junit-jupiter-engine-${junit5Version}.jar") ||
-              source.path.endsWith("reflection-config-generator-${reflConfGenVersion}.jar")))
-        }.each {
-          it.entryAttributes['module'] = 'true'
+        entries.each { source ->
+          if ((source.kind == 'src' ||
+               source.kind == 'con') ||
+              (source.kind == 'lib' &&
+               (source.path.endsWith("parboiled-java-${parboiledVersion}.jar") ||
+                source.path.endsWith("kotlin-stdlib-jdk8-${kotlinVersion}.jar") ||
+                source.path.endsWith("kotlin-reflect-${kotlinVersion}.jar") ||
+                source.path.endsWith("kotlin-test-${kotlinVersion}.jar") ||
+                source.path.endsWith("kotlin-test-junit5-${kotlinVersion}.jar") ||
+                source.path.endsWith("graal-sdk-${graalVMVersion}.jar") ||
+                source.path.endsWith("truffle-api-${graalVMVersion}.jar") ||
+                source.path.endsWith("truffle-dsl-processor-${graalVMVersion}.jar") ||
+                source.path.endsWith("truffle-api-${graalVMVersion}.jar") ||
+                source.path.endsWith("junit-vintage-engine-${junit5Version}.jar") ||
+                source.path.endsWith("junit-jupiter-api-${junit5Version}.jar") ||
+                source.path.endsWith("junit-jupiter-params-${junit5Version.jar}") ||
+                source.path.endsWith("junit-jupiter-engine-${junit5Version}.jar") ||
+                source.path.endsWith("reflection-config-generator-${reflConfGenVersion}.jar")))
+          ) {
+            source.entryAttributes['module'] = 'true'
+          }
         }
       }
       whenMerged {
