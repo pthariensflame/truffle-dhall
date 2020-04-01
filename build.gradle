@@ -110,6 +110,7 @@ dependencies {
   testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junit5Version}"
 }
 
+// Copied and modified from here: https://stackoverflow.com/questions/44266042/kotlin-setup-via-gradle-on-eclipse
 eclipse {
   classpath {
     //Adds the kotlin container to the classpath
@@ -146,12 +147,6 @@ eclipse {
         }
         kotlinPrefs.write """\
                     codeStyle/codeStyleId=KOTLIN_OFFICIAL
-                    codeStyle/globalsOverridden=true
-                    compilerPlugins/jpa/active=true
-                    compilerPlugins/no-arg/active=true
-                    compilerPlugins/spring/active=true
-                    eclipse.preferences.version=1
-                    globalsOverridden=true
                     jdkHome=${jdkHome.replaceAll("\\\\", "/")}
                 """.stripIndent()
       }
