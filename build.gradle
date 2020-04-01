@@ -3,7 +3,6 @@ plugins {
   id 'eclipse'
   id 'distribution'
   id 'maven-publish'
-  id 'antlr'
   id "org.jetbrains.kotlin.jvm"
   id "org.jetbrains.kotlin.kapt"
   id "org.jetbrains.dokka"
@@ -15,8 +14,11 @@ plugins {
 version = '0.0.0'
 
 repositories {
+  maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
+  maven { url 'https://kotlin.bintray.com/kotlinx' }
   mavenCentral()
   jcenter()
+  gradlePluginPortal()
 }
 
 class AlignmentRules implements ComponentMetadataRule {
@@ -27,12 +29,6 @@ class AlignmentRules implements ComponentMetadataRule {
       }
       if (id.group.startsWith("org.jetbrains.kotlin")) {
         belongsTo("org.jetbrains.kotlin:kotlin-bom:${id.version}", false)
-      }
-      if (id.group.startsWith("org.antlr") && id.version >= '4.0') {
-        belongsTo("org.antlr:antlr4-virtual-platform:${id.version}")
-      }
-      if (id.group.startsWith("org.antlr") && id.version >= '3.0') {
-        belongsTo("org.antlr:antlr3-virtual-platform:${id.version}")
       }
       if (id.group.startsWith("com.fasterxml.jackson")) {
         belongsTo("com.fasterxml.jackson:jackson-bom:${id.version}", false)
@@ -74,23 +70,14 @@ kapt {
   }
 }
 
-generateGrammarSource {
-  arguments += ["-encoding", "UTF-8",
-                "-visitor",
-                "-listener",
-                "-long-messages",
-                "-package", "com.pthariensflame.truffle_dhall.parser.antlr"]
-}
-
 graal {
   mainClass 'com.pthariensflame.truffle_dhall.shell.DhallMain'
   outputName 'truffle-dhall'
-  graalVersion '${graalVMVersion}'
+  graalVersion "${graalVMVersion}"
 }
 
 dependencies {
   components.all(AlignmentRules)
-  api enforcedPlatform("org.antlr:antlr4-virtual-platform:${antlr4Version}")
   api enforcedPlatform("org.jetbrains.kotlin:kotlin-bom:${kotlinVersion}")
   api enforcedPlatform("org.graalvm:graalvm-virtual-platform:${graalVMVersion}")
   testImplementation platform("org.junit:junit-bom:${junit5Version}")
@@ -100,13 +87,15 @@ dependencies {
     implementation "com.ibm.icu:icu4j:[66.1,)"
     implementation "org.abego.treelayout:org.abego.treelayout.core:[1.0.3,)"
     implementation "org.glassfish:javax.json:[1.1.4,)"
+    implementation "org.antlr:antlr4-runtime:[4.8-1,)"
+    implementation "org.parboiled:parboiled-java:${parboiledVersion}"
+    implementation "org.parboiled:parboiled-core:${parboiledVersion}"
   }
 
-  antlr "org.antlr:antlr4:${antlr4Version}"
-  implementation "org.antlr:antlr4-runtime:${antlr4Version}"
   api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}"
+  implementation "org.parboiled:parboiled-java:${parboiledVersion}"
   api "org.graalvm.truffle:truffle-api:${graalVMVersion}"
-  api "org.graalvm.sdk:graal-sdk:${graalVMVersion}"
+  implementation "org.graalvm.sdk:graal-sdk:${graalVMVersion}"
   compileOnly "org.graalvm.truffle:truffle-dsl-processor:${graalVMVersion}"
   annotationProcessor "org.graalvm.truffle:truffle-dsl-processor:${graalVMVersion}"
   kapt "org.graalvm.truffle:truffle-dsl-processor:${graalVMVersion}"
