@@ -239,5 +239,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.jetbrains.kotlin.core.KOTLIN_CONTAINER"/>
+	<classpathentry exported="true" kind="lib" path="/Applications/eclipse/Eclipse.app/Contents/Eclipse/configuration/org.eclipse.osgi/508/0/.cp/lib/kotlinx-coroutines-core.jar"/>
+	<classpathentry exported="true" kind="lib" path="/Applications/eclipse/Eclipse.app/Contents/Eclipse/configuration/org.eclipse.osgi/508/0/.cp/lib/kotlinx-coroutines-jdk8.jar"/>
 	<classpathentry kind="output" path="bin/default"/>
 </classpath>
