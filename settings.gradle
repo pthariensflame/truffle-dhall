@@ -7,7 +7,7 @@ pluginManagement {
     jcenter()
   }
   plugins {
-    id "org.javamodularity.moduleplugin" version '1.5.0'
+    id "org.javamodularity.moduleplugin" version '1.6.0'
     id "org.jetbrains.kotlin.jvm" version kotlinVersion
     id "org.jetbrains.kotlin.kapt" version kotlinVersion
     id "org.jetbrains.dokka" version '0.10.1'

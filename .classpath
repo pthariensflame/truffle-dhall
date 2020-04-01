@@ -25,6 +25,13 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry sourcepath="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-reflect/1.4-M1/731156e026d503331bbf405d7331d4b2bccd988e/kotlin-reflect-1.4-M1-sources.jar" kind="lib" path="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-reflect/1.4-M1/708f59c67c562a15464dc98a457bdffb16ccdef/kotlin-reflect-1.4-M1.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:file:/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-reflect/1.4-M1/5b8f86fea035328fc9e8c660773037a3401ce25f/kotlin-reflect-1.4-M1-javadoc.jar!/"/>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry sourcepath="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-jdk7/1.4-M1/99b5396a20157f94b7c75868a2e6c40ed5173072/kotlin-stdlib-jdk7-1.4-M1-sources.jar" kind="lib" path="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-jdk7/1.4-M1/c5c801d447ea3c7ba2bccb86dbd61a5d2a3e71b9/kotlin-stdlib-jdk7-1.4-M1.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:file:/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-jdk7/1.4-M1/5b8f86fea035328fc9e8c660773037a3401ce25f/kotlin-stdlib-jdk7-1.4-M1-javadoc.jar!/"/>
@@ -174,17 +181,17 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry sourcepath="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-test-annotations-common/1.4-M1/57512e29ee20defe37d54ce19507d599b0f2113/kotlin-test-annotations-common-1.4-M1-sources.jar" kind="lib" path="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-test-annotations-common/1.4-M1/7cbffc24a65c993d6b1e4d8e29b0e6bb460dc827/kotlin-test-annotations-common-1.4-M1.jar">
+	<classpathentry sourcepath="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-test-common/1.4-M1/ce442dfc6a145e1a94305a52ce98e131786902b7/kotlin-test-common-1.4-M1-sources.jar" kind="lib" path="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-test-common/1.4-M1/73cc25efdfb3736d7f13e20cd4e886e6c6164c84/kotlin-test-common-1.4-M1.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-test-annotations-common/1.4-M1/5b8f86fea035328fc9e8c660773037a3401ce25f/kotlin-test-annotations-common-1.4-M1-javadoc.jar!/"/>
+			<attribute name="javadoc_location" value="jar:file:/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-test-common/1.4-M1/5b8f86fea035328fc9e8c660773037a3401ce25f/kotlin-test-common-1.4-M1-javadoc.jar!/"/>
 			<attribute name="gradle_used_by_scope" value="test"/>
 			<attribute name="test" value="true"/>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry sourcepath="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-test-common/1.4-M1/ce442dfc6a145e1a94305a52ce98e131786902b7/kotlin-test-common-1.4-M1-sources.jar" kind="lib" path="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-test-common/1.4-M1/73cc25efdfb3736d7f13e20cd4e886e6c6164c84/kotlin-test-common-1.4-M1.jar">
+	<classpathentry sourcepath="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-test-annotations-common/1.4-M1/57512e29ee20defe37d54ce19507d599b0f2113/kotlin-test-annotations-common-1.4-M1-sources.jar" kind="lib" path="/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-test-annotations-common/1.4-M1/7cbffc24a65c993d6b1e4d8e29b0e6bb460dc827/kotlin-test-annotations-common-1.4-M1.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-test-common/1.4-M1/5b8f86fea035328fc9e8c660773037a3401ce25f/kotlin-test-common-1.4-M1-javadoc.jar!/"/>
+			<attribute name="javadoc_location" value="jar:file:/Users/Alexander/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-test-annotations-common/1.4-M1/5b8f86fea035328fc9e8c660773037a3401ce25f/kotlin-test-annotations-common-1.4-M1-javadoc.jar!/"/>
 			<attribute name="gradle_used_by_scope" value="test"/>
 			<attribute name="test" value="true"/>
 			<attribute name="module" value="true"/>

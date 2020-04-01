@@ -37,49 +37,6 @@ class AlignmentRules implements ComponentMetadataRule {
   }
 }
 
-patchModules.config = [
-  "parboiled.java=parboiled-core-${parboiledVersion}.jar".toString(),
-]
-
-test {
-  useJUnitPlatform()
-}
-
-java {
-  sourceCompatibility = JavaVersion.VERSION_11
-  targetCompatibility = JavaVersion.VERSION_11
-  withJavadocJar()
-  withSourcesJar()
-}
-
-dokka {
-  outputFormat = 'html'
-  outputDirectory = "$docsDir/dokka"
-}
-
-compileKotlin {
-  kotlinOptions {
-    languageVersion = "1.4 (EXPERIMENTAL)"
-    apiVersion = "1.4 (EXPERIMENTAL)"
-    javaParameters = true
-    jvmTarget = "11"
-  }
-}
-
-kapt {
-  correctErrorTypes = true
-  includeCompileClasspath = false
-  javacOptions {
-    option("--module-path", compileJava.classpath.asPath)
-  }
-}
-
-graal {
-  mainClass 'com.pthariensflame.truffle_dhall.shell.DhallMain'
-  outputName 'truffle-dhall'
-  graalVersion "${graalVMVersion}"
-}
-
 dependencies {
   components.all(AlignmentRules)
   api enforcedPlatform("org.jetbrains.kotlin:kotlin-bom:${kotlinVersion}")
@@ -97,6 +54,7 @@ dependencies {
   }
 
   api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}"
+  api "org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}"
   implementation "org.parboiled:parboiled-java:${parboiledVersion}"
   api "org.graalvm.truffle:truffle-api:${graalVMVersion}"
   implementation "org.graalvm.sdk:graal-sdk:${graalVMVersion}"
@@ -106,12 +64,70 @@ dependencies {
   compileOnly "com.mageddo.nativeimage:reflection-config-generator:${reflConfGenVersion}"
   // annotationProcessor "com.mageddo.nativeimage:reflection-config-generator:${reflConfGenVersion}"
   kapt "com.mageddo.nativeimage:reflection-config-generator:${reflConfGenVersion}"
+  testImplementation "org.jetbrains.kotlin:kotlin-test:${kotlinVersion}"
   testImplementation "org.jetbrains.kotlin:kotlin-test-junit5:${kotlinVersion}"
   testImplementation "org.graalvm.truffle:truffle-tck:${graalVMVersion}"
   testImplementation "org.junit.vintage:junit-vintage-engine:${junit5Version}"
   testImplementation "org.junit.jupiter:junit-jupiter-api:${junit5Version}"
   testImplementation "org.junit.jupiter:junit-jupiter-params:${junit5Version}"
   testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junit5Version}"
+}
+
+java {
+  // sourceCompatibility = JavaVersion.VERSION_11
+  // targetCompatibility = JavaVersion.VERSION_11
+  withJavadocJar()
+  withSourcesJar()
+}
+
+modularity {
+  standardJavaRelease 11
+}
+
+patchModules.config = [
+  "parboiled.java=parboiled-core-${parboiledVersion}.jar".toString(),
+]
+
+test {
+  useJUnitPlatform()
+}
+
+dokka {
+  outputFormat = 'html'
+  outputDirectory = "$docsDir/dokka"
+}
+
+compileKotlin {
+  kotlinOptions {
+    languageVersion = "1.4 (EXPERIMENTAL)"
+    apiVersion = "1.4 (EXPERIMENTAL)"
+    javaParameters = true
+    jvmTarget = "11"
+    freeCompilerArgs += [
+      "-Xjvm-default=enable",
+      "-Xstrict-java-nullability-assertions",
+      "-Xassertions=jvm",
+      "-Xemit-jvm-type-annotations",
+      "-Xjsr305=strict",
+      "-Xjsr305=under-migration:strict",
+      "-Xmodule-path=${}".toString(),
+    ]
+  }
+}
+
+kapt {
+  correctErrorTypes = true
+  includeCompileClasspath = false
+  javacOptions {
+    option("--module-path", compileJava.classpath.asPath)
+    option("--patch-module", "parboiled.java=parboiled-core-${parboiledVersion}.jar")
+  }
+}
+
+graal {
+  mainClass 'com.pthariensflame.truffle_dhall.shell.DhallMain'
+  outputName 'truffle-dhall'
+  graalVersion "${graalVMVersion}"
 }
 
 // Copied and modified from here: https://stackoverflow.com/questions/44266042/kotlin-setup-via-gradle-on-eclipse
