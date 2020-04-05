@@ -18,4 +18,5 @@ pluginManagement {
     }
 }
 
-rootProject.name = "truffle-dhall"
+rootProject.name = "truffle-dhall-root"
+include("truffle-dhall", "truffle-grammars")
