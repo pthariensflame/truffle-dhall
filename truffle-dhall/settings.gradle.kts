@@ -1,1 +1,1 @@
-include("truffle-dhall", "truffle-grammars")
+include("ast", "evaluation", "parser", "shell")
