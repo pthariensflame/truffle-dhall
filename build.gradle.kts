@@ -1,5 +1,8 @@
-import org.jetbrains.kotlin.gradle.plugin.KotlinMultiplatformPluginWrapper
+import com.hpe.kraal.gradle.KraalPlugin
+import com.palantir.gradle.graal.GradleGraalPlugin
+import org.jetbrains.dokka.gradle.DokkaPlugin
 import org.jetbrains.kotlin.gradle.internal.Kapt3GradleSubplugin
+import org.jetbrains.kotlin.gradle.plugin.KotlinMultiplatformPluginWrapper
 
 val kotlinVersion: String by project
 val graalVMVersion: String by project
@@ -17,34 +20,7 @@ plugins {
     idea
 }
 
-subprojects {
-    apply {
-        plugin<KotlinMultiplatformPluginWrapper>()
-        plugin<Kapt3GradleSubplugin>()
-        plugin<JavaLibraryPlugin>()
-        plugin<MavenPublishPlugin>()
-        plugin<IvyPublishPlugin>()
-    }
-
-    val test: Test by tasks
-    test.apply {
-        useJUnitPlatform {
-            this.includeEngines(
-                    "junit-jupiter-engine",
-                    "junit-vintage-engine"
-                               )
-        }
-    }
-}
-
 allprojects {
-    version = "0.0.0"
-
-    kotlin {
-        jvm("jdk8")
-        jvm("jdk11")
-    }
-
     repositories {
         maven { url = uri("https://dl.bintray.com/kotlin/kotlin-eap") }
         maven { url = uri("https://kotlin.bintray.com/kotlinx") }
@@ -52,6 +28,24 @@ allprojects {
         jcenter()
         gradlePluginPortal()
     }
+}
+
+subprojects {
+    apply {
+        plugin<KotlinMultiplatformPluginWrapper>()
+        plugin<Kapt3GradleSubplugin>()
+        plugin<JavaLibraryPlugin>()
+        plugin<DokkaPlugin>()
+        plugin<MavenPublishPlugin>()
+        plugin<IvyPublishPlugin>()
+        plugin<GradleGraalPlugin>()
+        plugin<KraalPlugin>()
+    }
+}
+
+allprojects {
+    version = "0.0.0"
+    group = "com.pthariensflame.truffle_dhall"
 
     dependencies {
         components.all {
@@ -61,7 +55,48 @@ allprojects {
         }
         implementation(platform(kotlin("bom", kotlinVersion)))
         testImplementation(platform("org.junit:junit-bom:[5.6.1,)"))
-        api("org.jetbrains.kotlin.kapt:$kotlinVersion")
+    }
+}
+
+subprojects {
+    val test: Test by tasks
+    test.run {
+        useJUnitPlatform {
+            this.includeEngines(
+                    "junit-jupiter-engine",
+                    "junit-vintage-engine"
+                               )
+        }
+    }
+
+    dependencies {
+        implementation(kotlin("stdlib-jdk8"))
+        implementation(kotlin("reflect"))
+        implementation("org.graalvm.sdk:graal-sdk:$graalVMVersion")
+        implementation("org.graalvm.sdk:launcher-common:$graalVMVersion")
+        api("org.graalvm.truffle:truffle-api:$graalVMVersion")
+        //kapt("org.graalvm.truffle:truffle-dsl-processor:$graalVMVersion")
+        //kapt("com.mageddo.nativeimage:reflection-config-generator:[2.3.4,2.4.0)")
+        implementation("com.ibm.icu:icu4j:[66.1,)")
+
+        testImplementation(kotlin("test"))
+        testImplementation(kotlin("test-junit5"))
+        testImplementation("org.junit.jupiter:junit-jupiter-api")
+        testImplementation("org.junit.jupiter:junit-jupiter-params")
+        testImplementation("org.junit.jupiter:junit-jupiter-engine")
+        testImplementation("org.junit.vintage:junit-vintage-engine")
+        testImplementation("org.graalvm.truffle:truffle-tck:$graalVMVersion")
+        testImplementation("org.graalvm.sdk:polyglot-tck:$graalVMVersion")
+    }
+
+    java {
+        sourceCompatibility = org.gradle.api.JavaVersion.VERSION_1_8
+        withJavadocJar()
+        withSourcesJar()
+    }
+
+    kotlin {
+        jvm()
     }
 }
 
