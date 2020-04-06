@@ -1,4 +1,5 @@
-import org.jetbrains.kotlin.gradle.plugin.*
+import org.jetbrains.kotlin.gradle.plugin.KotlinMultiplatformPluginWrapper
+import org.jetbrains.kotlin.gradle.internal.Kapt3GradleSubplugin
 
 val kotlinVersion: String by project
 val graalVMVersion: String by project
@@ -19,6 +20,7 @@ plugins {
 subprojects {
     apply {
         plugin<KotlinMultiplatformPluginWrapper>()
+        plugin<Kapt3GradleSubplugin>()
         plugin<JavaLibraryPlugin>()
         plugin<MavenPublishPlugin>()
         plugin<IvyPublishPlugin>()
@@ -48,6 +50,7 @@ allprojects {
         maven { url = uri("https://kotlin.bintray.com/kotlinx") }
         mavenCentral()
         jcenter()
+        gradlePluginPortal()
     }
 
     dependencies {
@@ -58,6 +61,7 @@ allprojects {
         }
         implementation(platform(kotlin("bom", kotlinVersion)))
         testImplementation(platform("org.junit:junit-bom:[5.6.1,)"))
+        api("org.jetbrains.kotlin.kapt:$kotlinVersion")
     }
 }
 
@@ -91,13 +95,13 @@ dependencies {
 // compileJava.modularClasspathHandling.inferModulePath.set(true)
 // val javaCompileClasspath = compileJava.classpath.asPath
 
-// kapt {
-//     correctErrorTypes = true
-//     includeCompileClasspath = false
-//     javacOptions {
-// 	option("--module-path", javaCompileClasspath)
-//     }
-// }
+//kapt {
+//    correctErrorTypes = true
+//    includeCompileClasspath = false
+//    javacOptions {
+//        //option("--module-path", javaCompileClasspath)
+//    }
+//}
 
 // java {
 //     release.set(11)
