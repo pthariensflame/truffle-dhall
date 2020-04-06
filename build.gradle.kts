@@ -1,8 +1,4 @@
-import com.hpe.kraal.gradle.KraalPlugin
-import com.palantir.gradle.graal.GradleGraalPlugin
-import org.jetbrains.dokka.gradle.DokkaPlugin
-import org.jetbrains.kotlin.gradle.internal.Kapt3GradleSubplugin
-import org.jetbrains.kotlin.gradle.plugin.KotlinMultiplatformPluginWrapper
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 val kotlinVersion: String by project
 val graalVMVersion: String by project
@@ -32,14 +28,15 @@ allprojects {
 
 subprojects {
     apply {
-        plugin<KotlinMultiplatformPluginWrapper>()
-        plugin<Kapt3GradleSubplugin>()
+        plugin("kotlin-multiplatform")
+        plugin("kotlin-kapt")
         plugin<JavaLibraryPlugin>()
-        plugin<DokkaPlugin>()
+        plugin("org.jetbrains.dokka")
         plugin<MavenPublishPlugin>()
         plugin<IvyPublishPlugin>()
-        plugin<GradleGraalPlugin>()
-        plugin<KraalPlugin>()
+        plugin("com.palantir.graal")
+        plugin("com.hpe.kraal")
+        plugin<IdeaPlugin>()
     }
 }
 
@@ -56,10 +53,6 @@ allprojects {
         implementation(platform(kotlin("bom", kotlinVersion)))
         testImplementation(platform("org.junit:junit-bom:[5.6.1,)"))
     }
-
-    kotlin {
-        jvm()
-    }
 }
 
 subprojects {
@@ -72,31 +65,84 @@ subprojects {
                                )
         }
     }
+}
 
-    dependencies {
-        implementation(kotlin("stdlib-jdk8"))
-        implementation(kotlin("reflect"))
-        implementation("org.graalvm.sdk:graal-sdk:$graalVMVersion")
-        implementation("org.graalvm.sdk:launcher-common:$graalVMVersion")
-        api("org.graalvm.truffle:truffle-api:$graalVMVersion")
-        //kapt("org.graalvm.truffle:truffle-dsl-processor:$graalVMVersion")
-        //kapt("com.mageddo.nativeimage:reflection-config-generator:[2.3.4,2.4.0)")
-        implementation("com.ibm.icu:icu4j:[66.1,)")
+allprojects {
+    kotlin {
+        jvm() {
+            subprojects {
+                dependencies {
+                    implementation(kotlin("stdlib-jdk8"))
+                    implementation(kotlin("reflect"))
+                    implementation("org.graalvm.sdk:graal-sdk:$graalVMVersion")
+                    implementation("org.graalvm.sdk:launcher-common:$graalVMVersion")
+                    api("org.graalvm.truffle:truffle-api:$graalVMVersion")
+                    //kapt("org.graalvm.truffle:truffle-dsl-processor:$graalVMVersion")
+                    //kapt("com.mageddo.nativeimage:reflection-config-generator:[2.3.4,2.4.0)")
+                    implementation("com.ibm.icu:icu4j:[66.1,)")
 
-        testImplementation(kotlin("test"))
-        testImplementation(kotlin("test-junit5"))
-        testImplementation("org.junit.jupiter:junit-jupiter-api")
-        testImplementation("org.junit.jupiter:junit-jupiter-params")
-        testImplementation("org.junit.jupiter:junit-jupiter-engine")
-        testImplementation("org.junit.vintage:junit-vintage-engine")
-        testImplementation("org.graalvm.truffle:truffle-tck:$graalVMVersion")
-        testImplementation("org.graalvm.sdk:polyglot-tck:$graalVMVersion")
-    }
+                    testImplementation(kotlin("test"))
+                    testImplementation(kotlin("test-junit5"))
+                    testImplementation("org.junit.jupiter:junit-jupiter-api")
+                    testImplementation("org.junit.jupiter:junit-jupiter-params")
+                    testImplementation("org.junit.jupiter:junit-jupiter-engine")
+                    testImplementation("org.junit.vintage:junit-vintage-engine")
+                    testImplementation("org.graalvm.truffle:truffle-tck:$graalVMVersion")
+                    testImplementation("org.graalvm.sdk:polyglot-tck:$graalVMVersion")
+                }
 
-    java {
-        sourceCompatibility = org.gradle.api.JavaVersion.VERSION_1_8
-        withJavadocJar()
-        withSourcesJar()
+                java {
+                    release.set(11)
+                    withJavadocJar()
+                    withSourcesJar()
+                }
+
+                tasks.withType<KotlinCompile>().configureEach {
+                    kotlinOptions.apply {
+                        languageVersion = "1.4"
+                        apiVersion = "1.4"
+                        javaParameters = true
+                        jvmTarget = "11"
+                        freeCompilerArgs += sequenceOf(
+                                "-Xjvm-default=enable",
+                                "-Xassertions=jvm",
+                                "-Xemit-jvm-type-annotations",
+                                "-Xjsr305=strict",
+                                "-Xjsr305=under-migration:warn"
+//                                "-Xmodule-path=$javaCompileClasspath"
+                                                      )
+                    }
+                }
+
+//                kapt {
+//                    correctErrorTypes = true
+//                    includeCompileClasspath = false
+//                    javacOptions {
+//                        //option("--module-path", javaCompileClasspath)
+//                    }
+//                }
+
+//                graal {
+//                    mainClass("com.pthariensflame.truffle_dhall.shell.DhallMain")
+//                    outputName("truffle-dhall")
+//                    graalVersion(graalVMVersion)
+//                }
+
+                val dokka: org.jetbrains.dokka.gradle.DokkaTask by tasks
+                dokka.apply {
+                    outputFormat = "html"
+                    outputDirectory = "$docsDir/dokka"
+                }
+            }
+
+            allprojects {
+                idea {
+                    module {
+                        jdkName = "GraalVM 11 ($graalVMVersion)".toString()
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -105,76 +151,14 @@ dependencies {
     implementation(project("truffle-grammars"))
 }
 
-// dependencies {
-
-//     implementation(kotlin("stdlib-jdk8"))
-//     implementation(kotlin("reflect"))
-//     implementation("org.graalvm.sdk:graal-sdk:$graalVMVersion")
-//     implementation("org.graalvm.sdk:launcher-common:$graalVMVersion")
-//     api("org.graalvm.truffle:truffle-api:$graalVMVersion")
-//     kapt("org.graalvm.truffle:truffle-dsl-processor:$graalVMVersion")
-//     kapt("com.mageddo.nativeimage:reflection-config-generator:[2.3.4,2.4.0)")
-//     implementation("com.ibm.icu:icu4j:[66.1,)")
-
-
-//     testImplementation(kotlin("test"))
-//     testImplementation(kotlin("test-junit5"))
-//     testImplementation("org.junit.jupiter:junit-jupiter-api")
-//     testImplementation("org.junit.jupiter:junit-jupiter-params")
-//     testImplementation("org.junit.jupiter:junit-jupiter-engine")
-//     testImplementation("org.junit.vintage:junit-vintage-engine")
-//     testImplementation("org.graalvm.truffle:truffle-tck:$graalVMVersion")
-//     testImplementation("org.graalvm.sdk:polyglot-tck:$graalVMVersion")
-// }
 // val compileJava: JavaCompile by tasks
 // compileJava.modularClasspathHandling.inferModulePath.set(true)
 // val javaCompileClasspath = compileJava.classpath.asPath
 
-//kapt {
-//    correctErrorTypes = true
-//    includeCompileClasspath = false
-//    javacOptions {
-//        //option("--module-path", javaCompileClasspath)
-//    }
-//}
-
-// java {
-//     release.set(11)
-//     withJavadocJar()
-//     withSourcesJar()
-// }
-
-// graal {
-//     mainClass("com.pthariensflame.truffle_dhall.shell.DhallMain")
-//     outputName("truffle-dhall")
-//     graalVersion(graalVMVersion)
-// }
-
-// val compileKotlin: KotlinCompile by tasks
-// tasks.withType<KotlinCompile>().configureEach {
-//     kotlinOptions.apply {
-// 	languageVersion = "1.4"
-// 	apiVersion = "1.4"
-// 	javaParameters = true
-// 	jvmTarget = "11"
-// 	freeCompilerArgs += sequenceOf(
-// 	    "-Xjvm-default=enable",
-// 	    "-Xassertions=jvm",
-// 	    "-Xemit-jvm-type-annotations",
-// 	    "-Xjsr305=strict",
-// 	    "-Xjsr305=under-migration:warn",
-// 	    "-Xmodule-path=$javaCompileClasspath"
-// 	)
-//     }
-// }
 
 // application {
 //     mainClassName = "com.pthariensflame.truffle_dhall.shell.DhallMain"
 // }
 
-// val dokka: org.jetbrains.dokka.gradle.DokkaTask by tasks
-// dokka.apply {
-//     outputFormat = "html"
-//     outputDirectory = "$docsDir/dokka"
-// }
+
 
