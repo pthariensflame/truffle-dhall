@@ -56,6 +56,10 @@ allprojects {
         implementation(platform(kotlin("bom", kotlinVersion)))
         testImplementation(platform("org.junit:junit-bom:[5.6.1,)"))
     }
+
+    kotlin {
+        jvm()
+    }
 }
 
 subprojects {
@@ -93,10 +97,6 @@ subprojects {
         sourceCompatibility = org.gradle.api.JavaVersion.VERSION_1_8
         withJavadocJar()
         withSourcesJar()
-    }
-
-    kotlin {
-        jvm()
     }
 }
 
