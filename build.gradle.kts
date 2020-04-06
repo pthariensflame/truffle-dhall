@@ -1,11 +1,11 @@
-// import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.gradle.plugin.*
 
 val kotlinVersion: String by project
 val graalVMVersion: String by project
 val docsDir: File by project
 
 plugins {
-    kotlin("jvm")
+    kotlin("multiplatform")
     `java-library`
     kotlin("kapt") apply false
     id("org.jetbrains.dokka") apply false
@@ -18,13 +18,30 @@ plugins {
 
 subprojects {
     apply {
-        plugin("kotlin")
+        plugin<KotlinMultiplatformPluginWrapper>()
         plugin<JavaLibraryPlugin>()
+        plugin<MavenPublishPlugin>()
+        plugin<IvyPublishPlugin>()
+    }
+
+    val test: Test by tasks
+    test.apply {
+        useJUnitPlatform {
+            this.includeEngines(
+                    "junit-jupiter-engine",
+                    "junit-vintage-engine"
+                               )
+        }
     }
 }
 
 allprojects {
     version = "0.0.0"
+
+    kotlin {
+        jvm("jdk8")
+        jvm("jdk11")
+    }
 
     repositories {
         maven { url = uri("https://dl.bintray.com/kotlin/kotlin-eap") }
@@ -122,12 +139,3 @@ dependencies {
 //     outputDirectory = "$docsDir/dokka"
 // }
 
-// val test: Test by tasks
-// test.apply {
-//     useJUnitPlatform {
-// 	this.includeEngines(
-// 	    "junit-jupiter-engine",
-// 	    "junit-vintage-engine"
-// 	)
-//     }
-// }

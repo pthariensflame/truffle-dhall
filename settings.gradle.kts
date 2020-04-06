@@ -10,7 +10,7 @@ pluginManagement {
     plugins {
         val kotlinVersion: String by settings
 
-        kotlin("jvm") version kotlinVersion
+        kotlin("multiplatform") version kotlinVersion
         kotlin("kapt") version kotlinVersion
         id("org.jetbrains.dokka") version "0.10.1"
         id("com.palantir.graal") version "0.6.0-112-gca0b727"
@@ -19,4 +19,14 @@ pluginManagement {
 }
 
 rootProject.name = "truffle-dhall-root"
-include("truffle-dhall", "truffle-grammars")
+include(
+        "truffle-dhall",
+        "truffle-dhall:ast",
+        "truffle-dhall:evaluation",
+        "truffle-dhall:parser",
+        "truffle-dhall:shell",
+        "truffle-grammars",
+        "truffle-grammars:ast",
+        "truffle-grammars:evaluation",
+        "truffle-grammars:parser"
+       )
