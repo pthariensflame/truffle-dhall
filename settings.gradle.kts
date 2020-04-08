@@ -7,6 +7,8 @@ pluginManagement {
         maven { url = uri("https://kotlin.bintray.com/kotlinx") }
         mavenCentral()
         jcenter()
+        maven("https://dl.bintray.com/kotlin/kotlin-eap")
+        maven("https://plugins.gradle.org/m2/")
     }
 
     plugins {
@@ -21,14 +23,12 @@ pluginManagement {
 }
 
 rootProject.name = "truffle-dhall-root"
-include(
-        "truffle-dhall",
-        "truffle-dhall:ast",
-        "truffle-dhall:evaluation",
-        "truffle-dhall:parser",
-        "truffle-dhall:shell",
-        "truffle-grammars",
-        "truffle-grammars:ast",
-        "truffle-grammars:evaluation",
-        "truffle-grammars:parser"
-       )
+include("truffle-dhall")
+include("truffle-dhall:ast")
+include("truffle-dhall:evaluation")
+include("truffle-dhall:parser")
+include("truffle-dhall:shell")
+include("truffle-grammars")
+include("truffle-grammars:ast")
+include("truffle-grammars:evaluation")
+include("truffle-grammars:parser")

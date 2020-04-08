@@ -6,14 +6,14 @@ val docsDir: File by project
 
 plugins {
     kotlin("multiplatform")
-    kotlin("kapt") apply false
     `java-library`
-    id("org.jetbrains.dokka") apply false
-    id("com.palantir.graal") apply false
-    id("com.hpe.kraal") apply false
+    id("org.jetbrains.dokka")
+    id("com.palantir.graal")
+    id("com.hpe.kraal")
     `maven-publish`
-    `ivy-publish`
+    kotlin("kapt")
     idea
+    kotlin("jvm") version "1.4-M1"
 }
 
 allprojects {
@@ -24,23 +24,18 @@ allprojects {
         jcenter()
         gradlePluginPortal()
     }
-}
 
-subprojects {
     apply {
         plugin("kotlin-multiplatform")
-        plugin("kotlin-kapt")
         plugin<JavaLibraryPlugin>()
         plugin("org.jetbrains.dokka")
-        plugin<MavenPublishPlugin>()
-        plugin<IvyPublishPlugin>()
         plugin("com.palantir.graal")
         plugin("com.hpe.kraal")
+        plugin<MavenPublishPlugin>()
+        plugin("kotlin-kapt")
         plugin<IdeaPlugin>()
     }
-}
 
-allprojects {
     version = "0.0.0"
     group = "com.pthariensflame.truffle_dhall"
 
@@ -53,9 +48,7 @@ allprojects {
         implementation(platform(kotlin("bom", kotlinVersion)))
         testImplementation(platform("org.junit:junit-bom:[5.6.1,)"))
     }
-}
 
-subprojects {
     val test: Test by tasks
     test.run {
         useJUnitPlatform {
@@ -65,12 +58,11 @@ subprojects {
                                )
         }
     }
-}
 
-allprojects {
     java {
         withJavadocJar()
         withSourcesJar()
+        sourceCompatibility = JavaVersion.VERSION_15
     }
 
     kotlin {
@@ -80,6 +72,9 @@ allprojects {
                     jvmTarget = "1.8"
                 }
             }
+            java {
+                targetCompatibility = JavaVersion.VERSION_1_8
+            }
         }
         jvm("jdk11") {
             withJava()
@@ -88,27 +83,36 @@ allprojects {
                     jvmTarget = "11"
                 }
             }
+            java {
+                targetCompatibility = JavaVersion.VERSION_11
+                modularClasspathHandling.inferModulePath.set(true)
+            }
+        }
+    }
+
+    kapt {
+        correctErrorTypes = true
+        includeCompileClasspath = false
+        javacOptions {
+            //option("--module-path", javaCompileClasspath)
         }
     }
 
     idea {
         module {
-            jdkName = "SapMachine 14"
             isDownloadJavadoc = true
             isDownloadSources = true
         }
     }
-}
 
-subprojects {
     dependencies {
         implementation(kotlin("stdlib-jdk8"))
         implementation(kotlin("reflect"))
         implementation("org.graalvm.sdk:graal-sdk:$graalVMVersion")
         implementation("org.graalvm.sdk:launcher-common:$graalVMVersion")
         api("org.graalvm.truffle:truffle-api:$graalVMVersion")
-        //kapt("org.graalvm.truffle:truffle-dsl-processor:$graalVMVersion")
-        //kapt("com.mageddo.nativeimage:reflection-config-generator:[2.3.4,2.4.0)")
+        "kapt"("org.graalvm.truffle:truffle-dsl-processor:$graalVMVersion")
+        "kapt"("com.mageddo.nativeimage:reflection-config-generator:[2.3.4,2.4.0)")
         implementation("com.ibm.icu:icu4j:[66.1,)")
 
         testImplementation(kotlin("test"))
@@ -137,19 +141,11 @@ subprojects {
         }
     }
 
-//                kapt {
-//                    correctErrorTypes = true
-//                    includeCompileClasspath = false
-//                    javacOptions {
-//                        //option("--module-path", javaCompileClasspath)
-//                    }
-//                }
-
-//                graal {
-//                    mainClass("com.pthariensflame.truffle_dhall.shell.DhallMain")
-//                    outputName("truffle-dhall")
-//                    graalVersion(graalVMVersion)
-//                }
+    graal {
+        mainClass("com.pthariensflame.truffle_dhall.shell.DhallMain")
+        outputName("truffle-dhall")
+        graalVersion(graalVMVersion)
+    }
 
     val dokka: org.jetbrains.dokka.gradle.DokkaTask by tasks
     dokka.apply {
@@ -159,18 +155,37 @@ subprojects {
 }
 
 dependencies {
-    api(project("truffle-dhall"))
-    implementation(project("truffle-grammars"))
+    implementation(project(":truffle-dhall"))
+    implementation(project(":truffle-grammars"))
+    implementation(kotlin("stdlib-jdk8"))
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            artifactId = "truffle-dhall-bom"
+        }
+    }
+}
+
+idea {
+    project {
+        jdkName = "SapMachine 15 EA"
+    }
 }
 
 // val compileJava: JavaCompile by tasks
 // compileJava.modularClasspathHandling.inferModulePath.set(true)
 // val javaCompileClasspath = compileJava.classpath.asPath
-
-
-// application {
-//     mainClassName = "com.pthariensflame.truffle_dhall.shell.DhallMain"
-// }
-
-
-
+repositories {
+    maven("https://dl.bintray.com/kotlin/kotlin-eap")
+    mavenCentral()
+}
+val compileKotlin: KotlinCompile by tasks
+compileKotlin.kotlinOptions {
+    jvmTarget = "1.8"
+}
+val compileTestKotlin: KotlinCompile by tasks
+compileTestKotlin.kotlinOptions {
+    jvmTarget = "1.8"
+}
