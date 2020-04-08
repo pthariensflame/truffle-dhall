@@ -69,50 +69,68 @@ subprojects {
 
 allprojects {
     kotlin {
-        jvm() {
-            subprojects {
-                dependencies {
-                    implementation(kotlin("stdlib-jdk8"))
-                    implementation(kotlin("reflect"))
-                    implementation("org.graalvm.sdk:graal-sdk:$graalVMVersion")
-                    implementation("org.graalvm.sdk:launcher-common:$graalVMVersion")
-                    api("org.graalvm.truffle:truffle-api:$graalVMVersion")
-                    //kapt("org.graalvm.truffle:truffle-dsl-processor:$graalVMVersion")
-                    //kapt("com.mageddo.nativeimage:reflection-config-generator:[2.3.4,2.4.0)")
-                    implementation("com.ibm.icu:icu4j:[66.1,)")
+        jvm("jdkCommon") {
+        }
+        jvm("jdk8") {
+        }
+        jvm("jdk11") {
+            withJava()
+        }
+    }
 
-                    testImplementation(kotlin("test"))
-                    testImplementation(kotlin("test-junit5"))
-                    testImplementation("org.junit.jupiter:junit-jupiter-api")
-                    testImplementation("org.junit.jupiter:junit-jupiter-params")
-                    testImplementation("org.junit.jupiter:junit-jupiter-engine")
-                    testImplementation("org.junit.vintage:junit-vintage-engine")
-                    testImplementation("org.graalvm.truffle:truffle-tck:$graalVMVersion")
-                    testImplementation("org.graalvm.sdk:polyglot-tck:$graalVMVersion")
-                }
 
-                java {
-                    release.set(11)
-                    withJavadocJar()
-                    withSourcesJar()
-                }
+    idea {
+        module {
+            jdkName = "SapMachine 14".toString()
+            isDownloadJavadoc = true
+            isDownloadSources = true
+        }
+    }
+}
 
-                tasks.withType<KotlinCompile>().configureEach {
-                    kotlinOptions.apply {
-                        languageVersion = "1.4"
-                        apiVersion = "1.4"
-                        javaParameters = true
-                        jvmTarget = "11"
-                        freeCompilerArgs += sequenceOf(
-                                "-Xjvm-default=enable",
-                                "-Xassertions=jvm",
-                                "-Xemit-jvm-type-annotations",
-                                "-Xjsr305=strict",
-                                "-Xjsr305=under-migration:warn"
+subprojects {
+    dependencies {
+        implementation(kotlin("stdlib-jdk8"))
+        implementation(kotlin("reflect"))
+        implementation("org.graalvm.sdk:graal-sdk:$graalVMVersion")
+        implementation("org.graalvm.sdk:launcher-common:$graalVMVersion")
+        api("org.graalvm.truffle:truffle-api:$graalVMVersion")
+        //kapt("org.graalvm.truffle:truffle-dsl-processor:$graalVMVersion")
+        //kapt("com.mageddo.nativeimage:reflection-config-generator:[2.3.4,2.4.0)")
+        implementation("com.ibm.icu:icu4j:[66.1,)")
+
+        testImplementation(kotlin("test"))
+        testImplementation(kotlin("test-junit5"))
+        testImplementation("org.junit.jupiter:junit-jupiter-api")
+        testImplementation("org.junit.jupiter:junit-jupiter-params")
+        testImplementation("org.junit.jupiter:junit-jupiter-engine")
+        testImplementation("org.junit.vintage:junit-vintage-engine")
+        testImplementation("org.graalvm.truffle:truffle-tck:$graalVMVersion")
+        testImplementation("org.graalvm.sdk:polyglot-tck:$graalVMVersion")
+    }
+
+    java {
+        release.set(14)
+        withJavadocJar()
+        withSourcesJar()
+    }
+
+    tasks.withType<KotlinCompile>().configureEach {
+        kotlinOptions.apply {
+            languageVersion = "1.4"
+            apiVersion = "1.4"
+            javaParameters = true
+            jvmTarget = "11"
+            freeCompilerArgs += sequenceOf(
+                    "-Xjvm-default=enable",
+                    "-Xassertions=jvm",
+                    "-Xemit-jvm-type-annotations",
+                    "-Xjsr305=strict",
+                    "-Xjsr305=under-migration:warn"
 //                                "-Xmodule-path=$javaCompileClasspath"
-                                                      )
-                    }
-                }
+                                          )
+        }
+    }
 
 //                kapt {
 //                    correctErrorTypes = true
@@ -128,21 +146,10 @@ allprojects {
 //                    graalVersion(graalVMVersion)
 //                }
 
-                val dokka: org.jetbrains.dokka.gradle.DokkaTask by tasks
-                dokka.apply {
-                    outputFormat = "html"
-                    outputDirectory = "$docsDir/dokka"
-                }
-            }
-
-            allprojects {
-                idea {
-                    module {
-                        jdkName = "GraalVM 11 ($graalVMVersion)".toString()
-                    }
-                }
-            }
-        }
+    val dokka: org.jetbrains.dokka.gradle.DokkaTask by tasks
+    dokka.apply {
+        outputFormat = "html"
+        outputDirectory = "$docsDir/dokka"
     }
 }
 
