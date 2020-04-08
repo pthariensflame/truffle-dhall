@@ -6,8 +6,8 @@ val docsDir: File by project
 
 plugins {
     kotlin("multiplatform")
-    `java-library`
     kotlin("kapt") apply false
+    `java-library`
     id("org.jetbrains.dokka") apply false
     id("com.palantir.graal") apply false
     id("com.hpe.kraal") apply false
@@ -68,20 +68,32 @@ subprojects {
 }
 
 allprojects {
+    java {
+        withJavadocJar()
+        withSourcesJar()
+    }
+
     kotlin {
-        jvm("jdkCommon") {
-        }
         jvm("jdk8") {
+            tasks.withType<KotlinCompile>().configureEach {
+                kotlinOptions {
+                    jvmTarget = "1.8"
+                }
+            }
         }
         jvm("jdk11") {
             withJava()
+            tasks.withType<KotlinCompile>().configureEach {
+                kotlinOptions {
+                    jvmTarget = "11"
+                }
+            }
         }
     }
 
-
     idea {
         module {
-            jdkName = "SapMachine 14".toString()
+            jdkName = "SapMachine 14"
             isDownloadJavadoc = true
             isDownloadSources = true
         }
@@ -109,18 +121,11 @@ subprojects {
         testImplementation("org.graalvm.sdk:polyglot-tck:$graalVMVersion")
     }
 
-    java {
-        release.set(14)
-        withJavadocJar()
-        withSourcesJar()
-    }
-
     tasks.withType<KotlinCompile>().configureEach {
         kotlinOptions.apply {
             languageVersion = "1.4"
             apiVersion = "1.4"
             javaParameters = true
-            jvmTarget = "11"
             freeCompilerArgs += sequenceOf(
                     "-Xjvm-default=enable",
                     "-Xassertions=jvm",
