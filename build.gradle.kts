@@ -7,13 +7,12 @@ val docsDir: File by project
 plugins {
     kotlin("multiplatform")
     `java-library`
+    kotlin("kapt")
     id("org.jetbrains.dokka")
     id("com.palantir.graal")
     id("com.hpe.kraal")
     `maven-publish`
-    kotlin("kapt")
     idea
-    kotlin("jvm") version "1.4-M1"
 }
 
 allprojects {
@@ -28,11 +27,11 @@ allprojects {
     apply {
         plugin("kotlin-multiplatform")
         plugin<JavaLibraryPlugin>()
+        plugin("kotlin-kapt")
         plugin("org.jetbrains.dokka")
         plugin("com.palantir.graal")
-        plugin("com.hpe.kraal")
         plugin<MavenPublishPlugin>()
-        plugin("kotlin-kapt")
+        plugin("com.hpe.kraal")
         plugin<IdeaPlugin>()
     }
 
@@ -65,6 +64,14 @@ allprojects {
         sourceCompatibility = JavaVersion.VERSION_15
     }
 
+    kapt {
+        correctErrorTypes = true
+        includeCompileClasspath = false
+        javacOptions {
+            //option("--module-path", javaCompileClasspath)
+        }
+    }
+
     kotlin {
         jvm("jdk8") {
             tasks.withType<KotlinCompile>().configureEach {
@@ -85,16 +92,8 @@ allprojects {
             }
             java {
                 targetCompatibility = JavaVersion.VERSION_11
-                modularClasspathHandling.inferModulePath.set(true)
+                //modularClasspathHandling.inferModulePath.set(true)
             }
-        }
-    }
-
-    kapt {
-        correctErrorTypes = true
-        includeCompileClasspath = false
-        javacOptions {
-            //option("--module-path", javaCompileClasspath)
         }
     }
 
@@ -177,15 +176,3 @@ idea {
 // val compileJava: JavaCompile by tasks
 // compileJava.modularClasspathHandling.inferModulePath.set(true)
 // val javaCompileClasspath = compileJava.classpath.asPath
-repositories {
-    maven("https://dl.bintray.com/kotlin/kotlin-eap")
-    mavenCentral()
-}
-val compileKotlin: KotlinCompile by tasks
-compileKotlin.kotlinOptions {
-    jvmTarget = "1.8"
-}
-val compileTestKotlin: KotlinCompile by tasks
-compileTestKotlin.kotlinOptions {
-    jvmTarget = "1.8"
-}
