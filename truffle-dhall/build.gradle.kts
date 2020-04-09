@@ -1,3 +1,5 @@
+val graalVMVersion: String by project
+
 plugins {
     application
 }
@@ -8,7 +10,7 @@ dependencies {
     runtimeOnly(project(":truffle-dhall:shell"))
     api(project(":truffle-dhall:parser"))
     implementation(project(":truffle-grammars"))
-    implementation(kotlin("stdlib-jdk8"))
+    implementation("org.graalvm.sdk:launcher-common:$graalVMVersion")
 }
 
 application {

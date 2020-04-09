@@ -1,3 +1,6 @@
+dependencies {
+    api(project(":truffle-dhall:ast"))
+}
 publishing {
     publications {
         create<MavenPublication>("maven") {

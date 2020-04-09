@@ -88,11 +88,16 @@ allprojects {
             tasks.withType<KotlinCompile>().configureEach {
                 kotlinOptions {
                     jvmTarget = "11"
+//                    val compileJava: JavaCompile by tasks
+//                    val javaCompileClasspath = compileJava.classpath.asPath
+                    freeCompilerArgs += sequenceOf(
+//                                "-Xmodule-path=$javaCompileClasspath"
+                                                  )
                 }
             }
             java {
                 targetCompatibility = JavaVersion.VERSION_11
-                //modularClasspathHandling.inferModulePath.set(true)
+                modularity.inferModulePath.set(true)
             }
         }
     }
@@ -108,8 +113,9 @@ allprojects {
         implementation(kotlin("stdlib-jdk8"))
         implementation(kotlin("reflect"))
         implementation("org.graalvm.sdk:graal-sdk:$graalVMVersion")
-        implementation("org.graalvm.sdk:launcher-common:$graalVMVersion")
         api("org.graalvm.truffle:truffle-api:$graalVMVersion")
+        compileOnly("org.graalvm.truffle:truffle-dsl-processor:$graalVMVersion")
+        compileOnly("com.mageddo.nativeimage:reflection-config-generator:[2.3.4,2.4.0)")
         "kapt"("org.graalvm.truffle:truffle-dsl-processor:$graalVMVersion")
         "kapt"("com.mageddo.nativeimage:reflection-config-generator:[2.3.4,2.4.0)")
         implementation("com.ibm.icu:icu4j:[66.1,)")
@@ -135,7 +141,6 @@ allprojects {
                     "-Xemit-jvm-type-annotations",
                     "-Xjsr305=strict",
                     "-Xjsr305=under-migration:warn"
-//                                "-Xmodule-path=$javaCompileClasspath"
                                           )
         }
     }
@@ -172,7 +177,3 @@ idea {
         jdkName = "SapMachine 15 EA"
     }
 }
-
-// val compileJava: JavaCompile by tasks
-// compileJava.modularClasspathHandling.inferModulePath.set(true)
-// val javaCompileClasspath = compileJava.classpath.asPath
